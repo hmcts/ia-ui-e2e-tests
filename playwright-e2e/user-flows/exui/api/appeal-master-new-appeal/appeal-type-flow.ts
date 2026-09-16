@@ -147,7 +147,7 @@ export class AppealTypeFlow {
         documentData: {
           document_url: documentUploadResponse.documentUrl,
           document_filename: documentUploadResponse.documentFilename,
-          document_binary_url: documentUploadResponse.documentUrl,
+          document_binary_url: documentUploadResponse.documentBinaryUrl,
           document_hash: documentUploadResponse.documentHash,
         },
       }),

@@ -19,3 +19,7 @@ export * from './case-officer/decision-and-reasons-started.api';
 export * from './judge-user/generate-decision-and-reasons.api';
 export * from './judge-user/send-decision-and-reasons.api';
 export * from './legal-rep/start-appeal.api';
+export * from './legal-rep/submit-appeal.api';
+export * from './legal-rep/create-service-request.api';
+export * from './legal-rep/payment-groups.api';
+export * from './legal-rep/card-payment.api';
