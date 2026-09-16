@@ -30,7 +30,7 @@ setup.describe('Set up users and retrieve tokens', () => {
 
   setup('Set up case officer user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.caseOfficer;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
     await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
@@ -43,7 +43,7 @@ setup.describe('Set up users and retrieve tokens', () => {
    */
   setup('Set up admin officer user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.adminOfficer;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
     await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
@@ -56,7 +56,7 @@ setup.describe('Set up users and retrieve tokens', () => {
    */
   setup('Set up home office user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.homeOfficeUser;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
     await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
@@ -70,7 +70,7 @@ setup.describe('Set up users and retrieve tokens', () => {
    */
   setup('Set up judge user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.judgeUser;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
     await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
@@ -84,7 +84,7 @@ setup.describe('Set up users and retrieve tokens', () => {
    */
   setup('Set up legal rep user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.legalRepUser;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
     await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect

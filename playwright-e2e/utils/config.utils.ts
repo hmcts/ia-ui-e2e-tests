@@ -6,7 +6,7 @@ export interface UserCredentials {
   username: string;
   password: string;
   sessionFile: string;
-  cookieName?: string;
+  sessionExpiryRef?: string;
 }
 
 interface Urls {
@@ -34,31 +34,31 @@ export const config: Config = {
       username: getEnvVar('CASE_OFFICER_USERNAME'),
       password: getEnvVar('CASE_OFFICER_PASSWORD'),
       sessionFile: pathToFile('.sessions/', `${getEnvVar('CASE_OFFICER_USERNAME')}.json`),
-      cookieName: 'xui-webapp',
+      sessionExpiryRef: 'ng2Idle.idleSession.expiry',
     },
     adminOfficer: {
       username: getEnvVar('ADMIN_OFFICER_USERNAME'),
       password: getEnvVar('ADMIN_OFFICER_PASSWORD'),
       sessionFile: pathToFile('.sessions/', `${getEnvVar('ADMIN_OFFICER_USERNAME')}.json`),
-      cookieName: 'xui-webapp',
+      sessionExpiryRef: 'ng2Idle.idleSession.expiry',
     },
     homeOfficeUser: {
       username: getEnvVar('HOME_OFFICE_USERNAME'),
       password: getEnvVar('HOME_OFFICE_PASSWORD'),
       sessionFile: pathToFile('.sessions/', `${getEnvVar('HOME_OFFICE_USERNAME')}.json`),
-      cookieName: 'xui-webapp',
+      sessionExpiryRef: 'ng2Idle.idleSession.expiry',
     },
     judgeUser: {
       username: getEnvVar('JUDGE_USERNAME'),
       password: getEnvVar('JUDGE_PASSWORD'),
       sessionFile: pathToFile('.sessions/', `${getEnvVar('JUDGE_USERNAME')}.json`),
-      cookieName: 'xui-webapp',
+      sessionExpiryRef: 'ng2Idle.idleSession.expiry',
     },
     legalRepUser: {
       username: getEnvVar('LEGAL_REP_USERNAME'),
       password: getEnvVar('LEGAL_REP_PASSWORD'),
       sessionFile: pathToFile('.sessions/', `${getEnvVar('LEGAL_REP_USERNAME')}.json`),
-      cookieName: 'xui-webapp',
+      sessionExpiryRef: 'ng2Idle.idleSession.expiry',
     },
   },
   urls: {

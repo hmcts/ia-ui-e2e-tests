@@ -1,5 +1,4 @@
 import { APIRequestContext, expect } from '@playwright/test';
-import { exui_triggerEvent, exui_submitEvent } from '../../../../utils/api-requests-utils';
 
 export type StartAppealResponseDataType = {
   caseId: string;

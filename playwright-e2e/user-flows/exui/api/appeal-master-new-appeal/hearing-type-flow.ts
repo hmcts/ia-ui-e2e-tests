@@ -54,6 +54,11 @@ export class HearingTypeFlow {
     const legalRepApiContext = await this.apiContext.createExuiApiContext({ userSessionFile: config.exuiUsers.legalRepUser.sessionFile });
 
     if (options.appealType === 'Deprivation of citizenship' || options.appealType === 'Revocation of a protection status') {
+      if (options.feeRemissionType || options.feeRemissionClaimType) {
+        throw new Error(
+          'feeRemissionType and feeRemissionClaimType should not be provided when appealType is "Deprivation of citizenship" or "Revocation of a protection status" since these appeals have no fee associated with them',
+        );
+      }
       addToPayload(await this.startAppealRpdcAppealHearingOption.rpdcAppealHearingOption(options.hearingType));
     } else {
       if (!options.feeRemissionType) {
@@ -91,7 +96,7 @@ export class HearingTypeFlow {
                   doYouWishToUploadDocument: 'Yes',
                   asylumSupportDocument: {
                     document_url: asylumSupportDocumentUploadResponse.documentUrl,
-                    document_binary_url: asylumSupportDocumentUploadResponse.documentUrl,
+                    document_binary_url: asylumSupportDocumentUploadResponse.documentBinaryUrl,
                     document_filename: asylumSupportDocumentUploadResponse.documentFilename,
                     document_hash: asylumSupportDocumentUploadResponse.documentHash,
                   },
@@ -109,7 +114,7 @@ export class HearingTypeFlow {
               });
               addToPayload(
                 await this.startAppealSection17.section17Document({
-                  document_binary_url: section17DocumentUploadResponse.documentUrl,
+                  document_binary_url: section17DocumentUploadResponse.documentBinaryUrl,
                   document_filename: section17DocumentUploadResponse.documentFilename,
                   document_hash: section17DocumentUploadResponse.documentHash,
                   document_url: section17DocumentUploadResponse.documentUrl,
@@ -124,7 +129,7 @@ export class HearingTypeFlow {
               });
               addToPayload(
                 await this.startAppealSection20.section20Document({
-                  document_binary_url: section20DocumentUploadResponse.documentUrl,
+                  document_binary_url: section20DocumentUploadResponse.documentBinaryUrl,
                   document_filename: section20DocumentUploadResponse.documentFilename,
                   document_hash: section20DocumentUploadResponse.documentHash,
                   document_url: section20DocumentUploadResponse.documentUrl,
@@ -139,7 +144,7 @@ export class HearingTypeFlow {
               });
               addToPayload(
                 await this.startAppealHomeOfficeWaiver.homeOfficeWaiverDocument({
-                  document_binary_url: homeofficeWavierDocumentUploadResponse.documentUrl,
+                  document_binary_url: homeofficeWavierDocumentUploadResponse.documentBinaryUrl,
                   document_filename: homeofficeWavierDocumentUploadResponse.documentFilename,
                   document_hash: homeofficeWavierDocumentUploadResponse.documentHash,
                   document_url: homeofficeWavierDocumentUploadResponse.documentUrl,
@@ -164,7 +169,7 @@ export class HearingTypeFlow {
               doYouWishToUploadEvidence: 'Yes',
               remissionEvidenceDocument: {
                 document_url: documentUploadResponse.documentUrl,
-                document_binary_url: documentUploadResponse.documentUrl,
+                document_binary_url: documentUploadResponse.documentBinaryUrl,
                 document_filename: documentUploadResponse.documentFilename,
                 document_hash: documentUploadResponse.documentHash,
               },

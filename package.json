@@ -37,7 +37,7 @@
     "load-secrets-aat": "yarn get-secrets ia-aat",
     "test:citizen:e2e": "yarn playwright test tests/citizen --project chrome --grep @e2e",
     "test:citizen:functional": "yarn playwright test tests/citizen --project chrome --grep @functional",
-    "test:citizen:crossBrowser": "yarn playwright test tests/citizen --grep @crossBrowser",
+    "test:citizen:crossBrowser": "yarn playwright test tests/citizen --project firefox --project webkit --project edge",
     "test:exui:functional": "yarn playwright test tests/exui --project chrome --grep @functional",
     "test:legal-rep:e2e": "yarn playwright test tests/legal-rep --project chrome --grep @e2e"
   },
