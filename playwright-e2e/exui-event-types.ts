@@ -4,6 +4,17 @@ export type RemissionDecisionType = 'approved' | 'partiallyApproved' | 'rejected
 export type HomeOfficeAppealReviewOutcomeType = 'Decision maintained' | 'Decision withdrawn';
 export type GrantedOrRefusedType = 'Granted' | 'Refused';
 export type HearingChannelType = 'In Person' | 'Not in Attendance' | 'On the Papers' | 'Telephone' | 'Video';
+export type RaiseQueryOptionType =
+  | 'How can I obtain access to my case on MyHMCTS?'
+  | 'How do I request that a hearing be converted to CVP?'
+  | 'What should I do if I have not received my CVP hearing link?'
+  | 'Has my B1 form been received?'
+  | 'Has my adjournment request been received?'
+  | 'Has my hearing bundle been received?'
+  | 'Is my hearing scheduled to proceed as planned?'
+  | 'How can instructed counsel obtain hearing details?'
+  | 'Follow-up on an existing query'
+  | 'Raise a new query';
 
 export type RemissionDecisionEventType = {
   caseId: string;

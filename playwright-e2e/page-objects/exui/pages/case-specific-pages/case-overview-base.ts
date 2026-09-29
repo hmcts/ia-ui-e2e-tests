@@ -26,7 +26,8 @@ type DropdownEventTypes =
   | 'Request Home Office data'
   | 'Submit your appeal'
   | 'Create a service request'
-  | 'Complete case review';
+  | 'Complete case review'
+  | 'Raise Query';
 
 type CaseOverviewTabsType =
   | 'Tasks'
@@ -45,7 +46,8 @@ type CaseOverviewTabsType =
   | 'Case history'
   | 'Hearings'
   | 'Validation'
-  | 'Service Request';
+  | 'Service Request'
+  | 'Queries';
 
 export abstract class CaseOverViewBase extends ExuiBase {
   protected readonly $commonCaseOverviewElements = {

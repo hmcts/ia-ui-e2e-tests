@@ -141,12 +141,22 @@ import {
   RequestHomeOfficeDataPage,
   RequestHomeOfficeDataSubmitPage,
   RequestHomeOfficeDataConfirmPage,
+  QueryPage,
+  RaiseAQueryPage,
+  RespondToAQueryPage,
+  RespondToAQuerySubmitPage,
+  RespondToAQueryConfirmPage,
+  RaiseQuerySubmitPage,
+  RaiseQueryConfirmPage,
   SubmitAppealDeclarationPage,
   SubmitAppealSubmissionOutOfTimePage,
   SubmitAppealConfirmPage,
   GenerateServiceRequestCreateAServiceRequestPage,
   GenerateServiceRequestConfirmPage,
   ValidationPage,
+  QueriesTabPage,
+  QueriesTabQueryDetailsPage,
+  TasksTabPage,
 } from './pages/index';
 import { CardPaymentDetailsPage } from '../card-payment-details.po';
 import { CardPaymentConfirmDetailsPage } from '../card-payment-confirm-details.po';
@@ -295,6 +305,13 @@ export class ExuiPages {
   public readonly requestHomeOfficeData: RequestHomeOfficeDataPage;
   public readonly requestHomeOfficeDataSubmit: RequestHomeOfficeDataSubmitPage;
   public readonly requestHomeOfficeDataConfirm: RequestHomeOfficeDataConfirmPage;
+  public readonly query: QueryPage;
+  public readonly raiseAQuery: RaiseAQueryPage;
+  public readonly respondToAQuery: RespondToAQueryPage;
+  public readonly respondToAQuerySubmit: RespondToAQuerySubmitPage;
+  public readonly respondToAQueryConfirm: RespondToAQueryConfirmPage;
+  public readonly raiseQuerySubmit: RaiseQuerySubmitPage;
+  public readonly raiseQueryConfirm: RaiseQueryConfirmPage;
   public readonly submitAppealDeclaration: SubmitAppealDeclarationPage;
   public readonly submitAppealSubmissionOutOfTime: SubmitAppealSubmissionOutOfTimePage;
   public readonly submitAppealConfirm: SubmitAppealConfirmPage;
@@ -303,6 +320,9 @@ export class ExuiPages {
   public readonly validation: ValidationPage;
   public readonly cardPaymentDetails: CardPaymentDetailsPage;
   public readonly cardPaymentConfirmDetails: CardPaymentConfirmDetailsPage;
+  public readonly queriesTab: QueriesTabPage;
+  public readonly queriesTabQueryDetails: QueriesTabQueryDetailsPage;
+  public readonly tasksTab: TasksTabPage;
 
   constructor(page: Page) {
     this.page = page;
@@ -447,6 +467,13 @@ export class ExuiPages {
     this.requestHomeOfficeData = new RequestHomeOfficeDataPage(this.page);
     this.requestHomeOfficeDataSubmit = new RequestHomeOfficeDataSubmitPage(this.page);
     this.requestHomeOfficeDataConfirm = new RequestHomeOfficeDataConfirmPage(this.page);
+    this.query = new QueryPage(this.page);
+    this.raiseAQuery = new RaiseAQueryPage(this.page);
+    this.respondToAQuery = new RespondToAQueryPage(this.page);
+    this.respondToAQuerySubmit = new RespondToAQuerySubmitPage(this.page);
+    this.respondToAQueryConfirm = new RespondToAQueryConfirmPage(this.page);
+    this.raiseQuerySubmit = new RaiseQuerySubmitPage(this.page);
+    this.raiseQueryConfirm = new RaiseQueryConfirmPage(this.page);
     this.submitAppealDeclaration = new SubmitAppealDeclarationPage(this.page);
     this.submitAppealSubmissionOutOfTime = new SubmitAppealSubmissionOutOfTimePage(this.page);
     this.submitAppealConfirm = new SubmitAppealConfirmPage(this.page);
@@ -455,6 +482,9 @@ export class ExuiPages {
     this.validation = new ValidationPage(this.page);
     this.cardPaymentDetails = new CardPaymentDetailsPage(this.page);
     this.cardPaymentConfirmDetails = new CardPaymentConfirmDetailsPage(this.page);
+    this.queriesTab = new QueriesTabPage(this.page);
+    this.queriesTabQueryDetails = new QueriesTabQueryDetailsPage(this.page);
+    this.tasksTab = new TasksTabPage(this.page);
   }
 
   /**
