@@ -9,7 +9,11 @@ export type YourDetailsJourney = {
   isApplicationInTime: boolean;
   nationality?: Nationality;
   hasApplicantReceivedADeportationOrder: YesOrNoType;
-  doesApplicantHaveASponsor: YesOrNoType;
+  sponsorDetails: {
+    doesApplicantHaveASponsor: YesOrNoType;
+    doesApplicantHaveANonLegalRepSponsor: YesOrNoType;
+    isSponsorAndNonLegalRepTheSamePerson?: YesOrNoType;
+  };
 };
 
 export type DecisionTypeJourney = {
@@ -34,6 +38,7 @@ export type AppealData = YourDetailsJourney &
   };
 
 export type AppealReasonsFlowType = {
+  caseId: string;
   doesApplicantRequireMoreTimeToSubmitAppealReasons: boolean;
   appealReasons?: {
     reasonWhyHomeOfficeDecisionIsWrong: string;
@@ -47,6 +52,7 @@ export type AppealReasonsFlowType = {
 
 export type HearingRequestsFlowType = {
   pathToTake: 'Minimal Path' | 'Maximum Path';
+  caseId: string;
 };
 
 export type AppealType =

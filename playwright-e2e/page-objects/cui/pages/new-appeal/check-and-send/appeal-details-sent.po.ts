@@ -26,10 +26,15 @@ export class AppealDetailsSentPage extends CuiBase {
       .or(this.page.locator('h1', { hasText: 'You have sent your appeal details' }))
       .or(this.page.locator('h1', { hasText: 'Your late appeal details have been sent' })),
     whatHappensNextHeading: this.page.getByRole('heading', { level: 2, name: 'What happens next', exact: true }),
+    whatHappensNextBulletPointList: this.page.locator('ul[class="govuk-list govuk-list--bullet"]').nth(0),
     thingsYouCanDoNowHeading: this.page.getByRole('heading', { level: 2, name: 'Things you can do now', exact: true }),
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {
     await this.verifyUserIsOnExpectedPage({ urlPath: 'appeals-details-sent', pageHeading: this.$static.pageHeading });
+  }
+
+  public async clickPayForAppealButton(): Promise<void> {
+    await this.navigationClick(this.$interactive.payForAppealButton);
   }
 }

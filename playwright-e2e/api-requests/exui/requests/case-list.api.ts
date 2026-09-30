@@ -1,5 +1,10 @@
 import { APIRequestContext, expect } from '@playwright/test';
 
+export interface fetchedCaseInformation {
+  caseId: string;
+  appealReference: string;
+}
+
 export class CaseListApi {
   private apiContext: APIRequestContext;
 
@@ -7,8 +12,10 @@ export class CaseListApi {
     this.apiContext = apiContext;
   }
 
-  public async fetchCaseId(options: { homeOfficeReferenceNumber: string }): Promise<string> {
+  public async searchForCase(options: { homeOfficeReferenceNumber: string }): Promise<fetchedCaseInformation> {
     let caseId: string;
+    let appealReference: string;
+
     await expect(async () => {
       const response = await this.apiContext.post('/data/internal/searchCases', {
         params: {
@@ -34,12 +41,17 @@ export class CaseListApi {
       expect(responseBody.results).toHaveLength(1);
 
       caseId = responseBody.results[0].case_id;
+      appealReference = responseBody.results[0].case_fields.appealReferenceNumber;
       expect(caseId).toBeDefined();
+      expect(appealReference).toBeDefined();
     }).toPass({
       timeout: 20_000,
       intervals: [1_000],
     });
 
-    return caseId!;
+    return {
+      caseId: caseId!,
+      appealReference: appealReference!,
+    };
   }
 }

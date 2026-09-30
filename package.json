@@ -46,6 +46,11 @@
     "test:visual": "yarn playwright test tests/ --grep @visual --project=chromium",
     "test:update-snapshots": "yarn playwright test tests/ --grep @visual --project=chromium --update-snapshots",
     "test:e2e": "yarn playwright test --project \"${PLAYWRIGHT_PROJECT:-chrome}\" --grep-invert='(@a11y)|(@performance)|(@visual)'; EXIT_CODE=$?; exit $EXIT_CODE"
+    "test:citizen:e2e": "yarn playwright test tests/citizen --project chrome --grep @e2e",
+    "test:citizen:functional": "yarn playwright test tests/citizen --project chrome --grep @functional",
+    "test:citizen:crossBrowser": "yarn playwright test tests/citizen --project firefox --project webkit --project edge",
+    "test:exui:functional": "yarn playwright test tests/exui --project chrome --grep @functional",
+    "test:legal-rep:e2e": "yarn playwright test tests/legal-rep --project chrome --grep @e2e"
   },
   "packageManager": "yarn@4.9.4",
   "dependencies": {

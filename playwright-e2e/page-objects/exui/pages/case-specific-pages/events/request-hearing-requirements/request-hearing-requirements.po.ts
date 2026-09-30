@@ -7,7 +7,7 @@ export class RequestHearingRequirementsPage extends ExuiBase {
   }
 
   public readonly $interactive = {
-    submitButton: this.page.getByRole('button', { name: 'Submit', exact: true }),
+    sendDirectionButton: this.page.getByRole('button', { name: 'Send direction', exact: true }),
     previousButton: this.$commonElements.previousButton,
     cancelButton: this.$commonElements.cancelButton,
   } as const satisfies Record<string, Locator>;
@@ -25,6 +25,6 @@ export class RequestHearingRequirementsPage extends ExuiBase {
   }
 
   public async submitEvent(): Promise<void> {
-    await this.navigationClick(this.$interactive.submitButton);
+    await this.navigationClick(this.$interactive.sendDirectionButton);
   }
 }

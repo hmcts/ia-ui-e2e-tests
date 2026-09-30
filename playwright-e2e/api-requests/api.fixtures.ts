@@ -3,6 +3,7 @@ import { CaseOfficerApiClient } from './exui/case-officer-api-client';
 import { AdminOfficerApiClient } from './exui/admin-officer-api-client';
 import { HomeOfficeUserApiClient } from './exui/home-office-user-api.client';
 import { JudgeApiClient } from './exui/judge-api-client';
+import { LegalRepApiClient } from './exui/legal-rep-api-client';
 import { ApiContext } from './api-context';
 import { UtilsFixtures } from '../utils';
 import { APIRequestContext } from 'playwright-core';
@@ -15,6 +16,7 @@ export interface ApiFixtures {
   exui_adminOfficerApiClient: AdminOfficerApiClient;
   exui_homeOfficeUserApiClient: HomeOfficeUserApiClient;
   exui_judgeApiClient: JudgeApiClient;
+  exui_legalRepApiClient: LegalRepApiClient;
 }
 
 export const apiFixtures = {
@@ -51,6 +53,11 @@ export const apiFixtures = {
   exui_judgeApiClient: async ({ exui_apiContext }: ApiFixtures, use) => {
     const apiContext = await exui_apiContext('judgeUser');
     const apiClient = new JudgeApiClient(apiContext);
+    await use(apiClient);
+  },
+  exui_legalRepApiClient: async ({ exui_apiContext }: ApiFixtures, use) => {
+    const apiContext = await exui_apiContext('legalRepUser');
+    const apiClient = new LegalRepApiClient(apiContext);
     await use(apiClient);
   },
 };

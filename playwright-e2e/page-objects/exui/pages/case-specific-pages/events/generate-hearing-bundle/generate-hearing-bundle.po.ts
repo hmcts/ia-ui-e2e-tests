@@ -7,8 +7,8 @@ export class GenerateHearingBundlePage extends ExuiBase {
   }
 
   public readonly $interactive = {
-    prviousButton: this.$commonElements.previousButton,
-    submitButton: this.page.getByRole('button', { name: 'Submit', exact: true }),
+    previousButton: this.$commonElements.previousButton,
+    generateButton: this.page.getByRole('button', { name: 'Generate', exact: true }),
     cancelButton: this.$commonElements.cancelButton,
   } as const satisfies Record<string, Locator>;
 
@@ -26,6 +26,6 @@ export class GenerateHearingBundlePage extends ExuiBase {
 
   public async submitGenerateHearingBundleEvent(): Promise<void> {
     await expect(this.$static.caseRecordHeading).toBeVisible();
-    await this.navigationClick(this.$interactive.submitButton);
+    await this.navigationClick(this.$interactive.generateButton);
   }
 }

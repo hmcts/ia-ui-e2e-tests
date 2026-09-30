@@ -13,6 +13,7 @@ export class AppealOverviewPage extends CuiBase {
     payForAppealLink: this.page.getByRole('link', { name: 'Pay for this appeal' }),
     applyForPermissionToAppealUpperTribunalLink: this.page.getByRole('link', { name: 'Apply for permission to appeal to the Upper Tribunal' }),
     askForMoreTimeLink: this.page.getByRole('link', { name: 'Ask for more time' }),
+    backToYourAppealsButton: this.page.getByRole('link', { name: 'Back to view appeals', exact: true }),
   } as const satisfies Record<string, Locator>;
 
   public readonly $static = {

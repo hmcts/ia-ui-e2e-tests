@@ -42,7 +42,7 @@ export class DecisionTypePage extends CuiBase {
       expect(this.$static.decisionHintFirstHeading).toBeVisible(),
 
       expect(this.$static.decisionHintSecondParagraph).toHaveText(
-        'A judge will decide your appeal at a hearing that you can attend. The hearing is an opportunity to tell a judge why you think the Home Office was wrong to refuse your immigration or asylum claim. If you have to pay, the fee is £140.',
+        'A judge will decide your appeal at a hearing that you can attend. The hearing is an opportunity to tell a judge why you think the Home Office was wrong to refuse your immigration or asylum claim. If you have to pay, the fee is £144.',
       ),
       expect(this.$static.decisionHintSecondParagraph).toBeVisible(),
 
@@ -50,7 +50,7 @@ export class DecisionTypePage extends CuiBase {
       expect(this.$static.decisionHintSecondHeading).toBeVisible(),
 
       expect(this.$static.decisionHintThirdParagraph).toHaveText(
-        'A judge will decide your appeal by only looking at the information and evidence you send the Tribunal. If you have to pay, the fee is £80.',
+        'A judge will decide your appeal by only looking at the information and evidence you send the Tribunal. If you have to pay, the fee is £82.',
       ),
       expect(this.$static.decisionHintThirdParagraph).toBeVisible(),
 

@@ -22,14 +22,12 @@ export const cuiPageFixtures = {
     await use(async (options: { email: string; password: string; pageContext?: Page }) => {
       cuiPages = options.pageContext ? await cui_pages.newPageContext({ pageContext: options.pageContext }) : cui_pages;
 
-      await cuiPages.startAppealPage.goTo();
-      await cuiPages.startAppealPage.verifyUserIsOnPage();
-      await cuiPages.startAppealPage.navigationClick(cuiPages.startAppealPage.$interactive.signInLink);
+      await cuiPages.startAppeal.goTo();
+      await cuiPages.startAppeal.verifyUserIsOnPage();
+      await cuiPages.startAppeal.navigationClick(cuiPages.startAppeal.$interactive.signInLink);
+      await idam_signInPage.citizenSignIn(options.email, options.password);
 
-      await idam_signInPage.verifyUserIsOnPage();
-      await idam_signInPage.signIn(options.email, options.password);
-
-      await cuiPages.appealOverviewPage.verifyUserIsOnPage();
+      await cuiPages.caseList.verifyUserIsOnPage();
     });
   },
   cui_signOutAndBackIn: async ({ idam_signInPage, cui_pages }: PageFixtures, use) => {
@@ -37,14 +35,13 @@ export const cuiPageFixtures = {
     await use(async (options: { email: string; password: string; pageContext?: Page }) => {
       cuiPages = options.pageContext ? await cui_pages.newPageContext({ pageContext: options.pageContext }) : cui_pages;
 
-      await cuiPages.appealOverviewPage.navigationClick(cuiPages.appealOverviewPage.$headerComponent.signOutLink);
-      await cuiPages.startAppealPage.verifyUserIsOnPage();
-      await cuiPages.startAppealPage.navigationClick(cuiPages.startAppealPage.$interactive.signInLink);
+      await cuiPages.appealOverview.navigationClick(cuiPages.appealOverview.$headerComponent.signOutLink);
+      await cuiPages.startAppeal.verifyUserIsOnPage();
+      await cuiPages.startAppeal.navigationClick(cuiPages.startAppeal.$interactive.signInLink);
 
-      await idam_signInPage.verifyUserIsOnPage();
-      await idam_signInPage.signIn(options.email, options.password);
+      await idam_signInPage.citizenSignIn(options.email, options.password);
 
-      await cuiPages.appealOverviewPage.verifyUserIsOnPage();
+      await cuiPages.caseList.verifyUserIsOnPage();
     });
   },
 };

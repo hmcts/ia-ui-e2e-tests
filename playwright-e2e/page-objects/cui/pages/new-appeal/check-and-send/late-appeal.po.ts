@@ -1,6 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { CuiBase } from '../../../cui-base';
 import { DataUtils } from '../../../../../utils';
+import { YesOrNoType } from '../../../../../citizen-types';
 
 export class LateAppealPage extends CuiBase {
   constructor(page: Page) {
@@ -26,7 +27,9 @@ export class LateAppealPage extends CuiBase {
       hasText: 'Your appeal is late',
     }),
     fileUploadedTableRow: this.page.locator('table[id="files-uploaded"] a[class="govuk-link"]').filter({ hasNotText: 'Delete' }),
-    appealsToBeMadeWithin28DaysText: this.page.getByText('Appeals should be made within 28 days'),
+    lateAppealInstructionParagrapgh: this.page
+      .locator('legend[class*="govuk-fieldset"]', { has: this.page.getByRole('heading', { level: 1, name: 'Your appeal is late' }) })
+      .locator('+ p'),
     whyIsAppealLateLabel: this.page.locator('label[for="appeal-late"]'),
     supportingEvidenceHeading: this.page.getByRole('heading', { level: 2, name: 'Supporting evidence' }),
     uploadOnePieceOfEvidenceBulletPoint: this.page.locator('li', { hasText: 'You can upload one piece of evidence' }),
@@ -40,12 +43,20 @@ export class LateAppealPage extends CuiBase {
     await this.verifyUserIsOnExpectedPage({ urlPath: 'late-appeal', pageHeading: this.$static.pageHeading });
   }
 
-  public async verifyAllTextOnPage(): Promise<void> {
+  public async verifyAllTextOnPage(options: { isAppellantInTheUk: YesOrNoType }): Promise<void> {
+    let expectedText: string;
+
+    if (options.isAppellantInTheUk === 'Yes') {
+      expectedText = 'Appeals should be made within 14 days of the date the decision letter was sent.';
+    } else {
+      expectedText = 'Appeals should be made within 28 days of the date the decision letter was received.';
+    }
+
     await Promise.all([
-      expect(this.$static.appealsToBeMadeWithin28DaysText).toHaveText(
-        'Appeals should be made within 28 days of the date the decision letter was received. You may still be able to appeal. Please tell us why your appeal is late, and provide supporting evidence if you have it.',
+      expect(this.$static.lateAppealInstructionParagrapgh).toHaveText(
+        `${expectedText} You may still be able to appeal. Please tell us why your appeal is late, and provide supporting evidence if you have it.`,
       ),
-      expect(this.$static.appealsToBeMadeWithin28DaysText).toBeVisible(),
+      expect(this.$static.lateAppealInstructionParagrapgh).toBeVisible(),
 
       expect(this.$static.whyIsAppealLateLabel).toHaveText('Why is your appeal late?'),
       expect(this.$static.whyIsAppealLateLabel).toBeVisible(),

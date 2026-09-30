@@ -30,10 +30,9 @@ setup.describe('Set up users and retrieve tokens', () => {
 
   setup('Set up case officer user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.caseOfficer;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
-    await idam_signInPage.verifyUserIsOnPage();
-    await idam_signInPage.signIn(user.username, user.password);
+    await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
     await expect(page.locator('h3', { hasText: 'My work' })).toBeVisible({ timeout: 60_000 });
     await context.storageState({ path: user.sessionFile });
@@ -44,10 +43,9 @@ setup.describe('Set up users and retrieve tokens', () => {
    */
   setup('Set up admin officer user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.adminOfficer;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
-    await idam_signInPage.verifyUserIsOnPage();
-    await idam_signInPage.signIn(user.username, user.password);
+    await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
     await expect(page.locator('h3', { hasText: 'My work' })).toBeVisible({ timeout: 60_000 });
     await context.storageState({ path: user.sessionFile });
@@ -58,10 +56,9 @@ setup.describe('Set up users and retrieve tokens', () => {
    */
   setup('Set up home office user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.homeOfficeUser;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
-    await idam_signInPage.verifyUserIsOnPage();
-    await idam_signInPage.signIn(user.username, user.password);
+    await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
     await expect(page.locator('h1', { hasText: 'Case list' })).toBeVisible({ timeout: 60_000 });
     await context.storageState({ path: user.sessionFile });
@@ -73,12 +70,25 @@ setup.describe('Set up users and retrieve tokens', () => {
    */
   setup('Set up judge user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
     const user = config.exuiUsers.judgeUser;
-    if (SessionUtils.isSessionValid(user.sessionFile, user.cookieName!)) return;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
     await page.goto(config.urls.exuiDefaultUrl);
-    await idam_signInPage.verifyUserIsOnPage();
-    await idam_signInPage.signIn(user.username, user.password);
+    await idam_signInPage.exuiSignIn(user.username, user.password);
     // eslint-disable-next-line playwright/no-standalone-expect
     await expect(page.locator('h3', { hasText: 'My work' })).toBeVisible({ timeout: 60_000 });
+    await context.storageState({ path: user.sessionFile });
+  });
+
+  /**
+   * Signs in as a legal rep user and stores session data.
+   * Skips login if a valid session already exists.
+   */
+  setup('Set up legal rep user', async ({ page, config, idam_signInPage, SessionUtils, context }) => {
+    const user = config.exuiUsers.legalRepUser;
+    if (SessionUtils.isSessionValid(user.sessionFile, user.sessionExpiryRef!)) return;
+    await page.goto(config.urls.exuiDefaultUrl);
+    await idam_signInPage.exuiSignIn(user.username, user.password);
+    // eslint-disable-next-line playwright/no-standalone-expect
+    await expect(page.locator('h1', { hasText: 'Case list' })).toBeVisible({ timeout: 60_000 });
     await context.storageState({ path: user.sessionFile });
   });
 });

@@ -1,53 +1,15 @@
 import { Page, Locator, expect } from '@playwright/test';
-import { ExuiBase } from '../../exui-base';
+import { CaseOverViewBase } from './case-overview-base';
 import { config } from '../../../../utils';
 
-type DropdownEventTypes =
-  | 'Record remission decision'
-  | 'Request respondent evidence'
-  | 'Upload Home Office bundle'
-  | 'AiP - Request Appeal Reasons'
-  | 'Request respondent review'
-  | 'Upload the appeal response'
-  | 'Review Home Office response'
-  | 'Request hearing requirements'
-  | 'Review hearing requirements'
-  | 'List the case'
-  | 'Create case summary'
-  | 'Generate hearing bundle'
-  | 'Start decision and reasons'
-  | 'Prepare Decision and Reasons'
-  | 'Complete decision and reasons'
-  | 'Decide FTPA application'
-  | 'Generate Upper Tribunal bundle'
-  | 'Request Home Office data';
-
-type CaseOverviewTabsType =
-  | 'Tasks'
-  | 'Roles and access'
-  | 'Overview'
-  | 'Appeal'
-  | 'Appellant'
-  | 'Documents'
-  | 'Directions'
-  | 'Case flags'
-  | 'Hearing and appointment'
-  | 'Case notes'
-  | 'Applications'
-  | 'Linked Cases'
-  | 'Payment history'
-  | 'Case history'
-  | 'Hearings'
-  | 'Validation';
-
-export class CaseOverviewPage extends ExuiBase {
+export class CaseOverviewPage extends CaseOverViewBase {
   constructor(page: Page) {
     super(page);
   }
 
   public readonly $interactive = {
-    nextStepsDropdown: this.page.locator('select[id="next-step"]'),
-    goButton: this.page.getByRole('button', { name: 'Go', exact: true }),
+    nextStepsDropdown: this.$commonCaseOverviewElements.nextStepsDropdown,
+    goButton: this.$commonCaseOverviewElements.goButton,
   } as const satisfies Record<string, Locator>;
 
   private readonly doThisNextHeadingLocator = this.page
@@ -73,12 +35,15 @@ export class CaseOverviewPage extends ExuiBase {
     whatHappensNextParagraph: this.whatHappensNextHeadingLocator.locator('~ p'),
     whatToDoNextHeading: this.whatToDoNextHeadingLocator,
     whatToDoNextParagraph: this.whatToDoNextHeadingLocator.locator('~ p'),
-    alertMessage: this.page.locator('div[class="alert-message"]'),
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(options: { timeoutMs?: number }): Promise<void> {
     options.timeoutMs = options.timeoutMs ?? 30_000;
     await this.verifyUserIsOnExpectedPage({ urlPath: '#Overview', pageHeading: this.$static.pageHeading, timeout: options.timeoutMs });
+
+    await expect(this.page.getByRole('tab', { name: /^Overview/ })).toHaveAttribute('aria-selected', 'true', {
+      timeout: options.timeoutMs,
+    });
   }
 
   public async goTo(options: { caseId: string; timeoutInMs?: number }): Promise<void> {
@@ -87,33 +52,15 @@ export class CaseOverviewPage extends ExuiBase {
     await this.verifyUserIsOnPage({ timeoutMs: timeout });
   }
 
-  public async selectEventFromDropdown(options: { eventToSelect: DropdownEventTypes }): Promise<void> {
-    await this.$interactive.nextStepsDropdown.selectOption({ label: options.eventToSelect });
-    const selectedOption = await this.$interactive.nextStepsDropdown.locator('option:checked').textContent();
-    expect(selectedOption?.trim()).toBe(options.eventToSelect);
-
-    await this.navigationClick(this.$interactive.goButton);
-  }
-
-  public async navigateToTab(options: { tabToSelect: CaseOverviewTabsType }): Promise<void> {
-    const tabLocator = this.page.getByRole('tab', { name: options.tabToSelect, exact: true });
-    await expect(tabLocator).toBeVisible();
-    await tabLocator.scrollIntoViewIfNeeded();
-    await tabLocator.click();
-    await expect(tabLocator).toHaveAttribute('aria-selected', 'true');
-  }
-
-  public async verifyAlertMessageAfterSubmittingEvent(options: { eventSubmitted: DropdownEventTypes }): Promise<void> {
-    await expect(this.$static.alertMessage).toHaveText(new RegExp(`^\\s*Case #.+ has been updated with event: ${options.eventSubmitted}\\s*$`));
-    await expect(this.$static.alertMessage).toBeVisible();
-  }
-
-  public async refreshPageUntilExpectedTextIsVisible(options: { expectedText: string; caseId: string; timeoutInSeconds?: number }): Promise<void> {
+  public async refreshPageUntilExpectedTextIsVisible(options: { expectedText: string; timeoutInSeconds?: number }): Promise<void> {
     const timeout = options.timeoutInSeconds ? options.timeoutInSeconds * 1000 : 45_000;
+    const pageUrl = this.page.url();
+    expect(pageUrl).toContain('#Overview');
 
     await expect(async () => {
       if (!this.page.url().includes('#Overview')) {
-        await this.goTo({ caseId: options.caseId, timeoutInMs: 15_000 });
+        await this.page.goto(pageUrl);
+        await this.verifyUserIsOnPage({ timeoutMs: 15_000 });
       } else {
         await this.page.reload();
         await this.verifyUserIsOnPage({ timeoutMs: 15_000 });

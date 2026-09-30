@@ -4,17 +4,17 @@ import { SignLanguagesType } from '../../../../../citizen-types';
 import { HearingInterpreterSignLanguageSelectionPage } from './hearing-interpreter-sign-language-selection.po';
 
 export class HearingInterpreterSignLanguageSelectionWitnessPage extends CuiBase {
-  private hearingInterpreterSignLanguageSelectionPage: HearingInterpreterSignLanguageSelectionPage;
+  private hearingInterpreterSignLanguageSelection: HearingInterpreterSignLanguageSelectionPage;
   public readonly $inputs: HearingInterpreterSignLanguageSelectionPage['$inputs'];
   public readonly $interactive: HearingInterpreterSignLanguageSelectionPage['$interactive'];
   public readonly $static: HearingInterpreterSignLanguageSelectionPage['$static'];
 
   constructor(page: Page) {
     super(page);
-    this.hearingInterpreterSignLanguageSelectionPage = new HearingInterpreterSignLanguageSelectionPage(page);
-    this.$inputs = this.hearingInterpreterSignLanguageSelectionPage.$inputs;
-    this.$interactive = this.hearingInterpreterSignLanguageSelectionPage.$interactive;
-    this.$static = this.hearingInterpreterSignLanguageSelectionPage.$static;
+    this.hearingInterpreterSignLanguageSelection = new HearingInterpreterSignLanguageSelectionPage(page);
+    this.$inputs = this.hearingInterpreterSignLanguageSelection.$inputs;
+    this.$interactive = this.hearingInterpreterSignLanguageSelection.$interactive;
+    this.$static = this.hearingInterpreterSignLanguageSelection.$static;
   }
 
   public async verifyUserIsOnPage(): Promise<void> {

@@ -4,15 +4,15 @@ import { InterpretorSupportType } from '../../../../../citizen-types';
 import { HearingInterpreterTypesPage } from './hearing-interpreter-types.po';
 
 export class HearingInterpreterTypesWitnessPage extends CuiBase {
-  private hearingInterpreterTypesPage: HearingInterpreterTypesPage;
+  private hearingInterpreterTypes: HearingInterpreterTypesPage;
   public readonly $interactive: HearingInterpreterTypesPage['$interactive'];
   public readonly $static: HearingInterpreterTypesPage['$static'];
 
   constructor(page: Page) {
     super(page);
-    this.hearingInterpreterTypesPage = new HearingInterpreterTypesPage(page);
-    this.$interactive = this.hearingInterpreterTypesPage.$interactive;
-    this.$static = this.hearingInterpreterTypesPage.$static;
+    this.hearingInterpreterTypes = new HearingInterpreterTypesPage(page);
+    this.$interactive = this.hearingInterpreterTypes.$interactive;
+    this.$static = this.hearingInterpreterTypes.$static;
   }
 
   public async verifyUserIsOnPage(): Promise<void> {

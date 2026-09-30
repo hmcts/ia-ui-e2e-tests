@@ -3,6 +3,7 @@ import { Page } from '@playwright/test';
 import {
   StartAppealPage,
   AppealOverviewPage,
+  CaseListPage,
   AboutAppealPage,
   InTheUkPage,
   OutOfCountryProtectionDepartureDatePage,
@@ -22,11 +23,15 @@ import {
   ApplicantAddressPage,
   SelectAddressPage,
   ManualAddressPage,
-  HasSponsorPage,
+  HasSponsorOrNonLegalRepPage,
   SponsorNamePage,
   SponsorAddressPage,
   SponsorContactPreferencesPage,
   SponsorAuthorisationPage,
+  IsSamePersonAsSponsorPage,
+  NonLegalRepNamePage,
+  NonLegalRepAddressPage,
+  NonLegalRepContactDetailsPage,
   DecisionTypePage,
   PayNowPage,
   EqualityAndDiversityStartPage,
@@ -38,8 +43,6 @@ import {
   LateAppealPage,
   NewAppealCheckAnswersPage,
   AppealDetailsSentPage,
-  PaymentDetailsPage,
-  ConfirmPaymentDetailsPage,
   ConfirmationOfPaymentPage,
   HomeOfficeDecisionWrongPage,
   SupportingEvidencePage,
@@ -95,197 +98,212 @@ import {
   FtpaConfirmationPage,
 } from './pages/index';
 
+import { CardPaymentDetailsPage } from '../card-payment-details.po';
+import { CardPaymentConfirmDetailsPage } from '../card-payment-confirm-details.po';
+
 export class CuiPages {
   private readonly page: Page;
 
-  public readonly startAppealPage: StartAppealPage;
-  public readonly appealOverviewPage: AppealOverviewPage;
-  public readonly aboutAppealPage: AboutAppealPage;
-  public readonly inTheUkPage: InTheUkPage;
-  public readonly outOfCountryProtectionDepartureDatePage: OutOfCountryProtectionDepartureDatePage;
-  public readonly outOfCountryHrEeaPage: OutOfCountryHrEeaPage;
-  public readonly outOfCountryHrInsidePage: OutOfCountryHrInsidePage;
-  public readonly appealTypePage: AppealTypePage;
-  public readonly homeOfficeReferenceNumberPage: HomeOfficeReferenceNumberPage;
-  public readonly applicantNamePage: ApplicantNamePage;
-  public readonly applicantDobPage: ApplicantDobPage;
-  public readonly applicantNationalityPage: ApplicantNationalityPage;
-  public readonly decisionLetterSentPage: DecisionLetterSentPage;
-  public readonly decisionLetterReceivedPage: DecisionLetterReceivedPage;
-  public readonly uploadDecisionLetterPage: UploadDecisionLetterPage;
-  public readonly deportationOrderPage: DeportationOrderPage;
-  public readonly contactPreferencesPage: ContactPreferencesPage;
-  public readonly outOfCountryAddressPage: OutOfCountryAddressPage;
-  public readonly applicantAddressPage: ApplicantAddressPage;
-  public readonly selectAddressPage: SelectAddressPage;
-  public readonly manualAddressPage: ManualAddressPage;
-  public readonly hasSponsorPage: HasSponsorPage;
-  public readonly sponsorNamePage: SponsorNamePage;
-  public readonly sponsorAddressPage: SponsorAddressPage;
-  public readonly sponsorContactPreferencesPage: SponsorContactPreferencesPage;
-  public readonly sponsorAuthorisationPage: SponsorAuthorisationPage;
-  public readonly decisionTypePage: DecisionTypePage;
-  public readonly payNowPage: PayNowPage;
-  public readonly equalityAndDiversityStartPage: EqualityAndDiversityStartPage;
-  public readonly feeSupportPage: FeeSupportPage;
-  public readonly asylumSupportPage: AsylumSupportPage;
-  public readonly feeWaiverPage: FeeWaiverPage;
-  public readonly localAuthorityLetterPage: LocalAuthorityLetterPage;
-  public readonly helpWithFeesPage: HelpWithFeesPage;
-  public readonly lateAppealPage: LateAppealPage;
-  public readonly newAppealCheckAnswersPage: NewAppealCheckAnswersPage;
-  public readonly appealDetailsSentPage: AppealDetailsSentPage;
-  public readonly paymentDetailsPage: PaymentDetailsPage;
-  public readonly confirmPaymentDetailsPage: ConfirmPaymentDetailsPage;
-  public readonly confirmationOfPaymentPage: ConfirmationOfPaymentPage;
-  public readonly homeOfficeDecisionWrongPage: HomeOfficeDecisionWrongPage;
-  public readonly supportingEvidencePage: SupportingEvidencePage;
-  public readonly provideSupportingEvidencePage: ProvideSupportingEvidencePage;
-  public readonly appealReasonsCheckAnswersPage: AppealReasonsCheckAnswersPage;
-  public readonly appealReasonsAnswerSentPage: AppealReasonsAnswerSentPage;
-  public readonly askForMoreTimePage: AskForMoreTimePage;
-  public readonly supportingEvidenceMoreTimePage: SupportingEvidenceMoreTimePage;
-  public readonly provideSupportingEvidenceMoreTimePage: ProvideSupportingEvidenceMoreTimePage;
-  public readonly requestMoreTimeSentPage: RequestMoreTimeSentPage;
-  public readonly hearingNeedsPage: HearingNeedsPage;
-  public readonly hearingWitnessesPage: HearingWitnessesPage;
-  public readonly hearingWitnessNamesPage: HearingWitnessNamesPage;
-  public readonly hearingOutsideUKPage: HearingOutsideUKPage;
-  public readonly hearingAccessNeedsPage: HearingAccessNeedsPage;
-  public readonly hearingInterpreterPage: HearingInterpreterPage;
-  public readonly hearingInterpreterSupportAppellantWitnessesPage: HearingInterpreterSupportAppellantWitnessesPage;
-  public readonly hearingInterpreterTypesPage: HearingInterpreterTypesPage;
-  public readonly hearingInterpreterSpokenLanguageSelectionPage: HearingInterpreterSpokenLanguageSelectionPage;
-  public readonly hearingInterpreterSignLanguageSelectionPage: HearingInterpreterSignLanguageSelectionPage;
-  public readonly hearingInterpreterTypesWitnessPage: HearingInterpreterTypesWitnessPage;
-  public readonly hearingInterpreterSpokenLanguageSelectionWitnessPage: HearingInterpreterSpokenLanguageSelectionWitnessPage;
-  public readonly hearingInterpreterSignLanguageSelectionWitnessPage: HearingInterpreterSignLanguageSelectionWitnessPage;
-  public readonly hearingStepFreeAccessPage: HearingStepFreeAccessPage;
-  public readonly hearingLoopPage: HearingLoopPage;
-  public readonly hearingOtherNeedsPage: HearingOtherNeedsPage;
-  public readonly hearingVideoAppointmentPage: HearingVideoAppointmentPage;
-  public readonly hearingVideoAppointmentReasonsPage: HearingVideoAppointmentReasonsPage;
-  public readonly hearingMultimediaEvidencePage: HearingMultimediaEvidencePage;
-  public readonly hearingMultimediaEvidenceEquipmentPage: HearingMultimediaEvidenceEquipmentPage;
-  public readonly hearingMultimediaEvidenceEquipmentReasonsPage: HearingMultimediaEvidenceEquipmentReasonsPage;
-  public readonly hearingSingleSexPage: HearingSingleSexPage;
-  public readonly hearingSingleSexTypePage: HearingSingleSexTypePage;
-  public readonly hearingSingleSexTypeMalePage: HearingSingleSexTypeMalePage;
-  public readonly hearingSingleSexTypeFemalePage: HearingSingleSexTypeFemalePage;
-  public readonly hearingPrivatePage: HearingPrivatePage;
-  public readonly hearingPrivateReasonPage: HearingPrivateReasonPage;
-  public readonly hearingPhysicalMentalHealthPage: HearingPhysicalMentalHealthPage;
-  public readonly hearingPhysicalMentalHealthReasonsPage: HearingPhysicalMentalHealthReasonsPage;
-  public readonly hearingPastExperiencesPage: HearingPastExperiencesPage;
-  public readonly hearingAnythingElsePage: HearingAnythingElsePage;
-  public readonly hearingAnythingElseReasonsPage: HearingAnythingElseReasonsPage;
-  public readonly hearingPastExperiencesReasonsPage: HearingPastExperiencesReasonsPage;
-  public readonly hearingDatesAvoidPage: HearingDatesAvoidPage;
-  public readonly hearingDatesAvoidEnterPage: HearingDatesAvoidEnterPage;
-  public readonly hearingDatesAvoidReasonsPage: HearingDatesAvoidReasonsPage;
-  public readonly hearingCheckAnswersPage: HearingCheckAnswersPage;
-  public readonly hearingSuccessPage: HearingSuccessPage;
-  public readonly ftpaReasonPage: FtpaReasonPage;
-  public readonly ftpaEvidenceQuestionPage: FtpaEvidenceQuestionPage;
-  public readonly ftpaEvidencePage: FtpaEvidencePage;
-  public readonly ftpaCheckAnswersPage: FtpaCheckAnswersPage;
-  public readonly ftpaConfirmationPage: FtpaConfirmationPage;
+  public readonly startAppeal: StartAppealPage;
+  public readonly appealOverview: AppealOverviewPage;
+  public readonly caseList: CaseListPage;
+  public readonly aboutAppeal: AboutAppealPage;
+  public readonly inTheUk: InTheUkPage;
+  public readonly outOfCountryProtectionDepartureDate: OutOfCountryProtectionDepartureDatePage;
+  public readonly outOfCountryHrEea: OutOfCountryHrEeaPage;
+  public readonly outOfCountryHrInside: OutOfCountryHrInsidePage;
+  public readonly appealType: AppealTypePage;
+  public readonly homeOfficeReferenceNumber: HomeOfficeReferenceNumberPage;
+  public readonly applicantName: ApplicantNamePage;
+  public readonly applicantDob: ApplicantDobPage;
+  public readonly applicantNationality: ApplicantNationalityPage;
+  public readonly decisionLetterSent: DecisionLetterSentPage;
+  public readonly decisionLetterReceived: DecisionLetterReceivedPage;
+  public readonly uploadDecisionLetter: UploadDecisionLetterPage;
+  public readonly deportationOrder: DeportationOrderPage;
+  public readonly contactPreferences: ContactPreferencesPage;
+  public readonly outOfCountryAddress: OutOfCountryAddressPage;
+  public readonly applicantAddress: ApplicantAddressPage;
+  public readonly selectAddress: SelectAddressPage;
+  public readonly manualAddress: ManualAddressPage;
+  public readonly hasSponsorOrNonLegalRep: HasSponsorOrNonLegalRepPage;
+  public readonly sponsorName: SponsorNamePage;
+  public readonly sponsorAddress: SponsorAddressPage;
+  public readonly sponsorContactPreferences: SponsorContactPreferencesPage;
+  public readonly sponsorAuthorisation: SponsorAuthorisationPage;
+  public readonly isSamePersonAsSponsor: IsSamePersonAsSponsorPage;
+  public readonly nonLegalRepName: NonLegalRepNamePage;
+  public readonly nonLegalRepAddress: NonLegalRepAddressPage;
+  public readonly nonLegalRepAddressOutOfCountry: NonLegalRepAddressPage;
+  public readonly nonLegalRepContactDetails: NonLegalRepContactDetailsPage;
+  public readonly decisionType: DecisionTypePage;
+  public readonly payNow: PayNowPage;
+  public readonly equalityAndDiversityStart: EqualityAndDiversityStartPage;
+  public readonly feeSupport: FeeSupportPage;
+  public readonly asylumSupport: AsylumSupportPage;
+  public readonly feeWaiver: FeeWaiverPage;
+  public readonly localAuthorityLetter: LocalAuthorityLetterPage;
+  public readonly helpWithFees: HelpWithFeesPage;
+  public readonly lateAppeal: LateAppealPage;
+  public readonly newAppealCheckAnswers: NewAppealCheckAnswersPage;
+  public readonly appealDetailsSent: AppealDetailsSentPage;
+  public readonly cardPaymentDetails: CardPaymentDetailsPage;
+  public readonly cardPaymentConfirmDetails: CardPaymentConfirmDetailsPage;
+  public readonly confirmationOfPayment: ConfirmationOfPaymentPage;
+  public readonly homeOfficeDecisionWrong: HomeOfficeDecisionWrongPage;
+  public readonly supportingEvidence: SupportingEvidencePage;
+  public readonly provideSupportingEvidence: ProvideSupportingEvidencePage;
+  public readonly appealReasonsCheckAnswers: AppealReasonsCheckAnswersPage;
+  public readonly appealReasonsAnswerSent: AppealReasonsAnswerSentPage;
+  public readonly askForMoreTime: AskForMoreTimePage;
+  public readonly supportingEvidenceMoreTime: SupportingEvidenceMoreTimePage;
+  public readonly provideSupportingEvidenceMoreTime: ProvideSupportingEvidenceMoreTimePage;
+  public readonly requestMoreTimeSent: RequestMoreTimeSentPage;
+  public readonly hearingNeeds: HearingNeedsPage;
+  public readonly hearingWitnesses: HearingWitnessesPage;
+  public readonly hearingWitnessNames: HearingWitnessNamesPage;
+  public readonly hearingOutsideUK: HearingOutsideUKPage;
+  public readonly hearingAccessNeeds: HearingAccessNeedsPage;
+  public readonly hearingInterpreter: HearingInterpreterPage;
+  public readonly hearingInterpreterSupportAppellantWitnesses: HearingInterpreterSupportAppellantWitnessesPage;
+  public readonly hearingInterpreterTypes: HearingInterpreterTypesPage;
+  public readonly hearingInterpreterSpokenLanguageSelection: HearingInterpreterSpokenLanguageSelectionPage;
+  public readonly hearingInterpreterSignLanguageSelection: HearingInterpreterSignLanguageSelectionPage;
+  public readonly hearingInterpreterTypesWitness: HearingInterpreterTypesWitnessPage;
+  public readonly hearingInterpreterSpokenLanguageSelectionWitness: HearingInterpreterSpokenLanguageSelectionWitnessPage;
+  public readonly hearingInterpreterSignLanguageSelectionWitness: HearingInterpreterSignLanguageSelectionWitnessPage;
+  public readonly hearingStepFreeAccess: HearingStepFreeAccessPage;
+  public readonly hearingLoop: HearingLoopPage;
+  public readonly hearingOtherNeeds: HearingOtherNeedsPage;
+  public readonly hearingVideoAppointment: HearingVideoAppointmentPage;
+  public readonly hearingVideoAppointmentReasons: HearingVideoAppointmentReasonsPage;
+  public readonly hearingMultimediaEvidence: HearingMultimediaEvidencePage;
+  public readonly hearingMultimediaEvidenceEquipment: HearingMultimediaEvidenceEquipmentPage;
+  public readonly hearingMultimediaEvidenceEquipmentReasons: HearingMultimediaEvidenceEquipmentReasonsPage;
+  public readonly hearingSingleSex: HearingSingleSexPage;
+  public readonly hearingSingleSexType: HearingSingleSexTypePage;
+  public readonly hearingSingleSexTypeMale: HearingSingleSexTypeMalePage;
+  public readonly hearingSingleSexTypeFemale: HearingSingleSexTypeFemalePage;
+  public readonly hearingPrivate: HearingPrivatePage;
+  public readonly hearingPrivateReason: HearingPrivateReasonPage;
+  public readonly hearingPhysicalMentalHealth: HearingPhysicalMentalHealthPage;
+  public readonly hearingPhysicalMentalHealthReasons: HearingPhysicalMentalHealthReasonsPage;
+  public readonly hearingPastExperiences: HearingPastExperiencesPage;
+  public readonly hearingAnythingElse: HearingAnythingElsePage;
+  public readonly hearingAnythingElseReasons: HearingAnythingElseReasonsPage;
+  public readonly hearingPastExperiencesReasons: HearingPastExperiencesReasonsPage;
+  public readonly hearingDatesAvoid: HearingDatesAvoidPage;
+  public readonly hearingDatesAvoidEnter: HearingDatesAvoidEnterPage;
+  public readonly hearingDatesAvoidReasons: HearingDatesAvoidReasonsPage;
+  public readonly hearingCheckAnswers: HearingCheckAnswersPage;
+  public readonly hearingSuccess: HearingSuccessPage;
+  public readonly ftpaReason: FtpaReasonPage;
+  public readonly ftpaEvidenceQuestion: FtpaEvidenceQuestionPage;
+  public readonly ftpaEvidence: FtpaEvidencePage;
+  public readonly ftpaCheckAnswers: FtpaCheckAnswersPage;
+  public readonly ftpaConfirmation: FtpaConfirmationPage;
 
   constructor(page: Page) {
     this.page = page;
 
-    this.startAppealPage = new StartAppealPage(page);
-    this.appealOverviewPage = new AppealOverviewPage(page);
-    this.aboutAppealPage = new AboutAppealPage(page);
-    this.inTheUkPage = new InTheUkPage(page);
-    this.outOfCountryProtectionDepartureDatePage = new OutOfCountryProtectionDepartureDatePage(page);
-    this.outOfCountryHrEeaPage = new OutOfCountryHrEeaPage(page);
-    this.outOfCountryHrInsidePage = new OutOfCountryHrInsidePage(page);
-    this.appealTypePage = new AppealTypePage(page);
-    this.homeOfficeReferenceNumberPage = new HomeOfficeReferenceNumberPage(page);
-    this.applicantNamePage = new ApplicantNamePage(page);
-    this.applicantDobPage = new ApplicantDobPage(page);
-    this.applicantNationalityPage = new ApplicantNationalityPage(page);
-    this.decisionLetterSentPage = new DecisionLetterSentPage(page);
-    this.decisionLetterReceivedPage = new DecisionLetterReceivedPage(page);
-    this.uploadDecisionLetterPage = new UploadDecisionLetterPage(page);
-    this.deportationOrderPage = new DeportationOrderPage(page);
-    this.contactPreferencesPage = new ContactPreferencesPage(page);
-    this.outOfCountryAddressPage = new OutOfCountryAddressPage(page);
-    this.applicantAddressPage = new ApplicantAddressPage(page);
-    this.selectAddressPage = new SelectAddressPage(page);
-    this.manualAddressPage = new ManualAddressPage(page);
-    this.hasSponsorPage = new HasSponsorPage(page);
-    this.sponsorNamePage = new SponsorNamePage(page);
-    this.sponsorAddressPage = new SponsorAddressPage(page);
-    this.sponsorContactPreferencesPage = new SponsorContactPreferencesPage(page);
-    this.sponsorAuthorisationPage = new SponsorAuthorisationPage(page);
-    this.decisionTypePage = new DecisionTypePage(page);
-    this.payNowPage = new PayNowPage(page);
-    this.equalityAndDiversityStartPage = new EqualityAndDiversityStartPage(page);
-    this.feeSupportPage = new FeeSupportPage(page);
-    this.asylumSupportPage = new AsylumSupportPage(page);
-    this.feeWaiverPage = new FeeWaiverPage(page);
-    this.localAuthorityLetterPage = new LocalAuthorityLetterPage(page);
-    this.helpWithFeesPage = new HelpWithFeesPage(page);
-    this.lateAppealPage = new LateAppealPage(page);
-    this.newAppealCheckAnswersPage = new NewAppealCheckAnswersPage(page);
-    this.appealDetailsSentPage = new AppealDetailsSentPage(page);
-    this.paymentDetailsPage = new PaymentDetailsPage(page);
-    this.confirmPaymentDetailsPage = new ConfirmPaymentDetailsPage(page);
-    this.confirmationOfPaymentPage = new ConfirmationOfPaymentPage(page);
-    this.homeOfficeDecisionWrongPage = new HomeOfficeDecisionWrongPage(page);
-    this.supportingEvidencePage = new SupportingEvidencePage(page);
-    this.provideSupportingEvidencePage = new ProvideSupportingEvidencePage(page);
-    this.appealReasonsCheckAnswersPage = new AppealReasonsCheckAnswersPage(page);
-    this.appealReasonsAnswerSentPage = new AppealReasonsAnswerSentPage(page);
-    this.askForMoreTimePage = new AskForMoreTimePage(page);
-    this.supportingEvidenceMoreTimePage = new SupportingEvidenceMoreTimePage(page);
-    this.provideSupportingEvidenceMoreTimePage = new ProvideSupportingEvidenceMoreTimePage(page);
-    this.requestMoreTimeSentPage = new RequestMoreTimeSentPage(page);
-    this.hearingNeedsPage = new HearingNeedsPage(page);
-    this.hearingWitnessesPage = new HearingWitnessesPage(page);
-    this.hearingWitnessNamesPage = new HearingWitnessNamesPage(page);
-    this.hearingOutsideUKPage = new HearingOutsideUKPage(page);
-    this.hearingAccessNeedsPage = new HearingAccessNeedsPage(page);
-    this.hearingInterpreterPage = new HearingInterpreterPage(page);
-    this.hearingInterpreterSupportAppellantWitnessesPage = new HearingInterpreterSupportAppellantWitnessesPage(page);
-    this.hearingInterpreterTypesPage = new HearingInterpreterTypesPage(page);
-    this.hearingInterpreterSpokenLanguageSelectionPage = new HearingInterpreterSpokenLanguageSelectionPage(page);
-    this.hearingInterpreterSignLanguageSelectionPage = new HearingInterpreterSignLanguageSelectionPage(page);
-    this.hearingInterpreterTypesWitnessPage = new HearingInterpreterTypesWitnessPage(page);
-    this.hearingInterpreterSpokenLanguageSelectionWitnessPage = new HearingInterpreterSpokenLanguageSelectionWitnessPage(page);
-    this.hearingInterpreterSignLanguageSelectionWitnessPage = new HearingInterpreterSignLanguageSelectionWitnessPage(page);
-    this.hearingStepFreeAccessPage = new HearingStepFreeAccessPage(page);
-    this.hearingLoopPage = new HearingLoopPage(page);
-    this.hearingOtherNeedsPage = new HearingOtherNeedsPage(page);
-    this.hearingVideoAppointmentPage = new HearingVideoAppointmentPage(page);
-    this.hearingVideoAppointmentReasonsPage = new HearingVideoAppointmentReasonsPage(page);
-    this.hearingMultimediaEvidencePage = new HearingMultimediaEvidencePage(page);
-    this.hearingMultimediaEvidenceEquipmentPage = new HearingMultimediaEvidenceEquipmentPage(page);
-    this.hearingMultimediaEvidenceEquipmentReasonsPage = new HearingMultimediaEvidenceEquipmentReasonsPage(page);
-    this.hearingSingleSexPage = new HearingSingleSexPage(page);
-    this.hearingSingleSexTypePage = new HearingSingleSexTypePage(page);
-    this.hearingSingleSexTypeMalePage = new HearingSingleSexTypeMalePage(page);
-    this.hearingSingleSexTypeFemalePage = new HearingSingleSexTypeFemalePage(page);
-    this.hearingPrivatePage = new HearingPrivatePage(page);
-    this.hearingPrivateReasonPage = new HearingPrivateReasonPage(page);
-    this.hearingPhysicalMentalHealthPage = new HearingPhysicalMentalHealthPage(page);
-    this.hearingPhysicalMentalHealthReasonsPage = new HearingPhysicalMentalHealthReasonsPage(page);
-    this.hearingPastExperiencesPage = new HearingPastExperiencesPage(page);
-    this.hearingAnythingElsePage = new HearingAnythingElsePage(page);
-    this.hearingAnythingElseReasonsPage = new HearingAnythingElseReasonsPage(page);
-    this.hearingPastExperiencesReasonsPage = new HearingPastExperiencesReasonsPage(page);
-    this.hearingDatesAvoidPage = new HearingDatesAvoidPage(page);
-    this.hearingDatesAvoidEnterPage = new HearingDatesAvoidEnterPage(page);
-    this.hearingDatesAvoidReasonsPage = new HearingDatesAvoidReasonsPage(page);
-    this.hearingCheckAnswersPage = new HearingCheckAnswersPage(page);
-    this.hearingSuccessPage = new HearingSuccessPage(page);
-    this.ftpaReasonPage = new FtpaReasonPage(page);
-    this.ftpaEvidenceQuestionPage = new FtpaEvidenceQuestionPage(page);
-    this.ftpaEvidencePage = new FtpaEvidencePage(page);
-    this.ftpaCheckAnswersPage = new FtpaCheckAnswersPage(page);
-    this.ftpaConfirmationPage = new FtpaConfirmationPage(page);
+    this.startAppeal = new StartAppealPage(page);
+    this.appealOverview = new AppealOverviewPage(page);
+    this.caseList = new CaseListPage(page);
+    this.aboutAppeal = new AboutAppealPage(page);
+    this.inTheUk = new InTheUkPage(page);
+    this.outOfCountryProtectionDepartureDate = new OutOfCountryProtectionDepartureDatePage(page);
+    this.outOfCountryHrEea = new OutOfCountryHrEeaPage(page);
+    this.outOfCountryHrInside = new OutOfCountryHrInsidePage(page);
+    this.appealType = new AppealTypePage(page);
+    this.homeOfficeReferenceNumber = new HomeOfficeReferenceNumberPage(page);
+    this.applicantName = new ApplicantNamePage(page);
+    this.applicantDob = new ApplicantDobPage(page);
+    this.applicantNationality = new ApplicantNationalityPage(page);
+    this.decisionLetterSent = new DecisionLetterSentPage(page);
+    this.decisionLetterReceived = new DecisionLetterReceivedPage(page);
+    this.uploadDecisionLetter = new UploadDecisionLetterPage(page);
+    this.deportationOrder = new DeportationOrderPage(page);
+    this.contactPreferences = new ContactPreferencesPage(page);
+    this.outOfCountryAddress = new OutOfCountryAddressPage(page);
+    this.applicantAddress = new ApplicantAddressPage(page);
+    this.selectAddress = new SelectAddressPage(page);
+    this.manualAddress = new ManualAddressPage(page);
+    this.hasSponsorOrNonLegalRep = new HasSponsorOrNonLegalRepPage(page);
+    this.sponsorName = new SponsorNamePage(page);
+    this.sponsorAddress = new SponsorAddressPage(page);
+    this.sponsorContactPreferences = new SponsorContactPreferencesPage(page);
+    this.sponsorAuthorisation = new SponsorAuthorisationPage(page);
+    this.isSamePersonAsSponsor = new IsSamePersonAsSponsorPage(page);
+    this.nonLegalRepName = new NonLegalRepNamePage(page);
+    this.nonLegalRepAddress = new NonLegalRepAddressPage(page);
+    this.nonLegalRepAddressOutOfCountry = new NonLegalRepAddressPage(page);
+    this.nonLegalRepContactDetails = new NonLegalRepContactDetailsPage(page);
+    this.decisionType = new DecisionTypePage(page);
+    this.payNow = new PayNowPage(page);
+    this.equalityAndDiversityStart = new EqualityAndDiversityStartPage(page);
+    this.feeSupport = new FeeSupportPage(page);
+    this.asylumSupport = new AsylumSupportPage(page);
+    this.feeWaiver = new FeeWaiverPage(page);
+    this.localAuthorityLetter = new LocalAuthorityLetterPage(page);
+    this.helpWithFees = new HelpWithFeesPage(page);
+    this.lateAppeal = new LateAppealPage(page);
+    this.newAppealCheckAnswers = new NewAppealCheckAnswersPage(page);
+    this.appealDetailsSent = new AppealDetailsSentPage(page);
+    this.cardPaymentDetails = new CardPaymentDetailsPage(page);
+    this.cardPaymentConfirmDetails = new CardPaymentConfirmDetailsPage(page);
+    this.confirmationOfPayment = new ConfirmationOfPaymentPage(page);
+    this.homeOfficeDecisionWrong = new HomeOfficeDecisionWrongPage(page);
+    this.supportingEvidence = new SupportingEvidencePage(page);
+    this.provideSupportingEvidence = new ProvideSupportingEvidencePage(page);
+    this.appealReasonsCheckAnswers = new AppealReasonsCheckAnswersPage(page);
+    this.appealReasonsAnswerSent = new AppealReasonsAnswerSentPage(page);
+    this.askForMoreTime = new AskForMoreTimePage(page);
+    this.supportingEvidenceMoreTime = new SupportingEvidenceMoreTimePage(page);
+    this.provideSupportingEvidenceMoreTime = new ProvideSupportingEvidenceMoreTimePage(page);
+    this.requestMoreTimeSent = new RequestMoreTimeSentPage(page);
+    this.hearingNeeds = new HearingNeedsPage(page);
+    this.hearingWitnesses = new HearingWitnessesPage(page);
+    this.hearingWitnessNames = new HearingWitnessNamesPage(page);
+    this.hearingOutsideUK = new HearingOutsideUKPage(page);
+    this.hearingAccessNeeds = new HearingAccessNeedsPage(page);
+    this.hearingInterpreter = new HearingInterpreterPage(page);
+    this.hearingInterpreterSupportAppellantWitnesses = new HearingInterpreterSupportAppellantWitnessesPage(page);
+    this.hearingInterpreterTypes = new HearingInterpreterTypesPage(page);
+    this.hearingInterpreterSpokenLanguageSelection = new HearingInterpreterSpokenLanguageSelectionPage(page);
+    this.hearingInterpreterSignLanguageSelection = new HearingInterpreterSignLanguageSelectionPage(page);
+    this.hearingInterpreterTypesWitness = new HearingInterpreterTypesWitnessPage(page);
+    this.hearingInterpreterSpokenLanguageSelectionWitness = new HearingInterpreterSpokenLanguageSelectionWitnessPage(page);
+    this.hearingInterpreterSignLanguageSelectionWitness = new HearingInterpreterSignLanguageSelectionWitnessPage(page);
+    this.hearingStepFreeAccess = new HearingStepFreeAccessPage(page);
+    this.hearingLoop = new HearingLoopPage(page);
+    this.hearingOtherNeeds = new HearingOtherNeedsPage(page);
+    this.hearingVideoAppointment = new HearingVideoAppointmentPage(page);
+    this.hearingVideoAppointmentReasons = new HearingVideoAppointmentReasonsPage(page);
+    this.hearingMultimediaEvidence = new HearingMultimediaEvidencePage(page);
+    this.hearingMultimediaEvidenceEquipment = new HearingMultimediaEvidenceEquipmentPage(page);
+    this.hearingMultimediaEvidenceEquipmentReasons = new HearingMultimediaEvidenceEquipmentReasonsPage(page);
+    this.hearingSingleSex = new HearingSingleSexPage(page);
+    this.hearingSingleSexType = new HearingSingleSexTypePage(page);
+    this.hearingSingleSexTypeMale = new HearingSingleSexTypeMalePage(page);
+    this.hearingSingleSexTypeFemale = new HearingSingleSexTypeFemalePage(page);
+    this.hearingPrivate = new HearingPrivatePage(page);
+    this.hearingPrivateReason = new HearingPrivateReasonPage(page);
+    this.hearingPhysicalMentalHealth = new HearingPhysicalMentalHealthPage(page);
+    this.hearingPhysicalMentalHealthReasons = new HearingPhysicalMentalHealthReasonsPage(page);
+    this.hearingPastExperiences = new HearingPastExperiencesPage(page);
+    this.hearingAnythingElse = new HearingAnythingElsePage(page);
+    this.hearingAnythingElseReasons = new HearingAnythingElseReasonsPage(page);
+    this.hearingPastExperiencesReasons = new HearingPastExperiencesReasonsPage(page);
+    this.hearingDatesAvoid = new HearingDatesAvoidPage(page);
+    this.hearingDatesAvoidEnter = new HearingDatesAvoidEnterPage(page);
+    this.hearingDatesAvoidReasons = new HearingDatesAvoidReasonsPage(page);
+    this.hearingCheckAnswers = new HearingCheckAnswersPage(page);
+    this.hearingSuccess = new HearingSuccessPage(page);
+    this.ftpaReason = new FtpaReasonPage(page);
+    this.ftpaEvidenceQuestion = new FtpaEvidenceQuestionPage(page);
+    this.ftpaEvidence = new FtpaEvidencePage(page);
+    this.ftpaCheckAnswers = new FtpaCheckAnswersPage(page);
+    this.ftpaConfirmation = new FtpaConfirmationPage(page);
   }
 
   /**

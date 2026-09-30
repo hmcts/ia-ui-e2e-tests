@@ -10,4 +10,9 @@ export abstract class ExuiBase extends Base {
     cancelButton: this.page.getByRole('button', { name: 'Cancel', exact: true }),
     closeAndReturnToCaseDetailsButton: this.page.getByRole('button', { name: 'Close and Return to case details', exact: true }),
   } as const satisfies Record<string, Locator>;
+
+  public readonly $headerComponent = {
+    caseListLink: this.page.getByRole('link', { name: 'Case list', exact: true }),
+    createCaseLink: this.page.getByRole('link', { name: 'Create case', exact: true }),
+  } as const satisfies Record<string, Locator>;
 }

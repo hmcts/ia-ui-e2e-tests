@@ -84,7 +84,6 @@ export async function exui_triggerEvent(options: {
   apiContext: APIRequestContext;
   caseId: string;
   eventName: string;
-  fetchNewEventToken?: boolean;
 }): Promise<{ eventToken: string; rawCaseData: Record<string, any> }> {
   let eventToken: string | undefined;
   let rawCaseData: Record<string, any> | undefined;

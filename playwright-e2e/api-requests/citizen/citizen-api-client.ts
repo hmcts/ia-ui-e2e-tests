@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { ApiContext } from '../api-context';
 import { AppealData, AppealReasonsFlowType, HearingRequestsFlowType } from '../../citizen-types';
 import { ApplicantDetailsType } from '../../user-flows/citizen/api';
-import { AppealOverviewApi, HearingCheckAnswersApi } from './index';
+import { AppealOverviewApi, HearingCheckAnswersApi, CreateNewAppealApi } from './index';
 import { load } from 'cheerio';
 
 import {
@@ -46,6 +46,7 @@ export class CitizenApiClient {
   private cui_hearingOtherNeedsUserFlowApi!: HearingOtherNeedsUserFlowApi;
   private cui_hearingDatesToAvoidUserFlowApi!: HearingDatesToAvoidUserFlowApi;
   private cui_hearingCheckAnswersApi!: HearingCheckAnswersApi;
+  private cui_createNewAppealApi!: CreateNewAppealApi;
 
   constructor(
     private readonly username: string,
@@ -71,9 +72,12 @@ export class CitizenApiClient {
     this.cui_hearingOtherNeedsUserFlowApi = new HearingOtherNeedsUserFlowApi(apiContext);
     this.cui_hearingDatesToAvoidUserFlowApi = new HearingDatesToAvoidUserFlowApi(apiContext);
     this.cui_hearingCheckAnswersApi = new HearingCheckAnswersApi(apiContext);
+    this.cui_createNewAppealApi = new CreateNewAppealApi(apiContext);
   }
 
   public async completeAndSubmitNewAppealJourneyViaApi(appealData: AppealData): Promise<ApplicantDetailsType> {
+    await this.cui_createNewAppealApi.get();
+
     const applicantDetails = await this.cui_yourDetailsUserFlowApi.submitYourDetailsFlowViaApi({
       isUserInTheUk: appealData.isUserInTheUk,
       appealType: appealData.appealType,
@@ -81,7 +85,11 @@ export class CitizenApiClient {
       isApplicationInTime: appealData.isApplicationInTime,
       nationality: appealData.nationality,
       hasApplicantReceivedADeportationOrder: appealData.hasApplicantReceivedADeportationOrder,
-      doesApplicantHaveASponsor: appealData.doesApplicantHaveASponsor,
+      sponsorDetails: {
+        doesApplicantHaveASponsor: appealData.sponsorDetails.doesApplicantHaveASponsor,
+        doesApplicantHaveANonLegalRepSponsor: appealData.sponsorDetails.doesApplicantHaveANonLegalRepSponsor,
+        isSponsorAndNonLegalRepTheSamePerson: appealData.sponsorDetails.isSponsorAndNonLegalRepTheSamePerson,
+      },
     });
 
     await this.cui_decisionTypeUserFlowApi.submitDecisionTypeFlowViaApi({
@@ -108,11 +116,14 @@ export class CitizenApiClient {
     return applicantDetails;
   }
 
-  public async verifyAppealIsInExpectedStateViaAppealOverviewApi(options: { expectedTextToBeOnAppealOverview: string }): Promise<void> {
+  public async verifyAppealIsInExpectedStateViaAppealOverviewApi(options: {
+    expectedTextToBeOnAppealOverview: string;
+    caseId: string;
+  }): Promise<void> {
     await expect(async () => {
       await this.init();
 
-      const appealOverviewResponse = await this.cui_appealOverviewApi.get();
+      const appealOverviewResponse = await this.cui_appealOverviewApi.get({ caseId: options.caseId });
 
       const $ = load(appealOverviewResponse);
 
@@ -130,12 +141,13 @@ export class CitizenApiClient {
   public async completeAndSubmitAppealReasonsJourneyViaApi(appealReasonsFlowData: AppealReasonsFlowType): Promise<void> {
     await this.verifyAppealIsInExpectedStateViaAppealOverviewApi({
       expectedTextToBeOnAppealOverview: 'Tell us why you think the Home Office decision to refuse your claim is wrong.',
+      caseId: appealReasonsFlowData.caseId,
     });
 
     await this.cui_appealReasonsFlowApi.submitAppealReasonsFlowViaApi(appealReasonsFlowData);
   }
 
-  public async commpleteAndSubmitHearingRequirementsJourneyViaApi(options: HearingRequestsFlowType): Promise<{
+  public async commpleteAndSubmitHearingRequirementsJourneyViaApi(hearingRequestsFlow: HearingRequestsFlowType): Promise<{
     hearingWitnessFlow: HearingWitnessFlowReturnType;
     hearingAccessNeedsFlow: HearingAccessNeedsFlowReturnType;
     hearingOtherNeedsFlow: HearingOtherNeedsFlowReturnType;
@@ -143,12 +155,13 @@ export class CitizenApiClient {
   }> {
     await this.verifyAppealIsInExpectedStateViaAppealOverviewApi({
       expectedTextToBeOnAppealOverview: 'Your appeal is going to hearing',
+      caseId: hearingRequestsFlow.caseId,
     });
 
-    const hearingWitnessFlow = await this.cui_hearingWitnessUserFlowApi.submitHearingWitnessFlowViaApi(options);
-    const hearingAccessNeedsFlow = await this.cui_hearingAccessNeedsUserFlowApi.submitHearingAccessNeedsFlowViaApi(options);
-    const hearingOtherNeedsFlow = await this.cui_hearingOtherNeedsUserFlowApi.submitHearingOtherNeedsFlowViaApi(options);
-    const hearingDatesToAvoidFlow = await this.cui_hearingDatesToAvoidUserFlowApi.submitHearingDatesToAvoidFlowViaApi(options);
+    const hearingWitnessFlow = await this.cui_hearingWitnessUserFlowApi.submitHearingWitnessFlowViaApi(hearingRequestsFlow);
+    const hearingAccessNeedsFlow = await this.cui_hearingAccessNeedsUserFlowApi.submitHearingAccessNeedsFlowViaApi(hearingRequestsFlow);
+    const hearingOtherNeedsFlow = await this.cui_hearingOtherNeedsUserFlowApi.submitHearingOtherNeedsFlowViaApi(hearingRequestsFlow);
+    const hearingDatesToAvoidFlow = await this.cui_hearingDatesToAvoidUserFlowApi.submitHearingDatesToAvoidFlowViaApi(hearingRequestsFlow);
     await this.cui_hearingCheckAnswersApi.submitForm();
 
     this.hearingRequirementDetails = {

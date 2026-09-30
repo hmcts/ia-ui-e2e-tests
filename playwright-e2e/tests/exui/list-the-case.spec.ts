@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures.js';
 import { config } from '../../utils/config.utils.js';
 
-test.describe('Set of tests to verify admin user is able to list a case for hearing on exui manage cases', () => {
+test.describe('Set of tests to verify admin user is able to list a case for hearing on exui manage cases', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.adminOfficer.sessionFile });
 
   test.beforeEach(async ({ exui_caseOfficerApiClient, cui_apiClient, exui_pages, exui_homeOfficeUserApiClient }) => {
@@ -12,7 +12,10 @@ test.describe('Set of tests to verify admin user is able to list a case for hear
         isApplicantStateless: false,
         nationality: 'Slovak',
         isUserInTheUk: 'Yes',
-        doesApplicantHaveASponsor: 'No',
+        sponsorDetails: {
+          doesApplicantHaveASponsor: 'No',
+          doesApplicantHaveANonLegalRepSponsor: 'No',
+        },
         decisionWithOrWithoutHearing: 'decisionWithHearing',
         isApplicationInTime: true,
         whetherApplicantHasToPayAFee: 'None of these statements apply to me',
@@ -27,6 +30,8 @@ test.describe('Set of tests to verify admin user is able to list a case for hear
     });
 
     await test.step('Progress case via api', async () => {
+      await exui_caseOfficerApiClient.submitCompleteCaseReviewEvent({ caseId: caseId });
+
       await exui_caseOfficerApiClient.submitRequestRespondentEvidenceEvent({
         caseId: caseId,
       });
@@ -46,6 +51,7 @@ test.describe('Set of tests to verify admin user is able to list a case for hear
           doYouWishToProvideSupportingEvidence: 'No',
           reasonWhyHomeOfficeDecisionIsWrong: 'Test reason why the Home Office decision is wrong',
         },
+        caseId: caseId,
       });
 
       await exui_caseOfficerApiClient.submitRequestRespondentReviewEvent({
@@ -67,6 +73,7 @@ test.describe('Set of tests to verify admin user is able to list a case for hear
 
       await cui_apiClient.commpleteAndSubmitHearingRequirementsJourneyViaApi({
         pathToTake: 'Minimal Path',
+        caseId: caseId,
       });
 
       await exui_caseOfficerApiClient.submitReviewHearingRequirementsEvent({
@@ -80,27 +87,27 @@ test.describe('Set of tests to verify admin user is able to list a case for hear
     });
 
     await test.step(`Admin User: Navigate to case overview page on exui`, async () => {
-      await exui_pages.caseOverviewPage.goTo({ caseId: caseId });
+      await exui_pages.caseOverview.goTo({ caseId: caseId });
     });
   });
 
   test('Verify admin user is able to list a case', async ({ exui_pages, dataUtils }) => {
     await test.step('Verify correct next steps are displayed on case overview page', async () => {
       await Promise.all([
-        await expect(exui_pages.caseOverviewPage.$static.doThisNextHeading).toBeVisible(),
-        await expect(exui_pages.caseOverviewPage.$static.doThisNextParagraph.nth(0)).toContainText(
+        await expect(exui_pages.caseOverview.$static.doThisNextHeading).toBeVisible(),
+        await expect(exui_pages.caseOverview.$static.doThisNextParagraph.nth(0)).toContainText(
           'The agreed hearing requirements and dates to avoid are available to view in the Hearing and appointment tab. You should request a hearing from the Hearings tab.',
         ),
-        await expect(exui_pages.caseOverviewPage.$static.doThisNextParagraph.nth(0)).toBeVisible(),
+        await expect(exui_pages.caseOverview.$static.doThisNextParagraph.nth(0)).toBeVisible(),
       ]);
     });
 
     await test.step('Select list case from next steps dropdown and submit event', async () => {
-      await exui_pages.caseOverviewPage.selectEventFromDropdown({ eventToSelect: 'List the case' });
+      await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'List the case' });
 
-      await exui_pages.listCasePage.verifyUserIsOnPage();
-      await exui_pages.listCasePage.verifyAllTextOnPage();
-      const listingReference = await exui_pages.listCasePage.completePageAndContinue({
+      await exui_pages.listCase.verifyUserIsOnPage();
+      await exui_pages.listCase.verifyAllTextOnPage();
+      const listingReference = await exui_pages.listCase.completePageAndContinue({
         listingLocation: 'Newport Tribunal Centre - Columbus House',
         remoteHearing: 'Yes',
         dateToSet: 'tomorrow',
@@ -108,43 +115,45 @@ test.describe('Set of tests to verify admin user is able to list a case for hear
       });
 
       const dateResult = await dataUtils.getDateFromToday({ dayOffset: 1 });
-      const expectedDate = `${dateResult.day} ${new Date(dateResult.year, dateResult.month - 1).toLocaleString('en-GB', { month: 'short' })} ${dateResult.year}`;
-      await exui_pages.listCaseSubmitPage.verifyUserIsOnPage();
+      const expectedDate = `${dateResult.day} ${new Date(dateResult.year, dateResult.month - 1)
+        .toLocaleString('en-GB', { month: 'short' })
+        .replace('Sept', 'Sep')} ${dateResult.year}`;
+      await exui_pages.listCaseSubmit.verifyUserIsOnPage();
       await Promise.all([
-        expect(exui_pages.listCaseSubmitPage.$static.caseRecordHeading).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$static.checkYouAnswersHeading).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$static.checkInformationCarefullyText).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$questionLocator('Listing reference')).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$questionValueLocator('Listing reference')).toHaveText(listingReference),
-        expect(exui_pages.listCaseSubmitPage.$questionLocator('Listing location')).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$questionValueLocator('Listing location')).toHaveText('Newport Tribunal Centre - Columbus House'),
-        expect(exui_pages.listCaseSubmitPage.$questionLocator('Will the hearing be held remotely?')).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$questionValueLocator('Will the hearing be held remotely?')).toHaveText('Yes'),
-        expect(exui_pages.listCaseSubmitPage.$static.listingLengthText).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$static.listingLengthTableHeading).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$static.hoursLabel).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$static.hoursValue).toHaveText('2'),
-        expect(exui_pages.listCaseSubmitPage.$static.hoursValue).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$static.minutesLabel).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$static.minutesValue).toHaveText('0'),
-        expect(exui_pages.listCaseSubmitPage.$static.minutesValue).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$questionLocator('Date and time')).toBeVisible(),
-        expect(exui_pages.listCaseSubmitPage.$questionValueLocator('Date and time')).toHaveText(`${expectedDate}, 1:00:00 PM`),
+        expect(exui_pages.listCaseSubmit.$static.caseRecordHeading).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$static.checkYouAnswersHeading).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$static.checkInformationCarefullyText).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$questionLocator('Listing reference')).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$questionValueLocator('Listing reference')).toHaveText(listingReference),
+        expect(exui_pages.listCaseSubmit.$questionLocator('Listing location')).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$questionValueLocator('Listing location')).toHaveText('Newport Tribunal Centre - Columbus House'),
+        expect(exui_pages.listCaseSubmit.$questionLocator('Will the hearing be held remotely?')).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$questionValueLocator('Will the hearing be held remotely?')).toHaveText('Yes'),
+        expect(exui_pages.listCaseSubmit.$static.listingLengthText).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$static.listingLengthTableHeading).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$static.hoursLabel).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$static.hoursValue).toHaveText('2'),
+        expect(exui_pages.listCaseSubmit.$static.hoursValue).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$static.minutesLabel).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$static.minutesValue).toHaveText('0'),
+        expect(exui_pages.listCaseSubmit.$static.minutesValue).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$questionLocator('Date and time')).toBeVisible(),
+        expect(exui_pages.listCaseSubmit.$questionValueLocator('Date and time')).toHaveText(`${expectedDate}, 1:00:00 PM`),
       ]);
-      await exui_pages.listCaseSubmitPage.listCase();
+      await exui_pages.listCaseSubmit.listCase();
 
-      await exui_pages.listCaseConfirmPage.verifyUserIsOnPage();
-      await exui_pages.listCaseConfirmPage.verifyAllTextOnPage();
-      await exui_pages.listCaseConfirmPage.returnToCaseDetails();
+      await exui_pages.listCaseConfirm.verifyUserIsOnPage();
+      await exui_pages.listCaseConfirm.verifyAllTextOnPage();
+      await exui_pages.listCaseConfirm.returnToCaseDetails();
     });
 
     await test.step('Verify correct next steps are displayed once event has been submitted', async () => {
-      await exui_pages.caseOverviewPage.verifyUserIsOnPage({});
-      await exui_pages.caseOverviewPage.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'List the case' });
+      await exui_pages.caseOverview.verifyUserIsOnPage({});
+      await exui_pages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'List the case' });
       await Promise.all([
-        await expect(exui_pages.caseOverviewPage.$static.whatHappensNextHeading).toBeVisible(),
-        await expect(exui_pages.caseOverviewPage.$static.whatHappensNextParagraph.nth(0)).toBeVisible(),
-        await expect(exui_pages.caseOverviewPage.$static.whatHappensNextParagraph.nth(0)).toHaveText(
+        await expect(exui_pages.caseOverview.$static.whatHappensNextHeading).toBeVisible(),
+        await expect(exui_pages.caseOverview.$static.whatHappensNextParagraph.nth(0)).toBeVisible(),
+        await expect(exui_pages.caseOverview.$static.whatHappensNextParagraph.nth(0)).toHaveText(
           'The Notice of Hearing will be sent to all parties.',
         ),
       ]);

@@ -9,29 +9,16 @@ properties([
       choices: ['aat', 'preview'],
       description: 'Environment to run the test.'
     ),
-    booleanParam(
-      name: 'CHROME',
-      defaultValue: true,
-      description: 'Run E2E tests in Chrome (on by default).'
-    ),
-     booleanParam(
-      name: 'FIREFOX_TESTS',
-      defaultValue: false,
-      description: 'Run E2E tests in Firefox.'
-    ),
-     booleanParam(
-      name: 'WEBKIT_TESTS',
-      defaultValue: false,
-      description: 'Run E2E tests in Safari (WebKit).'
-    ),
-     booleanParam(
-      name: 'EDGE_TESTS',
-      defaultValue: false,
-      description: 'Run E2E tests in Edge.'
-    )]) 
+    booleanParam(name: 'RUN_CITIZEN_E2E', defaultValue: true, description: 'Run Citizen E2E Tests stage.'),
+    booleanParam(name: 'RUN_CITIZEN_FUNCTIONAL', defaultValue: true, description: 'Run Citizen Functional Tests stage.'),
+    booleanParam(name: 'RUN_CITIZEN_CROSS_BROWSER', defaultValue: true, description: 'Run Citizen Cross Browser Tests stage.'),
+    booleanParam(name: 'RUN_EXUI_FUNCTIONAL', defaultValue: true, description: 'Run Exui Functional Tests stage.'),
+    booleanParam(name: 'RUN_LEGAL_REP_E2E', defaultValue: true, description: 'Run Legal Rep E2E Tests stage.'),
+    string(name: 'PLAYWRIGHT_RETRIES', defaultValue: '3', description: 'Playwright retries'),
+    string(name: 'PLAYWRIGHT_WORKERS', defaultValue: '4', description: 'Playwright workers')]) 
 ])
 
-@Library("Infrastructure")
+@Library("Infrastructure@2.5.1")
 
 def type = "nodejs"
 def product = "ia"
@@ -53,16 +40,12 @@ def secrets = [
                 secret('idam-secret', 'IDAM_SECRET'),
                 secret('test-caseofficer-username', 'CASE_OFFICER_USERNAME'),
                 secret('test-caseofficer-password', 'CASE_OFFICER_PASSWORD'),
-                secret('test-law-firm-a-username', 'LAW_FIRM_A_USERNAME'),
-                secret('test-law-firm-a-password', 'LAW_FIRM_A_PASSWORD'),
-                secret('test-law-firm-b-username', 'LAW_FIRM_B_USERNAME'),
-                secret('test-law-firm-b-password', 'LAW_FIRM_B_PASSWORD'),
-                secret('test-law-firm-c-username', 'TEST_LAW_FIRM_C_USERNAME'),
-                secret('test-law-firm-c-password', 'TEST_LAW_FIRM_C_PASSWORD'),
+                secret('test-law-firm-noc-a-bails-username', 'LEGAL_REP_USERNAME'),
+                secret('test-law-firm-noc-a-bails-password', 'LEGAL_REP_PASSWORD'),
                 secret('test-adminofficer-username', 'ADMIN_OFFICER_USERNAME'),
                 secret('test-adminofficer-password', 'ADMIN_OFFICER_PASSWORD'),
-                secret('test-homeoffice-bail-username', 'HOME_OFFICE_USERNAME'),
-                secret('test-homeoffice-bail-password', 'HOME_OFFICE_PASSWORD'),
+                secret('test-homeoffice-generic-username', 'HOME_OFFICE_USERNAME'),
+                secret('test-homeoffice-generic-password', 'HOME_OFFICE_PASSWORD'),
                 secret('test-judge-x-username', 'JUDGE_USERNAME'),
                 secret('test-judge-x-password', 'JUDGE_PASSWORD'),
                 secret('idam-citizen-user-password', 'IDAM_CITIZEN_USER_PASSWORD')
@@ -92,33 +75,63 @@ def environmentSetup(yarnBuilder) {
 }
 
 def runFunctionalTest(yarnBuilder) {
-  def e2eMatrix = [
-    [flag: 'CHROME', project: 'chrome', browser: 'Chrome', label: 'Desktop Chrome'],
-    [flag: 'FIREFOX_TESTS', project: 'firefox', browser: 'Firefox', label: 'Desktop Firefox'],
-    [flag: 'WEBKIT_TESTS', project: 'webkit', browser: 'Safari', label: 'Desktop Safari (WebKit)'],
-    [flag: 'EDGE_TESTS', project: 'edge', browser: 'Edge', label: 'Desktop Edge'],
-  ]
-  e2eMatrix.each { row ->
-    if (params[row.flag]) {
-      runFunctionalStage(yarnBuilder, row.project, row.browser, row.label)
-    }
+  if (params.RUN_CITIZEN_E2E) {
+    runTaggedStage(
+      yarnBuilder,
+      'Citizen E2E Tests',
+      'test:citizen:e2e'
+    )
+  }
+  if (params.RUN_CITIZEN_FUNCTIONAL) {
+    runTaggedStage(
+      yarnBuilder,
+      'Citizen Functional Tests',
+      'test:citizen:functional'
+    )
+  }
+  if (params.RUN_CITIZEN_CROSS_BROWSER) {
+    runTaggedStage(
+      yarnBuilder,
+      'Citizen Cross Browser Tests',
+      'test:citizen:crossBrowser'
+    )
+  }
+  if (params.RUN_EXUI_FUNCTIONAL) {
+    runTaggedStage(
+      yarnBuilder,
+      'Exui Functional Tests',
+      'test:exui:functional'
+    )
+  }
+  if (params.RUN_LEGAL_REP_E2E) {
+    runTaggedStage(
+      yarnBuilder,
+      'Legal Rep E2E Tests',
+      'test:legal-rep:e2e'
+    )
   }
 }
 
-def runFunctionalStage(yarnBuilder, String playwrightProject, String browser, String stageLabel) {
-  stage("E2E - ${stageLabel}") {
+def runTaggedStage(yarnBuilder, String stageName, String yarnScript) {
+  stage(stageName) {
+      def reportDir = "playwright-report-${stageName.replaceAll(/[^A-Za-z0-9]+/, '-').replaceAll(/^-|-$/, '')}"
       catchError(buildResult: 'UNSTABLE', stageResult: 'FAILURE') {
-        withEnv(["PLAYWRIGHT_PROJECT=${playwrightProject}"]) {
-          yarnBuilder.yarn('test:e2e')
+        withEnv([
+          "PLAYWRIGHT_RETRIES=${params.PLAYWRIGHT_RETRIES}",
+          "WORKERS=${params.PLAYWRIGHT_WORKERS}",
+          "PLAYWRIGHT_HTML_OUTPUT_DIR=${reportDir}",
+          'CI=true'
+        ]) {
+          yarnBuilder.yarn(yarnScript)
         }
       }
       publishHTML([
           allowMissing: false,
           alwaysLinkToLastBuild: true,
           keepAll: true,
-          reportDir: 'playwright-report',
+          reportDir: reportDir,
           reportFiles: 'index.html',
-          reportName: 'Test Report'
+          reportName: "${stageName} - Report"
         ])
     }
 }

@@ -1,4 +1,4 @@
-import { AxeUtils, BrowserUtils, IdamUtils, LighthouseUtils, LocaleUtils, SessionUtils, ServiceAuthUtils } from '@hmcts/playwright-common';
+import { AxeUtils, BrowserUtils, IdamUtils, LighthouseUtils, LocaleUtils, ServiceAuthUtils } from '@hmcts/playwright-common';
 import os from 'os';
 import path from 'path';
 import { chromium, Page } from 'playwright/test';
@@ -6,6 +6,7 @@ import { CitizenUserUtils } from './citizen-user.utils';
 import { config, Config } from './config.utils';
 import { DataUtils } from './index';
 import { UserInfo } from './citizen-user.utils';
+import { SessionUtils } from './session-utils';
 
 export interface UtilsFixtures {
   citizenUser: UserInfo;

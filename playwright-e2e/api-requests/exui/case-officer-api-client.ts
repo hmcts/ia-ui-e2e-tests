@@ -11,6 +11,7 @@ import {
   CreateCaseSummaryApi,
   GenerateHearingBundleApi,
   DecisionAndReasonsStartedApi,
+  CompleteCaseReviewApi,
 } from './requests/index';
 import {
   RequestRespondentEvidenceEventType,
@@ -34,6 +35,7 @@ export class CaseOfficerApiClient extends BaseExuiApiClient {
   private createCaseSummaryApi: CreateCaseSummaryApi;
   private generateHearingBundleApi: GenerateHearingBundleApi;
   private decisionAndReasonsStartedApi: DecisionAndReasonsStartedApi;
+  private completeCaseReviewApi: CompleteCaseReviewApi;
 
   constructor(apiContext: APIRequestContext) {
     super(apiContext);
@@ -47,6 +49,11 @@ export class CaseOfficerApiClient extends BaseExuiApiClient {
     this.createCaseSummaryApi = new CreateCaseSummaryApi(apiContext);
     this.generateHearingBundleApi = new GenerateHearingBundleApi(apiContext);
     this.decisionAndReasonsStartedApi = new DecisionAndReasonsStartedApi(apiContext);
+    this.completeCaseReviewApi = new CompleteCaseReviewApi(apiContext);
+  }
+
+  public async submitCompleteCaseReviewEvent(options: { caseId: string }): Promise<void> {
+    await this.completeCaseReviewApi.submitEvent(options);
   }
 
   public async submitRequestRespondentEvidenceEvent(options: RequestRespondentEvidenceEventType): Promise<void> {
@@ -87,7 +94,7 @@ export class CaseOfficerApiClient extends BaseExuiApiClient {
 
   public async submitDecisionAndReasonsStartedEvent(options: DecisionAndReasonsStartedEventType): Promise<void> {
     await expect(async () => {
-      const caseData = await this.fetchCaseData({ caseId: options.caseId });
+      const caseData = await this.fetchCaseOverviewData({ caseId: options.caseId });
       const caseDataString = JSON.stringify(caseData);
 
       const hasInstructionText = caseDataString.includes('You can start to create the decision and reasons document');

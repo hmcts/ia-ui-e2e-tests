@@ -38,7 +38,7 @@ export class FeeSupportPage extends CuiBase {
   public async verifyAllTextOnPage(): Promise<void> {
     await Promise.all([
       expect(this.$static.feeForAppealText).toHaveText(
-        'The fee for this appeal is £140. You do not have to pay the fee if one of the following statements applies to you.',
+        'The fee for this appeal is £144. You do not have to pay the fee if one of the following statements applies to you.',
       ),
       expect(this.$static.feeForAppealText).toBeVisible(),
 

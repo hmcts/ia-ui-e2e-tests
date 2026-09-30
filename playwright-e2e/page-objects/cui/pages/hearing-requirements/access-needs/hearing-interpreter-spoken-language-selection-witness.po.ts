@@ -4,17 +4,17 @@ import { LanguagesType } from '../../../../../citizen-types';
 import { HearingInterpreterSpokenLanguageSelectionPage } from './hearing-interpreter-spoken-language-selection.po';
 
 export class HearingInterpreterSpokenLanguageSelectionWitnessPage extends CuiBase {
-  private hearingInterpreterSpokenLanguageSelectionPage: HearingInterpreterSpokenLanguageSelectionPage;
+  private hearingInterpreterSpokenLanguageSelection: HearingInterpreterSpokenLanguageSelectionPage;
   public readonly $inputs: HearingInterpreterSpokenLanguageSelectionPage['$inputs'];
   public readonly $interactive: HearingInterpreterSpokenLanguageSelectionPage['$interactive'];
   public readonly $static: HearingInterpreterSpokenLanguageSelectionPage['$static'];
 
   constructor(page: Page) {
     super(page);
-    this.hearingInterpreterSpokenLanguageSelectionPage = new HearingInterpreterSpokenLanguageSelectionPage(page);
-    this.$inputs = this.hearingInterpreterSpokenLanguageSelectionPage.$inputs;
-    this.$interactive = this.hearingInterpreterSpokenLanguageSelectionPage.$interactive;
-    this.$static = this.hearingInterpreterSpokenLanguageSelectionPage.$static;
+    this.hearingInterpreterSpokenLanguageSelection = new HearingInterpreterSpokenLanguageSelectionPage(page);
+    this.$inputs = this.hearingInterpreterSpokenLanguageSelection.$inputs;
+    this.$interactive = this.hearingInterpreterSpokenLanguageSelection.$interactive;
+    this.$static = this.hearingInterpreterSpokenLanguageSelection.$static;
   }
 
   public async verifyUserIsOnPage(): Promise<void> {

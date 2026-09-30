@@ -9,7 +9,9 @@ export class AppealReasonsCheckAnswersPage extends CuiBase {
   private tableRowLocator = (expectedText: string): Locator => this.page.locator('div[class="govuk-summary-list__row"]', { hasText: expectedText });
 
   public readonly $interactive = {
-    sendButton: this.page.getByRole('button', { name: 'Send', exact: true }),
+    sendButton: this.page
+      .getByRole('button', { name: 'Send', exact: true })
+      .or(this.page.getByRole('button', { name: 'Confirm and send', exact: true })),
     changeAnswerLink: this.tableRowLocator('Answer').locator('dd[class="govuk-summary-list__actions"] a'),
     changeSupportingEvidenceLink: this.tableRowLocator('Supporting evidence').locator('dd[class="govuk-summary-list__actions"] a'),
   } as const satisfies Record<string, Locator>;

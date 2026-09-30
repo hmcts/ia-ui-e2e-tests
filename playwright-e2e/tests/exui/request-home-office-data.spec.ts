@@ -1,7 +1,7 @@
 import { test, expect } from '../../fixtures.js';
 import { config } from '../../utils/config.utils.js';
 
-test.describe('Set of tests to verify case officer is able to request home office data on exui manage cases', () => {
+test.describe('Set of tests to verify case officer is able to request home office data on exui manage cases', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.caseOfficer.sessionFile });
 
   test.beforeEach(async ({ exui_caseOfficerApiClient, cui_apiClient, exui_pages }) => {
@@ -12,7 +12,10 @@ test.describe('Set of tests to verify case officer is able to request home offic
         isApplicantStateless: false,
         nationality: 'Slovenian',
         isUserInTheUk: 'Yes',
-        doesApplicantHaveASponsor: 'No',
+        sponsorDetails: {
+          doesApplicantHaveASponsor: 'No',
+          doesApplicantHaveANonLegalRepSponsor: 'No',
+        },
         decisionWithOrWithoutHearing: 'decisionWithHearing',
         isApplicationInTime: true,
         appealSubmissionType: 'Non-Pay Appeal',
@@ -22,38 +25,38 @@ test.describe('Set of tests to verify case officer is able to request home offic
 
     await test.step(`Case officer: Navigate to case overview page on exui`, async () => {
       const caseId = await exui_caseOfficerApiClient.fetchCaseId({ homeOfficeReferenceNumber: appealDetails.homeOfficeReference.toString() });
-      await exui_pages.caseOverviewPage.goTo({ caseId: caseId });
+      await exui_pages.caseOverview.goTo({ caseId: caseId });
     });
   });
 
   test('Verify case officer is able to request home office data', async ({ exui_pages, cui_apiClient }) => {
     await test.step('Verify correct next steps are displayed on case overview page', async () => {
       await Promise.all([
-        expect(exui_pages.caseOverviewPage.$static.doThisNextHeading).toBeVisible(),
+        expect(exui_pages.caseOverview.$static.doThisNextHeading).toBeVisible(),
 
-        expect(exui_pages.caseOverviewPage.$static.doThisNextParagraph.nth(0)).toHaveText(
-          'You must review the appeal data and cross reference it with Home Office data in the Validation tab. If the appeal looks valid, you must tell the respondent to supply their evidence.',
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph.nth(0)).toHaveText(
+          'You must review the appeal data and cross reference it with Home Office data in the Validation tab. If the appeal is valid, you must run the Complete case review event which will validate the case and then run the Request respondent evidence event to tell the respondent to supply their evidence.',
         ),
-        expect(exui_pages.caseOverviewPage.$static.doThisNextParagraph.nth(0)).toBeVisible(),
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph.nth(0)).toBeVisible(),
       ]);
     });
 
     await test.step('Select validation tab and confirm correct text is shown', async () => {
-      await exui_pages.caseOverviewPage.navigateToTab({ tabToSelect: 'Validation' });
+      await exui_pages.caseOverview.navigateToTab({ tabToSelect: 'Validation' });
 
-      await exui_pages.validationPage.verifyUserIsOnPage();
+      await exui_pages.validation.verifyUserIsOnPage();
       await Promise.all([
-        expect(exui_pages.validationPage.$static.serviceHasBeenUnableToRetrieveDataText).toBeVisible(),
-        expect(exui_pages.validationPage.$static.serviceHasBeenUnableToRetrieveDataText).toHaveText(
+        expect(exui_pages.validation.$static.serviceHasBeenUnableToRetrieveDataText).toBeVisible(),
+        expect(exui_pages.validation.$static.serviceHasBeenUnableToRetrieveDataText).toHaveText(
           'Note: The service has been unable to retrieve the Home Office information about this appeal because the Home Office Reference/Case ID, data of birth or name submitted by the appellant do not match the details stored by the Home Office',
         ),
-        expect(exui_pages.validationPage.$static.doThisNextHeading).toBeVisible(),
-        expect(exui_pages.validationPage.$static.doThisNextBuletPoints.nth(0)).toBeVisible(),
-        expect(exui_pages.validationPage.$static.doThisNextBuletPoints.nth(0)).toHaveText('Contact the Home Office to get the correct details'),
-        expect(exui_pages.validationPage.$static.doThisNextBuletPoints.nth(1)).toBeVisible(),
-        expect(exui_pages.validationPage.$static.doThisNextBuletPoints.nth(1)).toHaveText('Use Edit appeal to update the details as required'),
-        expect(exui_pages.validationPage.$static.doThisNextBuletPoints.nth(2)).toBeVisible(),
-        expect(exui_pages.validationPage.$static.doThisNextBuletPoints.nth(2)).toHaveText(
+        expect(exui_pages.validation.$static.doThisNextHeading).toBeVisible(),
+        expect(exui_pages.validation.$static.doThisNextBuletPoints.nth(0)).toBeVisible(),
+        expect(exui_pages.validation.$static.doThisNextBuletPoints.nth(0)).toHaveText('Contact the Home Office to get the correct details'),
+        expect(exui_pages.validation.$static.doThisNextBuletPoints.nth(1)).toBeVisible(),
+        expect(exui_pages.validation.$static.doThisNextBuletPoints.nth(1)).toHaveText('Use Edit appeal to update the details as required'),
+        expect(exui_pages.validation.$static.doThisNextBuletPoints.nth(2)).toBeVisible(),
+        expect(exui_pages.validation.$static.doThisNextBuletPoints.nth(2)).toHaveText(
           'Request Home Office data to match the appellant details with the Home Office details',
         ),
       ]);
@@ -67,45 +70,46 @@ test.describe('Set of tests to verify case officer is able to request home offic
         applicationDetails.applicantDetails.dob.month - 1,
         applicationDetails.applicantDetails.dob.day,
       );
-      const formattedDob = appellantDob.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      const formattedDob = appellantDob.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
 
-      await exui_pages.caseOverviewPage.selectEventFromDropdown({ eventToSelect: 'Request Home Office data' });
+      await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Request Home Office data' });
 
-      await exui_pages.requestHomeOfficeDataPage.verifyUserIsOnPage();
-      await exui_pages.requestHomeOfficeDataPage.verifyAppellantDetails({
+      await exui_pages.requestHomeOfficeData.verifyUserIsOnPage();
+      await exui_pages.requestHomeOfficeData.verifyAppellantDetails({
         appellantName: appellantName,
         appellantDob: formattedDob,
       });
-      await exui_pages.requestHomeOfficeDataPage.continueOnToNextPage();
+      await exui_pages.requestHomeOfficeData.continueOnToNextPage();
 
-      await exui_pages.requestHomeOfficeDataSubmitPage.verifyUserIsOnPage();
+      await exui_pages.requestHomeOfficeDataSubmit.verifyUserIsOnPage();
       await Promise.all([
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$static.caseRecordHeading).toBeVisible(),
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$static.checkYourAnswersHeading).toBeVisible(),
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$static.checkInformationText).toBeVisible(),
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$static.makeASelectionQuestion).toBeVisible(),
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$static.makeASelectionValue).toBeVisible(),
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$static.makeASelectionValue).toHaveText('No Match'),
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$interactive.changeAnswerToMakeASelectionButton).toBeVisible(),
-        expect(exui_pages.requestHomeOfficeDataSubmitPage.$interactive.changeAnswerToMakeASelectionButton).toHaveText('Change'),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$static.caseRecordHeading).toBeVisible(),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$static.checkYourAnswersHeading).toBeVisible(),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$static.checkInformationText).toBeVisible(),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$static.makeASelectionQuestion).toBeVisible(),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$static.makeASelectionValue).toBeVisible(),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$static.makeASelectionValue).toHaveText('No Match'),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$interactive.changeAnswerToMakeASelectionButton).toBeVisible(),
+        expect(exui_pages.requestHomeOfficeDataSubmit.$interactive.changeAnswerToMakeASelectionButton).toHaveText('Change'),
       ]);
-      await exui_pages.requestHomeOfficeDataSubmitPage.requestHomeOfficeData();
+      await exui_pages.requestHomeOfficeDataSubmit.requestHomeOfficeData();
 
-      await exui_pages.requestHomeOfficeDataConfirmPage.verifyUserIsOnPage();
-      await exui_pages.requestHomeOfficeDataConfirmPage.verifyAllTextOnPage();
-      await exui_pages.requestHomeOfficeDataConfirmPage.returnToCaseDetails();
+      await exui_pages.requestHomeOfficeDataConfirm.verifyUserIsOnPage();
+      await exui_pages.requestHomeOfficeDataConfirm.verifyAllTextOnPage();
+      await exui_pages.requestHomeOfficeDataConfirm.returnToCaseDetails();
     });
 
     await test.step('Verify correct next steps are displayed once event has been submitted on case overview page', async () => {
-      await exui_pages.caseOverviewPage.verifyUserIsOnPage({});
-      await exui_pages.caseOverviewPage.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request Home Office data' });
+      await exui_pages.caseOverview.verifyUserIsOnPage({});
+      await exui_pages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request Home Office data' });
 
       await Promise.all([
-        expect(exui_pages.caseOverviewPage.$static.doThisNextHeading).toBeVisible(),
-        expect(exui_pages.caseOverviewPage.$static.doThisNextParagraph.nth(0)).toHaveText(
-          'You must review the appeal data and cross reference it with Home Office data in the Validation tab. If the appeal looks valid, you must tell the respondent to supply their evidence.',
+        expect(exui_pages.caseOverview.$static.doThisNextHeading).toBeVisible(),
+
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph.nth(0)).toHaveText(
+          'You must review the appeal data and cross reference it with Home Office data in the Validation tab. If the appeal is valid, you must run the Complete case review event which will validate the case and then run the Request respondent evidence event to tell the respondent to supply their evidence.',
         ),
-        expect(exui_pages.caseOverviewPage.$static.doThisNextParagraph.nth(0)).toBeVisible(),
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph.nth(0)).toBeVisible(),
       ]);
     });
 
@@ -118,95 +122,97 @@ test.describe('Set of tests to verify case officer is able to request home offic
         applicationDetails.applicantDetails.dob.month - 1,
         applicationDetails.applicantDetails.dob.day,
       );
-      const formattedDob = appellantDob.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      const formattedDob = appellantDob.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
       const decisionDate = new Date(
         applicationDetails.applicantDetails.decisionLetterDate.year,
         applicationDetails.applicantDetails.decisionLetterDate.month - 1,
         applicationDetails.applicantDetails.decisionLetterDate.day,
       );
-      const formattedDecisionDate = decisionDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      const formattedDecisionDate = decisionDate
+        .toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+        .replace('Sept', 'Sep');
 
-      await exui_pages.caseOverviewPage.navigateToTab({ tabToSelect: 'Validation' });
+      await exui_pages.caseOverview.navigateToTab({ tabToSelect: 'Validation' });
 
-      await exui_pages.validationPage.verifyUserIsOnPage();
+      await exui_pages.validation.verifyUserIsOnPage();
       await Promise.all([
-        expect(exui_pages.validationPage.$static.appealValidationHeading).toBeVisible(),
-        expect(exui_pages.validationPage.$static.thereAreNoMatchingDetailsForAppellantText).toBeVisible(),
-        expect(exui_pages.validationPage.$static.thereAreNoMatchingDetailsForAppellantText).toHaveText(
+        expect(exui_pages.validation.$static.appealValidationHeading).toBeVisible(),
+        expect(exui_pages.validation.$static.thereAreNoMatchingDetailsForAppellantText).toBeVisible(),
+        expect(exui_pages.validation.$static.thereAreNoMatchingDetailsForAppellantText).toHaveText(
           'There are no matching details for this appellant. You can contact the Home Office if you need more information to validate the appeal.',
         ),
         // Verify appellant details are displayed on the page
-        expect(exui_pages.validationPage.$static.appellantDetailsHeading).toBeVisible(),
+        expect(exui_pages.validation.$static.appellantDetailsHeading).toBeVisible(),
         // Verify given name table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('Given name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Given name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Given name')).toHaveText(givenNames),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Given name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Given name')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('Given name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Given name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Given name')).toHaveText(givenNames),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Given name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Given name')).toHaveText('No match'),
         // Verify family name table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('Family name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Family name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Family name')).toHaveText(familyName),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Family name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Family name')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('Family name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Family name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Family name')).toHaveText(familyName),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Family name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Family name')).toHaveText('No match'),
         // Verify full name table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('Full name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Full name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Full name')).toHaveText(`${givenNames} ${familyName}`),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Full name')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Full name')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('Full name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Full name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Full name')).toHaveText(`${givenNames} ${familyName}`),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Full name')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Full name')).toHaveText('No match'),
         // Verify gender table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('Gender')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Gender')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Gender')).toBeEmpty(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Gender')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Gender')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('Gender')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Gender')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Gender')).toBeEmpty(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Gender')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Gender')).toHaveText('No match'),
         // Verify date of birth table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('Date of birth')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Date of birth')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Date of birth')).toHaveText(formattedDob),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Date of birth')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Date of birth')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('Date of birth')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Date of birth')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Date of birth')).toHaveText(formattedDob),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Date of birth')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Date of birth')).toHaveText('No match'),
         // Verify HO role table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('HO role')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO role')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO role')).toBeEmpty(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('HO role')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('HO role')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('HO role')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO role')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO role')).toBeEmpty(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('HO role')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('HO role')).toHaveText('No match'),
         // Verify HO sub-role table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('HO sub-role')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO sub-role')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO sub-role')).toBeEmpty(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('HO sub-role')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('HO sub-role')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('HO sub-role')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO sub-role')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO sub-role')).toBeEmpty(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('HO sub-role')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('HO sub-role')).toHaveText('No match'),
         // Verify nationality table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('Nationality')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Nationality')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('Nationality')).toHaveText('Slovenia'),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Nationality')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsResultLocator('Nationality')).toHaveText('No match'),
+        expect(exui_pages.validation.$appellantDetailsLocator('Nationality')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Nationality')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('Nationality')).toHaveText('Slovenia'),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Nationality')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsResultLocator('Nationality')).toHaveText('No match'),
         // Verify application details are displayed correctly on the page
-        expect(exui_pages.validationPage.$static.applicationDetailsHeading).toBeVisible(),
+        expect(exui_pages.validation.$static.applicationDetailsHeading).toBeVisible(),
         // Verify HO reference table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('HO reference')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO reference')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO reference')).toHaveText(applicationDetails.homeOfficeReference.toString()),
+        expect(exui_pages.validation.$appellantDetailsLocator('HO reference')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO reference')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO reference')).toHaveText(applicationDetails.homeOfficeReference.toString()),
         // Verify HO decision table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('HO decision')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision')).toBeEmpty(),
+        expect(exui_pages.validation.$appellantDetailsLocator('HO decision')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision')).toBeEmpty(),
         // Verify HO decision date table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('HO decision date')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision date')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision date')).toHaveText(formattedDecisionDate),
+        expect(exui_pages.validation.$appellantDetailsLocator('HO decision date')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision date')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision date')).toHaveText(formattedDecisionDate),
         // Verify HO decision sent table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('HO decision sent')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision sent')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision sent')).toHaveText(formattedDecisionDate),
+        expect(exui_pages.validation.$appellantDetailsLocator('HO decision sent')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision sent')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision sent')).toHaveText(formattedDecisionDate),
         // Verify HO decision communication table row is displayed correctly on the page
-        expect(exui_pages.validationPage.$appellantDetailsLocator('HO decision communication')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision communication')).toBeVisible(),
-        expect(exui_pages.validationPage.$appellantDetailsValueLocator('HO decision communication')).toBeEmpty(),
+        expect(exui_pages.validation.$appellantDetailsLocator('HO decision communication')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision communication')).toBeVisible(),
+        expect(exui_pages.validation.$appellantDetailsValueLocator('HO decision communication')).toBeEmpty(),
       ]);
     });
   });
