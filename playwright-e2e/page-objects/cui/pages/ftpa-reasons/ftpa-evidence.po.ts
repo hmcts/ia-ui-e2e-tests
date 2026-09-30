@@ -47,7 +47,7 @@ export class FtpaEvidencePage extends CuiBase {
       expect(this.$static.adviceOnprovidingEvidenceBulletPoint.nth(2)).toBeVisible(),
 
       expect(this.$static.uploadAfileLabel).toBeVisible(),
-      expect(this.$static.uploadAfileLabel).toHaveText('Upload a file'),
+      expect(this.$static.uploadAfileLabel).toHaveText('Select a file'),
 
       expect(this.$static.uploadedFileHeader).toHaveText('Uploaded file'),
       expect(this.$static.uploadedFileHeader).toBeVisible(),

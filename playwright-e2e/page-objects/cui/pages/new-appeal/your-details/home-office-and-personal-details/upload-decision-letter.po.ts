@@ -26,7 +26,7 @@ export class UploadDecisionLetterPage extends CuiBase {
     decisionByEmailText: this.page.locator('p', { hasText: 'attached to the email.' }),
     decisionByPostHeading: this.page.getByRole('heading', { level: 2 }).filter({ hasText: 'post' }),
     decisionByPostText: this.page.locator('p', { hasText: 'If you have a smartphone' }),
-    uploadFileText: this.page.getByText('Upload a file', { exact: true }),
+    uploadFileText: this.page.getByText('Select a file', { exact: true }),
     uploadedFileText: this.page.locator('table[id="files-uploaded"] [class="govuk-table__header"]'),
     noFilesUploadedText: this.page.locator('td[class="govuk-table__cell"]'),
   } as const satisfies Record<string, Locator>;

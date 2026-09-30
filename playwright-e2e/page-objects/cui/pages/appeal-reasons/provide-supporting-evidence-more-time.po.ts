@@ -23,7 +23,7 @@ export class ProvideSupportingEvidenceMoreTimePage extends CuiBase {
     adviceBulletPoint1: this.adviceForSupportingEvidenceText.locator('+ ul li').nth(0),
     adviceBulletPoint2: this.adviceForSupportingEvidenceText.locator('+ ul li').nth(1),
     adviceBulletPoint3: this.adviceForSupportingEvidenceText.locator('+ ul li').nth(2),
-    uploadFileText: this.page.getByText('Upload a file', { exact: true }),
+    uploadFileText: this.page.getByText('Select a file', { exact: true }),
     uploadedFileText: this.page.locator('table[id="files-uploaded"] [class="govuk-table__header"]'),
     noFilesUploadedText: this.page.locator('td[class="govuk-table__cell"]'),
   } as const satisfies Record<string, Locator>;

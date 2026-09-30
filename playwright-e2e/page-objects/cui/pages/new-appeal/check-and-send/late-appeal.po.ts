@@ -74,7 +74,7 @@ export class LateAppealPage extends CuiBase {
       ),
       expect(this.$static.provideEvidenceNotInEnglishBulletPoint).toBeVisible(),
 
-      expect(this.$static.uploadFileLabel).toHaveText('Upload a file'),
+      expect(this.$static.uploadFileLabel).toHaveText('Select a file'),
       expect(this.$static.uploadFileLabel).toBeVisible(),
     ]);
   }
