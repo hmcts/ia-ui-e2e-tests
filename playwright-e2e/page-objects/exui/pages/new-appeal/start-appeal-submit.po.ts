@@ -60,7 +60,7 @@ export class StartAppealSubmitPage extends ExuiBase {
   public $questionValueLocator(question: StartAppealSubmitQuestionsType): Locator {
     return this.page
       .locator('tr', { has: this.page.locator('[class*="case-field-label"]').getByText(question, { exact: true }) })
-      .locator('td ccd-field-read');
+      .locator('td[class*="case-field-content"]');
   }
 
   public $changeAnswerToQuestionLocator(question: StartAppealSubmitQuestionsType): Locator {

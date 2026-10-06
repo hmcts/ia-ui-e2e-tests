@@ -44,7 +44,7 @@ export class ReviewHearingRequirementsSubmitPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Review hearing requirements', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     checkYouAnswersHeading: this.page.getByRole('heading', { level: 2, name: 'Check your answers', exact: true }),
     checkInformationCarefullyText: this.page.getByText('Check the information below carefully.', { exact: true }),
     listingLengthText: this.page.locator('th span', { hasText: 'Listing length' }),

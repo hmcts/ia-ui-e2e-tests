@@ -22,9 +22,9 @@ export class DecisionLetterSentPage extends CuiBase {
     pageHeading: this.page.locator('h1', {
       hasText: 'What date was your decision letter sent?',
     }),
-    decisionByEmailHeading: this.page.getByRole('heading', { level: 2 }).filter({ hasText: 'email' }),
+    decisionByEmailHeading: this.page.locator('p', { hasText: 'decision by email' }),
     decisionByEmailText: this.page.locator('p', { hasText: 'email was sent' }),
-    decisionByPostHeading: this.page.getByRole('heading', { level: 2 }).filter({ hasText: 'post' }),
+    decisionByPostHeading: this.page.locator('p', { hasText: 'decision by post' }),
     decisionByPostText: this.page.locator('p', { hasText: 'Enter the date stamped on the front' }),
     enterDateText: this.page.getByText('letter was sent'),
     dateHintText: this.page.locator('div[id="date-hint"]'),

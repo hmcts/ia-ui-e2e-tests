@@ -15,7 +15,7 @@ export class ReviewHearingRequirementsAppealSuitableToFloatPage extends ExuiBase
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Review hearing requirements', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     isAppealSuitableToFloatText: this.page.locator('div[id="isAppealSuitableToFloat"] span'),
     yesLaabel: this.page.locator('label[for="isAppealSuitableToFloat_Yes"]'),
     noLabel: this.page.locator('label[for="isAppealSuitableToFloat_No"]'),

@@ -32,7 +32,7 @@ export class ListCasePage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'List the case', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     addHearingDetailsBelowText: this.page.getByText('Add the hearing details below.', { exact: true }),
     listingReferenceLabel: this.page.locator('label[for="ariaListingReference"]'),
     listingReferenceHint: this.page.locator('label[for="ariaListingReference"] + span'),

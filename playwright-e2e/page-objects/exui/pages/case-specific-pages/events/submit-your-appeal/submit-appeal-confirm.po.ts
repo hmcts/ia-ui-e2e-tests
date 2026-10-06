@@ -12,7 +12,7 @@ export class SubmitAppealConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Submit your appeal', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     yourAppealHasBeenSubmittedHeading: this.page.getByRole('heading', { level: 1, name: 'Your appeal has been submitted', exact: true }),
     outOfTimeConfirmation: this.page.getByRole('img', { name: 'Out of time confirmation', exact: true }),
     doThisNextHeading: this.page.getByRole('heading', { level: 4, name: 'Do this next', exact: true }),

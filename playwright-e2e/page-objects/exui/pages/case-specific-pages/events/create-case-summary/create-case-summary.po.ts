@@ -22,7 +22,7 @@ export class CreateCaseSummaryPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Create case summary', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     createACaseSummaryHeading: this.page.getByRole('heading', { level: 2, name: 'Create a case summary and upload it below', exact: true }),
     createACaseSummaryParagraph: this.page.locator('markdown', { hasText: 'Create a case summary and upload it below' }).locator('p'),
     uploadCaseSummaryHeading: this.page.getByRole('heading', { level: 4, name: 'Upload your case summary below', exact: true }),

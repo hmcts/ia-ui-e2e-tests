@@ -15,7 +15,7 @@ export class GenerateServiceRequestCreateAServiceRequestPage extends ExuiBase {
   public readonly $static = {
     createServiceRequestCaption: this.page.locator('span.govuk-caption-l', { hasText: 'Create a service request' }),
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Pay for this appeal', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     nextStepPaymentHeadig: this.page.locator('[field_id="legalRepCreateServiceRequestHeader"] h3'),
     createServiceRequestDescription: this.page.locator('[field_id="legalRepCreateServiceRequestDescription"] p'),
     feeToPayHeading: this.page.locator('[field_id="legalRepCreateServiceRequestFeeHeader"] h3'),

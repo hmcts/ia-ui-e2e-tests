@@ -15,13 +15,13 @@ export class UploadHomeOfficeBundleSubmitPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Upload Home Office bundle', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     checkYourAnswersHeading: this.page.getByRole('heading', { level: 2, name: 'Check your answers', exact: true }),
     checkInformationText: this.page.locator('span', { hasText: 'Check the information' }),
     uploadHomeOfficeBundleText: this.page.locator('tr th span', { hasText: 'Upload Home Office bundle' }),
     tableTitle: this.page.locator('dl[class="complex-panel-title"]'),
-    uploadAFileLabel: this.page.locator('th[id="complex-panel-simple-field-label"] span', { hasText: 'Upload a file' }),
-    describeTheDocumentLabel: this.page.locator('[id="complex-panel-simple-field-label"] span', { hasText: 'Describe the document' }),
+    uploadAFileLabel: this.page.locator('[class*="complex-panel-simple-field"] span', { hasText: 'Upload a file' }),
+    describeTheDocumentLabel: this.page.locator('[class*="complex-panel-simple-field"] span', { hasText: 'Describe the document' }),
     describeTheDocumentValue: this.page.locator('ccd-read-text-area-field span'),
   } as const satisfies Record<string, Locator>;
 

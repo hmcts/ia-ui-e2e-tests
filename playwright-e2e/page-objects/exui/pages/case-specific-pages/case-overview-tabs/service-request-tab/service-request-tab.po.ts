@@ -17,7 +17,7 @@ export class ServiceRequestTabPage extends CaseOverViewBase {
   } as const satisfies Record<string, Locator>;
 
   public readonly $static = {
-    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    pageHeading: this.$commonElements.caseRecordHeading,
     statusHeader: this.page.locator('table.serviceRequest thead td', { hasText: 'Status' }),
     amountHeader: this.page.locator('table.serviceRequest thead td', { hasText: 'Amount' }),
     partyHeader: this.page.locator('table.serviceRequest thead td', { hasText: 'Party' }),

@@ -19,7 +19,7 @@ export class RecordRemissionDecisionDetailsPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Record remission decision', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     feeParagraph: this.page
       .locator('p', {
         hasText: /^The full fee of £.* will be remitted\. Click Continue to confirm the amount remitted and the amount left to pay are correct\.$/,

@@ -14,7 +14,7 @@ export class CompleteCaseReviewPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Complete case review', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     completeCaseReviewTitle: this.page.locator('[id="completeCaseReviewStf24Title"] p'),
   } as const satisfies Record<string, Locator>;
 

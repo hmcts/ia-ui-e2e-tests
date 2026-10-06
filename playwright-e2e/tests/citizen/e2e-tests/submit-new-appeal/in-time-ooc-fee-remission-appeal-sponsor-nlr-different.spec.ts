@@ -185,7 +185,7 @@ test.describe('Test to verify user is able to submit an appeal via the UI', { ta
       await cui_pages.aboutAppeal.navigationClick(cui_pages.aboutAppeal.$interactive.decisionWithOrWithoutHearingLink);
 
       await cui_pages.decisionType.verifyUserIsOnPage();
-      await cui_pages.decisionType.verifyAllTextOnPage();
+      await cui_pages.decisionType.verifyAllTextOnPage({ appealType: 'Human Rights' });
       await cui_pages.decisionType.completePageAndContinue({ decisionWithOrWithoutHearing: 'decisionWithHearing' });
 
       await cui_pages.equalityAndDiversityStart.verifyUserIsOnPage();

@@ -11,7 +11,7 @@ export class HearingsPage extends CaseOverViewBase {
   } as const satisfies Record<string, Locator>;
 
   public readonly $static = {
-    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    pageHeading: this.$commonElements.caseRecordHeading,
     currentAndUpcommingHearingsTableRow: this.page.locator('exui-case-hearings-list', { hasText: 'Current and upcoming' }).locator('tbody tr'),
   } as const satisfies Record<string, Locator>;
 

@@ -27,7 +27,7 @@ export class CreateCaseSummarySubmitPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Create case summary', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     checkYouAnswersHeading: this.page.getByRole('heading', { level: 2, name: 'Check your answers', exact: true }),
     checkInformationCarefullyText: this.page.getByText('Check the information below carefully.', { exact: true }),
   } as const satisfies Record<string, Locator>;

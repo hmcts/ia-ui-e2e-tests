@@ -36,12 +36,11 @@ export class HearingFacilitiesPage extends ExuiBase {
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { name: 'Do you require any additional facilities?', level: 1, exact: true }),
     anyActiveFlagsText: this.page.getByText('Any active flags on this case may require additional facilities at the hearing.', { exact: true }),
-    addtionalSecurityHeading: this.page.getByRole('heading', { name: 'Will additional security be required?', level: 3, exact: true }),
+    addtionalSecurityHeading: this.page.getByRole('heading', { name: 'Will additional security be required?', exact: true }),
     addtionalSecurityYesLabel: this.page.locator('input[id="additionalSecurityYes"] + label'),
     addtionalSecurityNoLabel: this.page.locator('input[id="additionalSecurityNo"] + label'),
     selectAnyAdditionalFacilitiesHeading: this.page.getByRole('heading', {
       name: 'Select any additional facilities required',
-      level: 1,
       exact: true,
     }),
     facilitiesHintText: this.page.locator('[id="facils-name-hint"]'),

@@ -19,7 +19,7 @@ export class PrepareDecisionAndReasonsLegalRepresentativesPage extends ExuiBase 
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Prepare Decision and Reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     namesOflegalRepresentativesHeading: this.page.getByRole('heading', {
       level: 3,
       name: 'Give the names of the legal representatives in this case',

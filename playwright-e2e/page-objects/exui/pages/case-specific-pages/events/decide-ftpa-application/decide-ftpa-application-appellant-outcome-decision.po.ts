@@ -27,7 +27,7 @@ export class DecideFtpaApplicationAppellantOutcomeDecisionPage extends ExuiBase 
   public readonly $static = {
     pageHeading: this.page.locator('span', { hasText: 'Decide FTPA application' }),
     decisionHeading: this.page.getByRole('heading', { level: 1, name: 'Decision', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     outcomeLabel: this.page.locator('label[for="ftpaAppellantRjDecisionOutcomeType"]'),
   } as const satisfies Record<string, Locator>;
 

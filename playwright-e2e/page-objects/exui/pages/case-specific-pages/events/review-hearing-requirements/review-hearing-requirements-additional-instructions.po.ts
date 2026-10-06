@@ -19,7 +19,7 @@ export class ReviewHearingRequirementsAdditionalIntructionsPage extends ExuiBase
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Review hearing requirements', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     addtionalIntructionsText: this.page.locator('div[id="isAdditionalInstructionAllowed"] span'),
     yesLaabel: this.page.locator('label[for="isAdditionalInstructionAllowed_Yes"]'),
     noLabel: this.page.locator('label[for="isAdditionalInstructionAllowed_No"]'),

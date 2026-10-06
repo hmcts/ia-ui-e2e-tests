@@ -38,7 +38,7 @@ export class RaiseAQueryPage extends ExuiBase {
   readonly $static = {
     caption: this.page.getByText('Raise a query', { exact: true }),
     enterQueryDetailsHeading: this.page.getByRole('heading', { level: 1, name: 'Enter query details', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     subjectHint: this.page.locator('div[id="subject-hint"]'),
     detailHint: this.page.getByText('Include as many details'),
     hearingRelatedLabel: this.page.getByText('Is the query hearing related?', { exact: true }),

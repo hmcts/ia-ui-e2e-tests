@@ -15,7 +15,7 @@ export class PrepareDecisionAndReasonsAnonymityOrderPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Prepare Decision and Reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     givingAnonymityOrderHeading: this.page.getByRole('heading', { level: 3, name: 'Are you giving an anonymity direction?', exact: true }),
     anonymityOrderText: this.page.getByText('Anonymity direction', { exact: true }),
     anonymityOrderYesLabel: this.page.locator('label[for="anonymityOrder_Yes"]'),

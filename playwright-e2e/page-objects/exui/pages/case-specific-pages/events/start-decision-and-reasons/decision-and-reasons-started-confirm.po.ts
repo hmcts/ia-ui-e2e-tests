@@ -12,7 +12,7 @@ export class DecisionAndReasonsStartedConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Start decision and reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     youHaveStartedDecisionAndReasonsProcessHeading: this.page.getByRole('heading', {
       level: 1,
       name: 'You have started the decision and reasons process',

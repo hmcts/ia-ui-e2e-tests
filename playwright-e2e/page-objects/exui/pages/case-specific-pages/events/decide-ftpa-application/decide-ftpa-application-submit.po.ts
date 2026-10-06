@@ -26,8 +26,7 @@ export class DecideFtpaApplicationSubmitPage extends ExuiBase {
       .filter({
         has: this.page.locator('[class*="case-field-label"] span', { hasText: question }),
       })
-      .locator('td ccd-field-read span, td ccd-field-read button')
-      .last();
+      .locator('td ccd-field-read');
   }
 
   public $changeAnswerToQuestionLocator(question: listOfQuestions): Locator {
@@ -36,8 +35,7 @@ export class DecideFtpaApplicationSubmitPage extends ExuiBase {
       .filter({
         has: this.page.locator('[class*="case-field-label"] span', { hasText: question }),
       })
-      .locator('td[class*="change case-field"] span')
-      .last();
+      .locator('td[class*="change case-field"] span', { hasText: 'Change' });
   }
 
   public readonly $interactive = {
@@ -48,25 +46,9 @@ export class DecideFtpaApplicationSubmitPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Decide FTPA application', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     checkYouAnswersHeading: this.page.getByRole('heading', { level: 2, name: 'Check your answers', exact: true }),
     checkInformationCarefullyText: this.page.getByText('Check the information below carefully.', { exact: true }),
-    noticeComunicationTabeleHeading: this.page.locator('[class="complex-panel"]', { hasText: 'Notice communication' }).locator('dt span'),
-    noticeComunicationDocumentRow: this.page
-      .locator('[class="complex-panel"]', { hasText: 'Notice communication' })
-      .locator('th span', { hasText: /^Document$/ }),
-    noticeComunicationDocumentValue: this.page.locator('[class="complex-panel"]', { hasText: 'Notice communication' }).locator('button'),
-    noticeComunicationDocumentDescriptionRow: this.page
-      .locator('[class="complex-panel"]', { hasText: 'Notice communication' })
-      .locator('th span', { hasText: 'Describe the document' }),
-    noticeComunicationDocumentDescriptionValue: this.page
-      .locator('[class="complex-panel"]', { hasText: 'Notice communication' })
-      .locator('tr', { hasText: 'Describe the document' })
-      .locator('td ccd-field-read span'),
-    tickAnyPointsTabeleHeading: this.page.locator('[class="complex-panel"]', { hasText: 'Tick any applicable points' }).locator('dt span'),
-    tickAnyPointsRowItem: this.page
-      .locator('[class="complex-panel"]', { hasText: 'Tick any applicable points' })
-      .locator('table[aria-describedby="multi selection table"] td span'),
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {

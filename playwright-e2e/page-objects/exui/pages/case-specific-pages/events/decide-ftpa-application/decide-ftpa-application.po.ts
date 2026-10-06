@@ -15,7 +15,7 @@ export class DecideFtpaApplicationPage extends ExuiBase {
   public readonly $static = {
     pageHeading: this.page.locator('span', { hasText: 'Decide FTPA application' }),
     applicantHeading: this.page.getByRole('heading', { level: 1, name: 'Applicant', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     applicantTypeLabel: this.page.locator('label[for="ftpaApplicantType"]'),
     applicantTypeHintText: this.page.locator('label[for="ftpaApplicantType"]').locator('+ span'),
     appellantLabel: this.page.locator('label[for="ftpaApplicantType-appellant"]'),

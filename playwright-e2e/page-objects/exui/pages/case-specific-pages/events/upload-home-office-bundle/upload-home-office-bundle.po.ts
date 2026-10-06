@@ -25,7 +25,7 @@ export class UploadHomeOfficeBundlePage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Upload Home Office bundle', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     filesShouldBeHeading: this.page.getByRole('heading', { level: 4, name: 'Files should be:', exact: true }),
     filesShouldBeBulletPoint1: this.page.locator('markdown', { hasText: 'Files should be:' }).locator('li').nth(0),
     filesShouldBeBulletPoint2: this.page.locator('markdown', { hasText: 'Files should be:' }).locator('li').nth(1),

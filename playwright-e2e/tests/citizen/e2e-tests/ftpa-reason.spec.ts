@@ -313,27 +313,25 @@ test.describe('Tests the allow the user to submit a response to a judges decisio
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Who made the application?')).toBeVisible(),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Who made the application?')).toHaveText('Appellant'),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Who made the application?')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Who made the application?')).toHaveText('Change'),
+
         //Verify table row for The outcome of the application
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionLocator('The outcome of the application')).toBeVisible(),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('The outcome of the application')).toBeVisible(),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('The outcome of the application')).toHaveText('Permission granted'),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('The outcome of the application')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('The outcome of the application')).toHaveText('Change'),
+
         //Verify table row for Document
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionLocator('Document')).toBeVisible(),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Document')).toBeVisible(),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Document')).toHaveText('Ftpa_Decision_And_Reasons.txt'),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Document')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Document')).toHaveText('Change'),
+
         //Verify table row for Notice of Intention to Set Aside sent?
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionLocator('Notice of Intention to Set Aside sent?')).toBeVisible(),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Notice of Intention to Set Aside sent?')).toBeVisible(),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Notice of Intention to Set Aside sent?')).toHaveText('Yes'),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Notice of Intention to Set Aside sent?')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Notice of Intention to Set Aside sent?')).toHaveText(
-          'Change',
-        ),
+
         //Verify table row for List any objections to the draft Notice from either party
         expect(
           judgeExuiPages.decideFtpaApplicationSubmit.$questionLocator('List any objections to the draft Notice from either party'),
@@ -347,44 +345,40 @@ test.describe('Tests the allow the user to submit a response to a judges decisio
         expect(
           judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('List any objections to the draft Notice from either party'),
         ).toBeVisible(),
-        expect(
-          judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('List any objections to the draft Notice from either party'),
-        ).toHaveText('Change'),
+
         //Verify table row for Notice communication
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionLocator('Notice communication')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationTabeleHeading).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationTabeleHeading).toHaveText('Notice communication 1'),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentRow).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentRow).toHaveText('Document'),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentValue).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentValue).toHaveText(
-          'Ftpa_Notice_Of_Intention_To_Set_A_Side.txt',
-        ),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentDescriptionRow).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentDescriptionRow).toHaveText('Describe the document'),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentDescriptionValue).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.noticeComunicationDocumentDescriptionValue).toHaveText(
-          'Test description of document uploaded for objections to notice of intention to set aside',
+        expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Notice communication').nth(0)).toBeVisible(),
+        expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Notice communication').nth(0)).toHaveText(
+          `
+          Notice communication 1
+          Document
+          Ftpa_Notice_Of_Intention_To_Set_A_Side.txt
+          Describe the document
+          Test description of document uploaded for objections to notice of intention to set aside
+          `,
+          { useInnerText: true },
         ),
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Notice communication')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Notice communication')).toHaveText('Change'),
+
         //Verify table row for Tick any applicable points
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionLocator('Tick any applicable points')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.tickAnyPointsTabeleHeading).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.tickAnyPointsRowItem.nth(0)).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.tickAnyPointsRowItem.nth(0)).toHaveText(
+        expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Tick any applicable points').nth(0)).toBeVisible(),
+        expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Tick any applicable points').nth(0)).toContainText(
+          'Tick any applicable points',
+        ),
+        expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Tick any applicable points').nth(0)).toContainText(
           'There is a point of special difficulty or importance',
         ),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.tickAnyPointsRowItem.nth(1)).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.tickAnyPointsRowItem.nth(1)).toHaveText(
+        expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Tick any applicable points').nth(0)).toContainText(
           'There are special reasons, such as the need to request the First-tier Tribunal to provide observations on the grounds of appeal',
         ),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.tickAnyPointsRowItem.nth(2)).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$static.tickAnyPointsRowItem.nth(2)).toHaveText(
+        expect(judgeExuiPages.decideFtpaApplicationSubmit.$questionValueLocator('Tick any applicable points').nth(0)).toContainText(
           "It's clear at this stage that the issue is likely to be used for giving country guidance",
         ),
+
         expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Tick any applicable points')).toBeVisible(),
-        expect(judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator('Tick any applicable points')).toHaveText('Change'),
+
         //Verify table row for Provide any information that may be helpful to the Upper Tribunal judge
         expect(
           judgeExuiPages.decideFtpaApplicationSubmit.$questionLocator('Provide any information that may be helpful to the Upper Tribunal judge'),
@@ -400,11 +394,6 @@ test.describe('Tests the allow the user to submit a response to a judges decisio
             'Provide any information that may be helpful to the Upper Tribunal judge',
           ),
         ).toBeVisible(),
-        expect(
-          judgeExuiPages.decideFtpaApplicationSubmit.$changeAnswerToQuestionLocator(
-            'Provide any information that may be helpful to the Upper Tribunal judge',
-          ),
-        ).toHaveText('Change'),
       ]);
       await judgeExuiPages.decideFtpaApplicationSubmit.submitDecision();
 

@@ -12,7 +12,7 @@ export class ListCaseConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'List the case', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     youHaveListedTheCaseHeading: this.page.getByRole('heading', { level: 1, name: 'You have listed the case', exact: true }),
     whatHappensNextHeading: this.page.getByRole('heading', { level: 4, name: 'What happens next', exact: true }),
     whatHappensNextParagraph: this.page.locator('markdown', { hasText: 'What happens next' }).locator('p'),

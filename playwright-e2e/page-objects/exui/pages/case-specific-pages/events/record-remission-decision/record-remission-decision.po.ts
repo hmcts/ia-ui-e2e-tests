@@ -15,7 +15,7 @@ export class RecordRemissionDecisionPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Record remission decision', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     decisionLabel: this.page.locator('label[for="remissionDecision"]'),
     approvedLabel: this.page.locator('label[for*="approved"]'),
     partiallyApprovedLabel: this.page.locator('label[for*="partiallyApproved"]'),

@@ -12,7 +12,7 @@ export class GenerateUpperTribunalBundleConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Generate Upper Tribunal bundle', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     bundleIsBeingGeneratedHeading: this.page.getByRole('heading', { level: 1, name: 'The Upper Tribunal bundle is being generated', exact: true }),
     whatHappensNextHeading: this.page.getByRole('heading', { level: 4, name: 'What happens next', exact: true }),
     whatHappensNextParagraph: this.page.locator('markdown', { hasText: 'What happens next' }).locator('p'),

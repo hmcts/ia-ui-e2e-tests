@@ -27,7 +27,7 @@ export class DecideFtpaApplicationAppellantDecisionReasonNotesPage extends ExuiB
   public readonly $static = {
     pageHeading: this.page.locator('span', { hasText: 'Decide FTPA application' }),
     notesForUpperTribunalLevel1Heading: this.page.getByRole('heading', { level: 1, name: 'Notes for the Upper Tribunal', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     notesForUpperTribunalLevel4Heading: this.page.getByRole('heading', { level: 4, name: 'Notes for the Upper Tribunal', exact: true }),
     notesForUpperTribunalParagraph: this.page.locator('h4', { hasText: 'Notes for the Upper Tribunal' }).locator('+ p'),
     tickAnyApplicablePointsHeading: this.page.getByRole('heading', { level: 2, name: 'Tick any applicable points (Optional)', exact: true }),

@@ -12,7 +12,7 @@ export class RequestHomeOfficeDataConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Request Home Office data', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     youHaveMatchedAppellantDetailsHeading: this.page.getByRole('heading', { level: 1, name: 'You have matched the appellant details', exact: true }),
     doThisNextHeading: this.page.getByRole('heading', { level: 4, name: 'Do this next', exact: true }),
     doThisNextParagrapgh: this.page.locator('markdown', { hasText: 'Do this next' }).locator('p'),

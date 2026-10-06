@@ -12,7 +12,7 @@ export class DecideFtpaApplicationConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Decide FTPA application', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     youHaveRecordedDecisionHeading: this.page.getByRole('heading', {
       level: 1,
       name: "You've recorded the First-tier permission to appeal decision",
