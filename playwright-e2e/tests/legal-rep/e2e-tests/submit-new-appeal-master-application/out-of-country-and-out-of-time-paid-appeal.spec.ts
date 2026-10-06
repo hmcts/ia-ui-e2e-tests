@@ -203,11 +203,13 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
         dynamicTestData.outOfTimeDecisionDate.month - 1,
         dynamicTestData.outOfTimeDecisionDate.day,
       );
-      const formattedEntryClearanceDecisionDate = entryClearanceDecisionDate.toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      }).replace('Sept', 'Sep');
+      const formattedEntryClearanceDecisionDate = entryClearanceDecisionDate
+        .toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        })
+        .replace('Sept', 'Sep');
 
       await Promise.all([
         expect(exui_pages.startAppealSubmit.$questionLocator('Is the appellant currently living in the United Kingdom?')).toBeVisible(),
@@ -287,6 +289,8 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
         expect(exui_pages.startAppealSubmit.$questionValueLocator('Select at least one of the options below').nth(0)).toHaveText(
           `
           Select at least one of the options below
+          Multi selection table
+          Value
           Removing the appellant from the UK would breach the UK's obligation in relation to persons eligible for a grant of humanitarian protection
           Removing the appellant from the UK would breach the UK's obligation under the Refugee Convention
           `,
@@ -299,6 +303,8 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
         expect(exui_pages.startAppealSubmit.$questionValueLocator('Check the box if this statement also applies').nth(0)).toHaveText(
           `
           Check the box if this statement also applies
+          Multi selection table
+          Value          
           Removing the appellant from the UK would be unlawful under section 6 of the Human Rights Act 1998
           `,
           { useInnerText: true },

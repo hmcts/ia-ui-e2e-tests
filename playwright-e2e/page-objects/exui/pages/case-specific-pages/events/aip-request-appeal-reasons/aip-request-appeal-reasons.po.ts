@@ -22,7 +22,7 @@ export class AipRequestAppealReasonsPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'AiP - Request Appeal Reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     explinationOfDirectionLabel: this.page.locator('[field_id="sendDirectionExplanation"] [class="case-field__label"]'),
     explinationOfDirectionValue: this.page.locator('[field_id="sendDirectionExplanation"] [class="case-field__value"]'),
     whoToSendDirectionToLabel: this.page.locator('[field_id="sendDirectionParties"] [class="case-field__label"]'),

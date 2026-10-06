@@ -35,7 +35,7 @@ export class ReviewHearingRequirementsPersonalVulnerabilitiesPage extends ExuiBa
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Review hearing requirements', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     additionalAdjustmentsHeading: this.page.getByRole('heading', { level: 2, name: 'Additional adjustments', exact: true }),
     addtionalAdjustmentsParagraph: this.page.locator('[id="additionalAdjustmentsDescription"] p'),
     adjustmentRequestHeading: this.page.getByRole('heading', { level: 2, name: 'Adjustment request', exact: true }),

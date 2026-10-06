@@ -14,7 +14,7 @@ export class CompleteDecisionAndReasonsPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Complete decision and reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     whatIsYourDecisionHeading: this.page.getByRole('heading', { level: 2, name: 'What is your decision?', exact: true }),
     whatIsYourDecisionParagraph: this.page.locator('markdown', { hasText: 'What is your decision?' }).locator('p'),
     decisionLabel: this.page.locator('label[for="isDecisionAllowed"]'),

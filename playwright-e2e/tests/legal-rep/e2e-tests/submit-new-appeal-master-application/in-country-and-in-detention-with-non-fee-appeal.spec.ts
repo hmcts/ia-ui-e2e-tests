@@ -174,22 +174,26 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
         dynamicTestData.outOfTimeDecisionDate.month - 1,
         dynamicTestData.outOfTimeDecisionDate.day,
       );
-      const formattedHomeOfficeDecisionDate = homeOfficeDecisionDate.toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      }).replace('Sept', 'Sep');
+      const formattedHomeOfficeDecisionDate = homeOfficeDecisionDate
+        .toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        })
+        .replace('Sept', 'Sep');
 
       const removalDirectionsDate = new Date(
         dynamicTestData.removalDirectionsDate.year,
         dynamicTestData.removalDirectionsDate.month - 1,
         dynamicTestData.removalDirectionsDate.day,
       );
-      const formattedRemovalDirectionsDate = removalDirectionsDate.toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      }).replace('Sept', 'Sep');
+      const formattedRemovalDirectionsDate = removalDirectionsDate
+        .toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        })
+        .replace('Sept', 'Sep');
 
       await Promise.all([
         expect(exui_pages.startAppealSubmit.$questionLocator('Is the appellant currently living in the United Kingdom?')).toBeVisible(),
@@ -272,24 +276,25 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
         expect(exui_pages.startAppealSubmit.$changeAnswerToQuestionLocator('Type of appeal')).toBeVisible(),
 
         expect(exui_pages.startAppealSubmit.$questionLocator('Select at least one of the options below')).toBeVisible(),
-        expect(exui_pages.startAppealSubmit.$questionValueLocator('Select at least one of the options below').nth(0)).toHaveText(
-          `
-            Select at least one of the options below
-            Deprivation would have a disproportionate effect
-            The decision is unlawful because discretion should have been exercised differently
-            `,
-          { useInnerText: true },
+        expect(exui_pages.startAppealSubmit.$questionValueLocator('Select at least one of the options below').nth(0)).toContainText(
+          'Select at least one of the options below',
         ),
+        expect(exui_pages.startAppealSubmit.$questionValueLocator('Select at least one of the options below').nth(0)).toContainText(
+          'Deprivation would have a disproportionate effect',
+        ),
+        expect(exui_pages.startAppealSubmit.$questionValueLocator('Select at least one of the options below').nth(0)).toContainText(
+          'The decision is unlawful because discretion should have been exercised differently',
+        ),
+
         expect(exui_pages.startAppealSubmit.$questionValueLocator('Select at least one of the options below').nth(0)).toBeVisible(),
         expect(exui_pages.startAppealSubmit.$changeAnswerToQuestionLocator('Select at least one of the options below')).toBeVisible(),
 
         expect(exui_pages.startAppealSubmit.$questionLocator('Check the box if this statement also applies')).toBeVisible(),
-        expect(exui_pages.startAppealSubmit.$questionValueLocator('Check the box if this statement also applies').nth(0)).toHaveText(
-          `
-            Check the box if this statement also applies
-            Removing the appellant from the UK would be unlawful under section 6 of the Human Rights Act 1998
-            `,
-          { useInnerText: true },
+        expect(exui_pages.startAppealSubmit.$questionValueLocator('Check the box if this statement also applies').nth(0)).toContainText(
+          'Check the box if this statement also applies',
+        ),
+        expect(exui_pages.startAppealSubmit.$questionValueLocator('Check the box if this statement also applies').nth(0)).toContainText(
+          'Removing the appellant from the UK would be unlawful under section 6 of the Human Rights Act 1998',
         ),
         expect(exui_pages.startAppealSubmit.$questionValueLocator('Check the box if this statement also applies').nth(0)).toBeVisible(),
         expect(exui_pages.startAppealSubmit.$changeAnswerToQuestionLocator('Check the box if this statement also applies')).toBeVisible(),

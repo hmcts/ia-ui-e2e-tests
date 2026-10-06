@@ -12,7 +12,7 @@ export class GenerateServiceRequestConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Create a service request', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     serviceRequestCreatedHeading: this.page.getByRole('heading', {
       level: 1,
       name: 'You have created a service request',

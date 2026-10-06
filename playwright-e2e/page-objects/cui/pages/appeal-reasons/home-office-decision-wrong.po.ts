@@ -45,7 +45,7 @@ export class HomeOfficeDecisionWrongPage extends CuiBase {
   public async verifyAllTextOnPage(): Promise<void> {
     await Promise.all([
       expect(this.$static.helpfulInformationText).toHaveText(
-        'It may be helpful to look at the Home Office documents (opens in a new window). They include your decision letter and other information about your case.',
+        'It may be helpful to look at the Home Office documents (opens in a new tab). They include your decision letter and other information about your case.',
       ),
       expect(this.$static.helpfulInformationText).toBeVisible(),
 

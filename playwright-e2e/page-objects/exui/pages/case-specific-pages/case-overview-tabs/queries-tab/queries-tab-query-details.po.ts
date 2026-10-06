@@ -23,7 +23,7 @@ export class QueriesTabQueryDetailsPage extends CaseOverViewBase {
   } as const satisfies Record<string, Locator>;
 
   public readonly $static = {
-    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    pageHeading: this.$commonElements.caseRecordHeading,
     queryDetailsCaption: this.page.locator('table[aria-describedby="Details of the query"] caption').getByText('Query details', { exact: true }),
     responseCaption: this.page.locator('table[aria-describedby="Response of the query"] caption').getByText('Response', { exact: true }),
     theQueryHasBeenClosedText: this.page.getByText('This query has been closed by HMCTS staff.', { exact: true }),

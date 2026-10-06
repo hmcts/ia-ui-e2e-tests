@@ -18,7 +18,7 @@ export class DecisionAndReasonsStartedAppellantSummaryPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Start decision and reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     addAppellantCaseSummaryHeading: this.page.getByRole('heading', { level: 2, name: "Add the appellant's case summary", exact: true }),
     addAppellantCaseSummaryParagrapgh: this.page.locator('markdown', { hasText: "Add the appellant's case summary" }).locator('p'),
     appellantCaseSummaryLabel: this.page.locator('label[for="appellantCaseSummaryDescription"]'),

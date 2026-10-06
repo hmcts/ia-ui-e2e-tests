@@ -15,7 +15,7 @@ export class DecisionAndReasonsStartedScheduleOfIssuesPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Start decision and reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     doBothPartiesAgreeToScheduleOfIssuesText: this.page.getByText('Do both parties agree the schedule of issues?', { exact: true }),
     scheduleOfIssuesYesLabel: this.page.locator('label[for="scheduleOfIssuesAgreement_Yes"]'),
     scheduleOfIssuesNoLabel: this.page.locator('label[for="scheduleOfIssuesAgreement_No"]'),

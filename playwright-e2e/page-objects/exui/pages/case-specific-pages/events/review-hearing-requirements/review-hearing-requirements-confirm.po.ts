@@ -12,7 +12,7 @@ export class ReviewHearingRequirementsConfirmPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Review hearing requirements', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     youHaveSentDrirectionHeading: this.page.getByRole('heading', { level: 1, name: "You've recorded the agreed hearing adjustments", exact: true }),
     whatHappensNextHeading: this.page.getByRole('heading', { level: 4, name: 'What happens next', exact: true }),
     whatHappensNextParagraph: this.page.locator('markdown', { hasText: 'What happens next' }).locator('p'),

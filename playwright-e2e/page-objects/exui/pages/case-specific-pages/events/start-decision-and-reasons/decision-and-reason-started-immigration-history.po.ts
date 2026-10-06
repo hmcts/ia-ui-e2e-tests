@@ -15,7 +15,7 @@ export class DecisionAndReasonsStartedImmigrationHistoryPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Start decision and reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     doBothPartiesAgreeToImmigrationHistoryText: this.page.getByText('Do both parties agree the immigration history?', { exact: true }),
     immigrationHistoryYesLabel: this.page.locator('label[for="immigrationHistoryAgreement_Yes"]'),
     immigrationHistoryNoLabel: this.page.locator('label[for="immigrationHistoryAgreement_No"]'),

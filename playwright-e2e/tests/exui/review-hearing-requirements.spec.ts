@@ -404,14 +404,14 @@ test.describe('Set of tests to verify case officer is able to review hearing req
         expect(exui_pages.reviewHearingRequirementsSubmit.$changeAnswerToQuestionLocator('Additional Instructions')).toHaveText('Change'),
       ]);
 
-      /*       await exui_pages.reviewHearingRequirementsSubmit.submitEvent();
+      await exui_pages.reviewHearingRequirementsSubmit.submitEvent();
 
       await exui_pages.reviewHearingRequirementsConfirm.verifyUserIsOnPage();
       await exui_pages.reviewHearingRequirementsConfirm.verifyAllTextOnPage();
-      await exui_pages.reviewHearingRequirementsConfirm.returnToCaseDetails(); */
+      await exui_pages.reviewHearingRequirementsConfirm.returnToCaseDetails();
     });
 
-    /*     await test.step('Verify correct next steps are displayed once event has been submitted', async () => {
+    await test.step('Verify correct next steps are displayed once event has been submitted', async () => {
       await exui_pages.caseOverview.verifyUserIsOnPage({});
       await exui_pages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Review hearing requirements' });
 
@@ -423,6 +423,6 @@ test.describe('Set of tests to verify case officer is able to review hearing req
         expect(exui_pages.caseOverview.$static.whatHappensNextParagraph.nth(0)).toContainText('The listing team will now list the case.'),
         expect(exui_pages.caseOverview.$static.whatHappensNextParagraph.nth(0)).toBeVisible(),
       ]);
-    }); */
+    });
   });
 });

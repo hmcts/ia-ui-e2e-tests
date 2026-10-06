@@ -23,7 +23,7 @@ export class RequestRespondentEvidencePage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Request respondent evidence', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     requestRespondentEvidenceParagrapgh1: this.page.locator('[field_id="requestRespondentEvidenceTitle"] p').nth(0),
     explinationOfDirectionLabel: this.page.locator('label[for="sendDirectionExplanation"]'),
     whoToSendDirectionToLabel: this.page.locator('[field_id="sendDirectionParties"] [class="case-field__label"]'),

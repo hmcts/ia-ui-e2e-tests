@@ -21,7 +21,7 @@ export class ValidationPage extends CaseOverViewBase {
   }
 
   public readonly $static = {
-    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    pageHeading: this.$commonElements.caseRecordHeading,
     serviceHasBeenUnableToRetrieveDataText: this.page.getByText('Note: The service has been unable to retrieve the Home Office information'),
     doThisNextHeading: this.page.getByRole('heading', { level: 2, name: 'Do this next', exact: true }),
     doThisNextBuletPoints: this.page.getByRole('heading', { level: 2, name: 'Do this next', exact: true }).locator('+ ul li'),

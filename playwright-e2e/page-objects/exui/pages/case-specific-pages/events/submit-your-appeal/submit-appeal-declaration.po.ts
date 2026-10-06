@@ -18,7 +18,7 @@ export class SubmitAppealDeclarationPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Declaration', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     declarationCheckboxLabel: this.page.locator('label[for="legalRepDeclaration-hasDeclared"]'),
     paymentNextStepHeading: this.page.locator('[field_id="legalRepDirectionToPayHeader"] h3'),
     paymentDescription: this.page.locator('[field_id="legalRepDirectionToPayDescription"] p'),

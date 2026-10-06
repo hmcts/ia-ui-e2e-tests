@@ -16,7 +16,7 @@ export class RequestHomeOfficeDataPage extends ExuiBase {
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Match appellant details', exact: true }),
     requestHomeOfficeDataSubHeading: this.page.locator('span', { hasText: 'Request Home Office data' }).last(),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     reviewTheDetailsSubmittedText: this.page.locator('[id="hoAppellantDetailsNotFoundAdvice"] p'),
     appellantDetailsHeading: this.page.getByRole('heading', { level: 2, name: 'Appellant details', exact: true }),
     appellantNameLabel: this.page.locator('[field_id="appellantFullName"] [class="case-field__label"]'),

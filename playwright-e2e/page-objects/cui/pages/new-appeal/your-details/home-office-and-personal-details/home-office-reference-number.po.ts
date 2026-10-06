@@ -21,11 +21,7 @@ export class HomeOfficeReferenceNumberPage extends CuiBase {
       hasText: 'What is your Home Office reference number?',
     }),
     howToFindReferenceHeading: this.page.getByRole('heading', { level: 2, name: 'reference number' }),
-    howToFindInstructionOne: this.page.locator('ul[class*="govuk-list"] li').nth(0),
-    howToFindInstructionTwo: this.page.locator('ul[class*="govuk-list"] li').nth(1),
-    howToFindInstructionThree: this.page.locator('ul[class*="govuk-list"] li').nth(2),
-    howToFindInstructionFour: this.page.locator('ul[class*="govuk-list"] li').nth(3),
-    homeOfficeContactDetails: this.page.getByText('Call the Home Office on'),
+    howToFindRefenceInstructions: this.page.getByRole('heading', { level: 2, name: 'reference number' }).locator('+ ul'),
     enterReferenceLabel: this.page.locator('label[for="homeOfficeRefNumber"]'),
   } as const satisfies Record<string, Locator>;
 
@@ -38,28 +34,15 @@ export class HomeOfficeReferenceNumberPage extends CuiBase {
       expect(this.$static.howToFindReferenceHeading).toHaveText('How to find your Office reference number'),
       expect(this.$static.howToFindReferenceHeading).toBeVisible(),
 
-      expect(this.$static.howToFindInstructionOne).toHaveText(
-        'Your Home Office reference number is usually on the first page of your Home Office decision letter',
+      expect(this.$static.howToFindRefenceInstructions).toBeVisible(),
+      expect(this.$static.howToFindRefenceInstructions).toHaveText(
+        `
+        You should enter the reference number exactly as it appears on the decision letter. This can often be found in the 'How to appeal' section.
+        Your UAN reference will be a 16-digit number, for example 1234-1234-1234-1234; you should include all the numbers with the dashes as they appear
+        Your GWF reference will be a 9-digit number starting with GWF, for example GWF123456789
+        `,
+        { useInnerText: true },
       ),
-      expect(this.$static.howToFindInstructionOne).toBeVisible(),
-
-      expect(this.$static.howToFindInstructionTwo).toHaveText(
-        'It is usually either 9 numbers or 16 numbers with dashes, for example 123456789 or 1234-1234-1234-1234',
-      ),
-      expect(this.$static.howToFindInstructionTwo).toBeVisible(),
-
-      expect(this.$static.howToFindInstructionThree).toHaveText(
-        'If your letter includes a reference with 8 numbers, like 98765432, add 0 to the start and enter that number, for example 098765432',
-      ),
-      expect(this.$static.howToFindInstructionThree).toBeVisible(),
-
-      expect(this.$static.howToFindInstructionFour).toHaveText('Do not enter any reference that includes a letter, for example A246893521'),
-      expect(this.$static.howToFindInstructionFour).toBeVisible(),
-
-      expect(this.$static.homeOfficeContactDetails).toHaveText(
-        'Call the Home Office on +44 (0)161 877 5919 (9am-3pm, Monday to Friday) if you cannot find the correct number.',
-      ),
-      expect(this.$static.homeOfficeContactDetails).toBeVisible(),
 
       expect(this.$static.enterReferenceLabel).toHaveText('Enter your Home Office reference number'),
       expect(this.$static.enterReferenceLabel).toBeVisible(),

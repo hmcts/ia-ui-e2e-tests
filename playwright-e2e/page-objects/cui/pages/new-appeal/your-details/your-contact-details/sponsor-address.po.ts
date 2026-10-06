@@ -42,7 +42,7 @@ export class SponsorAddressPage extends CuiBase {
       expect(this.$static.townOrCityLabel).toHaveText('Town or city'),
       expect(this.$static.townOrCityLabel).toBeVisible(),
 
-      expect(this.$static.countyLabel).toHaveText('County'),
+      expect(this.$static.countyLabel).toHaveText('County (optional)'),
       expect(this.$static.countyLabel).toBeVisible(),
 
       expect(this.$static.postCodeLabel).toHaveText('Postcode'),

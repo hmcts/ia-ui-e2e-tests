@@ -18,7 +18,7 @@ export class DecideFtpaApplicationDecisionAndReasonsDocumentPage extends ExuiBas
 
   public readonly $static = {
     pageHeading: this.page.locator('span', { hasText: 'Decide FTPA application' }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     ftpaDecisionAndReasonsHeading: this.page.getByRole('heading', { level: 1, name: 'FTPA Decision and Reasons', exact: true }),
     adviceOnUploadsHeading: this.page.getByRole('heading', { level: 4, name: 'Advice on uploads', exact: true }),
     adviceOnUploadsBulletPoints: this.page.locator('markdown', { hasText: 'Advice on uploads' }).locator('li'),

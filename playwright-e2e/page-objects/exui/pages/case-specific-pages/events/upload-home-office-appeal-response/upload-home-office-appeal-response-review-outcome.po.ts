@@ -15,7 +15,7 @@ export class UploadHomeOfficeAppealResponseReviewOutcomePage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Upload the appeal response', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     whatWasOutcomeOfReviewHeading: this.page.getByRole('heading', { level: 1, name: 'What was the outcome of the review?' }),
     outcomeLabel: this.page.locator('label[for="appealReviewOutcome"]'),
     decisionMaintainedLabel: this.page.locator('label[for="appealReviewOutcome-decisionMaintained"]'),

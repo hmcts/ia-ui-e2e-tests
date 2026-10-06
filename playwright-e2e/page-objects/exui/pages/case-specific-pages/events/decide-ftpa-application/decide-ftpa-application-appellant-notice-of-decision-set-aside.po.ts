@@ -28,7 +28,7 @@ export class DecideFtpaApplicationAppellantNoticeOfDecisionSetAsidePage extends 
   public readonly $static = {
     pageHeading: this.page.locator('span', { hasText: 'Decide FTPA application' }),
     rule35ObjectionHeading: this.page.getByRole('heading', { level: 1, name: 'Rule 35 objection - Resident Judge only', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     noticeOfItentionLabel: this.page.locator('[id="isFtpaAppellantNoticeOfDecisionSetAside"] span[class*="form-label"]'),
     noticeOfIntentionHintText: this.page.locator('[id="isFtpaAppellantNoticeOfDecisionSetAside"] span[class*="form-hint"]'),
     yesLabel: this.page.locator('label[for$="Yes"]'),

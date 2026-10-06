@@ -23,7 +23,7 @@ export class SubmitAppealSubmissionOutOfTimePage extends ExuiBase {
   public readonly $static = {
     pageCaption: this.page.locator('span.govuk-caption-l', { hasText: 'Submit your appeal' }),
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'The appeal is out of time', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     outOfTimeGuidanceParagraph: this.page.locator('#applicationOutOfTimeText p'),
     reasonsAppealLateLabel: this.page.locator('label[for="applicationOutOfTimeExplanation"] .form-label'),
   } as const satisfies Record<string, Locator>;

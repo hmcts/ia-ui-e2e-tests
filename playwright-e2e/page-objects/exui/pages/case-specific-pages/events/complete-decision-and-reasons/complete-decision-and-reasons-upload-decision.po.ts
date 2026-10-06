@@ -20,7 +20,7 @@ export class CompleteDecisionAndReasonsUploadDecisionPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Complete decision and reasons', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     uploadDecisionAndReasonsHeading: this.page.getByRole('heading', { level: 2, name: 'Upload your decision and reasons as a PDF', exact: true }),
     decisionAndReasonsLabel: this.page.locator('label[for="finalDecisionAndReasonsDocument"]'),
     importantText: this.page.getByText('IMPORTANT:', { exact: true }),

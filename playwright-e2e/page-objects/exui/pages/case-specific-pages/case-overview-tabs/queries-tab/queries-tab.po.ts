@@ -17,7 +17,7 @@ export class QueriesTabPage extends CaseOverViewBase {
   } as const satisfies Record<string, Locator>;
 
   public readonly $static = {
-    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    pageHeading: this.$commonElements.caseRecordHeading,
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {

@@ -15,7 +15,7 @@ export class RequestHomeOfficeDataSubmitPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Request Home Office data', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     checkYourAnswersHeading: this.page.getByRole('heading', { level: 2, name: 'Check your answers', exact: true }),
     checkInformationText: this.page.getByText('Check the information below carefully.', { exact: true }),
     makeASelectionQuestion: this.page.getByText('Make a selection', { exact: true }),

@@ -15,7 +15,7 @@ export class ReviewHearingRequirementsHearingChannelPage extends ExuiBase {
 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Review hearing requirements', exact: true }),
-    caseRecordHeading: this.page.getByRole('heading', { level: 1, name: 'Case record for' }),
+    caseRecordHeading: this.$commonElements.caseRecordHeading,
     hearingChannelLabel: this.page.locator('label[for="hearingChannel"]'),
     inPersonLabel: this.page.locator('label[for="hearingChannel_INTER"]'),
     notInAttendanceLabel: this.page.locator('label[for="hearingChannel_NA"]'),

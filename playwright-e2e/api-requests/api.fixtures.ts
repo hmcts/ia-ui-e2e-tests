@@ -27,13 +27,19 @@ export const apiFixtures = {
   },
   exui_apiContext: async ({ config }: UtilsFixtures, use) => {
     const apiContext = new ApiContext();
+    const contexts: APIRequestContext[] = [];
 
     await use(async (userRole: ExuiUserRole): Promise<APIRequestContext> => {
       const roleContext = await apiContext.createExuiApiContext({
         userSessionFile: config.exuiUsers[userRole].sessionFile,
       });
+
+      contexts.push(roleContext);
+
       return roleContext;
     });
+
+    await Promise.all(contexts.map((context) => context.dispose()));
   },
   exui_caseOfficerApiClient: async ({ exui_apiContext }: ApiFixtures, use) => {
     const apiContext = await exui_apiContext('caseOfficer');
