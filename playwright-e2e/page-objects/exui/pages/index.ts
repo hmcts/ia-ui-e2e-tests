@@ -4,6 +4,7 @@ export * from './case-specific-pages/case-overview.po';
 export * from './new-appeal/create-case.po';
 export * from './new-appeal/start-appeal-appeal-type.po';
 export * from './new-appeal/start-appeal-appeal-grounds-human-rights-refusal.po';
+export * from './events/stf/add-stf.po.ts';
 export * from './new-appeal/start-appeal-appeal-grounds-eu-refusal.po';
 export * from './new-appeal/start-appeal-appeal-grounds-deprivation.po';
 export * from './new-appeal/start-appeal-appeal-grounds-protection.po';

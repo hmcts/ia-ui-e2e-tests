@@ -27,6 +27,7 @@ type DropdownEventTypes =
   | 'Submit your appeal'
   | 'Create a service request'
   | 'Complete case review'
+  | 'Add Statutory Timeframe'
   | 'Raise Query';
 
 type CaseOverviewTabsType =

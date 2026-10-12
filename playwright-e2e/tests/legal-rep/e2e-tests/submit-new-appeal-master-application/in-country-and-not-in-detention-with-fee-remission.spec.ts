@@ -1,5 +1,7 @@
 import { test, expect } from '../../../../fixtures.js';
 import { config } from '../../../../utils/config.utils.js';
+import { CaseOverviewPage } from '../../../../page-objects/exui/pages/case-specific-pages/case-overview.po.js';
+import { addStf } from '../../../../page-objects/exui/pages/events/stf/add-stf.po.js';
 
 test.describe('Tests to verify legal rep is able to submit new appeal on exui', { tag: ['@e2e'] }, () => {
   test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
@@ -7,7 +9,10 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
   test('Verify legal rep user is able to submit in country appeal whilst not in detention that has no sponsor, the appeal is in time with fee remission', async ({
     exui_pages,
     dataUtils,
+    newBrowserContextAndPage,
   }) => {
+    let appealSubmissionDate: { day: number; month: number; year: number };
+
     await test.step('Navigate to create case page', async () => {
       await exui_pages.createCase.goTo();
       await exui_pages.createCase.verifyAllTextOnPage();
@@ -413,6 +418,7 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
 
       await exui_pages.submitAppealDeclaration.verifyUserIsOnPage();
       await exui_pages.submitAppealDeclaration.verifyAllTextOnPage();
+      appealSubmissionDate = await dataUtils.getDateFromToday({});
       await exui_pages.submitAppealDeclaration.submitAppeal({ hasFeeToPay: false });
 
       await exui_pages.submitAppealConfirm.verifyUserIsOnPage();
@@ -439,6 +445,25 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
         ),
         expect(exui_pages.caseOverview.$static.doThisNextParagraph).toBeVisible(),
       ]);
+
+      const caseOfficerPage = await newBrowserContextAndPage({ user: 'caseOfficer' });
+      await caseOfficerPage.goto(exui_pages.caseOverview.page.url());
+
+      const caseOfficerCaseOverview = new CaseOverviewPage(caseOfficerPage);
+      await caseOfficerCaseOverview.verifyUserIsOnPage({});
+      await caseOfficerCaseOverview.selectEventFromDropdown({ eventToSelect: 'Add Statutory Timeframe' });
+
+      const caseOfficerAddStf = new addStf(caseOfficerPage);
+      await caseOfficerAddStf.submitEvent();
+      await caseOfficerCaseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Add Statutory Timeframe' });
+      const expectedStfDateValue = new Date(appealSubmissionDate.year, appealSubmissionDate.month - 1, appealSubmissionDate.day);
+      expectedStfDateValue.setDate(expectedStfDateValue.getDate() + 24 * 7);
+      const expectedStfDate = `${expectedStfDateValue.getDate()} ${expectedStfDateValue.toLocaleString('en-GB', {
+        month: 'short',
+      })} ${expectedStfDateValue.getFullYear()}`;
+      await expect(caseOfficerCaseOverview.$static.confirmStfCase).toHaveText(
+        `24 Week STF (${expectedStfDate})`,
+      );
     });
   });
 });

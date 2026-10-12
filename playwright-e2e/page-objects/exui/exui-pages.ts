@@ -5,6 +5,7 @@ import {
   CaseOverviewPage,
   CreateCasePage,
   StartAppealAppealTypePage,
+  addStf,
   StartAppealAppealGroundsHumanRightsRefusalPage,
   StartAppealAppealGroundsEuRefusalPage,
   StartAppealAppealGroundsDeprivationPage,
