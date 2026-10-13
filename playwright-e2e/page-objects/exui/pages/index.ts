@@ -114,6 +114,9 @@ export * from './case-specific-pages/events/complete-case-review/complete-case-r
 export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame.po';
 export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame-submit.po';
 export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame-confirm.po';
+export * from './case-specific-pages/events/remove-statutory-timeframe/remove-statutory-timeframe.po';
+export * from './case-specific-pages/events/remove-statutory-timeframe/remove-statutory-timeframe-submit.po';
+export * from './case-specific-pages/events/remove-statutory-timeframe/remove-statutory-timeframe-confirm.po';
 export * from './case-specific-pages/events/generate-hearing-bundle/generate-hearing-bundle.po';
 export * from './case-specific-pages/events/generate-hearing-bundle/generate-hearing-bundle-confirm.po';
 export * from './case-specific-pages/events/start-decision-and-reasons/start-decision-and-reasons.po';

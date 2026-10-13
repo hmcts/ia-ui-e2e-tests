@@ -116,6 +116,9 @@ import {
   AddStatutoryTimeFramePage,
   AddStatutoryTimeFrameSubmitPage,
   AddStatutoryTimeFrameConfirmPage,
+  RemoveStatutoryTimeframePage,
+  RemoveStatutoryTimeframeSubmitPage,
+  RemoveStatutoryTimeFrameConfirmPage,
   GenerateHearingBundlePage,
   GenerateHearingBundleConfirmPage,
   StartDecisionAndReasonsPage,
@@ -283,6 +286,9 @@ export class ExuiPages {
   public readonly addStatutoryTimeFrame: AddStatutoryTimeFramePage;
   public readonly addStatutoryTimeFrameSubmit: AddStatutoryTimeFrameSubmitPage;
   public readonly addStatutoryTimeFrameConfirm: AddStatutoryTimeFrameConfirmPage;
+  public readonly removeStatutoryTimeframe: RemoveStatutoryTimeframePage;
+  public readonly removeStatutoryTimeframeSubmit: RemoveStatutoryTimeframeSubmitPage;
+  public readonly removeStatutoryTimeFrameConfirm: RemoveStatutoryTimeFrameConfirmPage;
   public readonly generateHearingBundle: GenerateHearingBundlePage;
   public readonly generateHearingBundleConfirm: GenerateHearingBundleConfirmPage;
   public readonly startDecisionAndReasons: StartDecisionAndReasonsPage;
@@ -448,6 +454,9 @@ export class ExuiPages {
     this.addStatutoryTimeFrame = new AddStatutoryTimeFramePage(this.page);
     this.addStatutoryTimeFrameSubmit = new AddStatutoryTimeFrameSubmitPage(this.page);
     this.addStatutoryTimeFrameConfirm = new AddStatutoryTimeFrameConfirmPage(this.page);
+    this.removeStatutoryTimeframe = new RemoveStatutoryTimeframePage(this.page);
+    this.removeStatutoryTimeframeSubmit = new RemoveStatutoryTimeframeSubmitPage(this.page);
+    this.removeStatutoryTimeFrameConfirm = new RemoveStatutoryTimeFrameConfirmPage(this.page);
     this.generateHearingBundle = new GenerateHearingBundlePage(this.page);
     this.generateHearingBundleConfirm = new GenerateHearingBundleConfirmPage(this.page);
     this.startDecisionAndReasons = new StartDecisionAndReasonsPage(this.page);
