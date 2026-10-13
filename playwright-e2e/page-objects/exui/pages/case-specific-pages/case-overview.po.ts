@@ -21,8 +21,6 @@ export class CaseOverviewPage extends CaseOverViewBase {
   private readonly whatToDoNextHeadingLocator = this.page
     .getByRole('heading', { level: 2, name: 'What to do next', exact: true })
     .filter({ visible: true });
-  private readonly confirmStfCase = this.page
-    .getByRole('heading', { level: 1 }).locator('font');
 
   public readonly $static = {
     pageHeading: this.page
@@ -30,7 +28,6 @@ export class CaseOverviewPage extends CaseOverViewBase {
       .first()
       .filter({ hasNot: this.page.locator('xpath=ancestor::div[@hidden]') }),
     doThisNextHeading: this.doThisNextHeadingLocator,
-    confirmStfCase: this.confirmStfCase,
     doThisNextParagraph: this.doThisNextHeadingLocator.locator('~ p'),
     doThisNextHeadingsLevel2: this.doThisNextHeadingLocator.locator('~ h2'),
     doThisNextBulletPoint: this.page.locator('markdown', { hasText: 'Do this next' }).filter({ visible: true }).locator('li'),
