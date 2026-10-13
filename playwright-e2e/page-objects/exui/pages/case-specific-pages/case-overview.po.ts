@@ -38,6 +38,7 @@ export class CaseOverviewPage extends CaseOverViewBase {
     whatHappensNextParagraph: this.whatHappensNextHeadingLocator.locator('~ p'),
     whatToDoNextHeading: this.whatToDoNextHeadingLocator,
     whatToDoNextParagraph: this.whatToDoNextHeadingLocator.locator('~ p'),
+    stfFlag: this.$commonCaseOverviewElements.stfFlag,
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(options: { timeoutMs?: number }): Promise<void> {

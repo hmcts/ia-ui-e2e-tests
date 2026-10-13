@@ -4,7 +4,6 @@ export * from './case-specific-pages/case-overview.po';
 export * from './new-appeal/create-case.po';
 export * from './new-appeal/start-appeal-appeal-type.po';
 export * from './new-appeal/start-appeal-appeal-grounds-human-rights-refusal.po';
-export * from './events/stf/add-stf.po.ts';
 export * from './new-appeal/start-appeal-appeal-grounds-eu-refusal.po';
 export * from './new-appeal/start-appeal-appeal-grounds-deprivation.po';
 export * from './new-appeal/start-appeal-appeal-grounds-protection.po';
@@ -112,6 +111,9 @@ export * from './case-specific-pages/events/create-case-summary/create-case-summ
 export * from './case-specific-pages/events/create-case-summary/create-case-summary-confirm.po';
 export * from './case-specific-pages/events/complete-case-review/complete-case-review.po';
 export * from './case-specific-pages/events/complete-case-review/complete-case-review-confirm.po';
+export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame.po';
+export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame-submit.po';
+export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame-confirm.po';
 export * from './case-specific-pages/events/generate-hearing-bundle/generate-hearing-bundle.po';
 export * from './case-specific-pages/events/generate-hearing-bundle/generate-hearing-bundle-confirm.po';
 export * from './case-specific-pages/events/start-decision-and-reasons/start-decision-and-reasons.po';

@@ -5,7 +5,6 @@ import {
   CaseOverviewPage,
   CreateCasePage,
   StartAppealAppealTypePage,
-  addStf,
   StartAppealAppealGroundsHumanRightsRefusalPage,
   StartAppealAppealGroundsEuRefusalPage,
   StartAppealAppealGroundsDeprivationPage,
@@ -114,6 +113,9 @@ import {
   CreateCaseSummaryConfirmPage,
   CompleteCaseReviewPage,
   CompleteCaseReviewConfirmPage,
+  AddStatutoryTimeFramePage,
+  AddStatutoryTimeFrameSubmitPage,
+  AddStatutoryTimeFrameConfirmPage,
   GenerateHearingBundlePage,
   GenerateHearingBundleConfirmPage,
   StartDecisionAndReasonsPage,
@@ -278,6 +280,9 @@ export class ExuiPages {
   public readonly createCaseSummaryConfirm: CreateCaseSummaryConfirmPage;
   public readonly completeCaseReview: CompleteCaseReviewPage;
   public readonly completeCaseReviewConfirm: CompleteCaseReviewConfirmPage;
+  public readonly addStatutoryTimeFrame: AddStatutoryTimeFramePage;
+  public readonly addStatutoryTimeFrameSubmit: AddStatutoryTimeFrameSubmitPage;
+  public readonly addStatutoryTimeFrameConfirm: AddStatutoryTimeFrameConfirmPage;
   public readonly generateHearingBundle: GenerateHearingBundlePage;
   public readonly generateHearingBundleConfirm: GenerateHearingBundleConfirmPage;
   public readonly startDecisionAndReasons: StartDecisionAndReasonsPage;
@@ -440,6 +445,9 @@ export class ExuiPages {
     this.createCaseSummaryConfirm = new CreateCaseSummaryConfirmPage(this.page);
     this.completeCaseReview = new CompleteCaseReviewPage(this.page);
     this.completeCaseReviewConfirm = new CompleteCaseReviewConfirmPage(this.page);
+    this.addStatutoryTimeFrame = new AddStatutoryTimeFramePage(this.page);
+    this.addStatutoryTimeFrameSubmit = new AddStatutoryTimeFrameSubmitPage(this.page);
+    this.addStatutoryTimeFrameConfirm = new AddStatutoryTimeFrameConfirmPage(this.page);
     this.generateHearingBundle = new GenerateHearingBundlePage(this.page);
     this.generateHearingBundleConfirm = new GenerateHearingBundleConfirmPage(this.page);
     this.startDecisionAndReasons = new StartDecisionAndReasonsPage(this.page);
