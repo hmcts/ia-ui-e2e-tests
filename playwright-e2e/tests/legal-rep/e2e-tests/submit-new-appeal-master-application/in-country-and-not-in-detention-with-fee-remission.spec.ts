@@ -7,9 +7,7 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
   test('Verify legal rep user is able to submit in country appeal whilst not in detention that has no sponsor, the appeal is in time with fee remission', async ({
     exui_pages,
     dataUtils,
-    newBrowserContextAndPage,
   }) => {
-    let appealSubmissionDate: { day: number; month: number; year: number };
 
     await test.step('Navigate to create case page', async () => {
       await exui_pages.createCase.goTo();
@@ -416,7 +414,6 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
 
       await exui_pages.submitAppealDeclaration.verifyUserIsOnPage();
       await exui_pages.submitAppealDeclaration.verifyAllTextOnPage();
-      appealSubmissionDate = await dataUtils.getDateFromToday({});
       await exui_pages.submitAppealDeclaration.submitAppeal({ hasFeeToPay: false });
 
       await exui_pages.submitAppealConfirm.verifyUserIsOnPage();
