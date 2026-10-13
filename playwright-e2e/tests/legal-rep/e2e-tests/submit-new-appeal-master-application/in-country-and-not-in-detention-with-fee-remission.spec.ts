@@ -8,6 +8,7 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
     exui_pages,
     dataUtils,
   }) => {
+
     await test.step('Navigate to create case page', async () => {
       await exui_pages.createCase.goTo();
       await exui_pages.createCase.verifyAllTextOnPage();

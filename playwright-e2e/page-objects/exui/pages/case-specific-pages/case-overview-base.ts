@@ -27,6 +27,7 @@ type DropdownEventTypes =
   | 'Submit your appeal'
   | 'Create a service request'
   | 'Complete case review'
+  | 'Add Statutory Timeframe'
   | 'Raise Query';
 
 type CaseOverviewTabsType =
@@ -54,6 +55,7 @@ export abstract class CaseOverViewBase extends ExuiBase {
     nextStepsDropdown: this.page.locator('select[id="next-step"]'),
     goButton: this.page.getByRole('button', { name: 'Go', exact: true }),
     alertMessage: this.page.locator('div[class="alert-message"]'),
+    stfFlag: this.page.locator('font[color="#1C8242"]').getByText('24 Week STF'),
   } as const satisfies Record<string, Locator>;
 
   public async selectEventFromDropdown(options: { eventToSelect: DropdownEventTypes }): Promise<void> {
