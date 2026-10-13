@@ -446,6 +446,7 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
         expect(exui_pages.caseOverview.$static.doThisNextParagraph).toBeVisible(),
       ]);
 
+      await test.step('Verify that 24 week flag can be added and applied', async () => {
       const caseOfficerPage = await newBrowserContextAndPage({ user: 'caseOfficer' });
       await caseOfficerPage.goto(exui_pages.caseOverview.page.url());
 
@@ -464,6 +465,7 @@ test.describe('Tests to verify legal rep is able to submit new appeal on exui', 
       await expect(caseOfficerCaseOverview.$static.confirmStfCase).toHaveText(
         `24 Week STF (${expectedStfDate})`,
       );
+      })
     });
   });
 });
