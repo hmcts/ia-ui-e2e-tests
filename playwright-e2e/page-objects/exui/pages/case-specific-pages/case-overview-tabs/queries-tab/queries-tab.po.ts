@@ -21,12 +21,10 @@ export class QueriesTabPage extends CaseOverViewBase {
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {
-    await this.verifyUserIsOnExpectedPage({
-      urlPath: '#Queries',
-      pageHeading: this.$static.pageHeading,
+    await this.verifyUserIsOnExpectedTab({
+      urlPath: 'Queries',
+      tabName: 'Queries'
     });
-
-    await expect(this.page.getByRole('tab', { name: 'Queries', exact: true })).toHaveAttribute('aria-selected', 'true', { timeout: 30_000 });
   }
 
   public async verifyTableHeadings(): Promise<void> {
