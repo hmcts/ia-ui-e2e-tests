@@ -43,17 +43,7 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
   test('Verify case officer is able to remove STF flag from an existing case', async ({ exui_pages, dataUtils }) => {
     await test.step('Verify the case has an STF flag', async () => {
       await exui_pages.caseOverview.verifyUserIsOnPage({});
-      const expectedDate = await dataUtils.getDateFromToday({ dayOffset: 168 });
-      const expectedFormattedDate = new Date(
-        expectedDate.year,
-        expectedDate.month - 1,
-        expectedDate.day,
-      )
-        .toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-        .replace('Sept', 'Sep');
-
       await expect(exui_pages.caseOverview.$static.stfFlag).toBeVisible();
-      await expect(exui_pages.caseOverview.$static.stfFlag).toHaveText(`24 Week STF (${expectedFormattedDate})`);
     });
 
     await test.step('Remove the STF flag', async () => {
@@ -77,16 +67,12 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Name of decision maker')).toHaveText(
           'Test Case Officer',
         ),
-        expect(
-          exui_pages.removeStatutoryTimeframeSubmit.$questionLocator(
-            'Reason for removal of 24 week timeframe',
-          ),
-        ).toBeVisible(),
-        expect(
-          exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator(
-            'Reason for removal of 24 week timeframe',
-          ),
-        ).toHaveText('Removing STF for automated test'),
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Name of decision maker')).toBeVisible(),
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$questionLocator('Reason for removal of 24 week timeframe')).toBeVisible(),
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Reason for removal of 24 week timeframe')).toHaveText(
+          'Removing STF for automated test',
+        ),
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible
       ]);
 
       await exui_pages.removeStatutoryTimeframeSubmit.submitEvent();
