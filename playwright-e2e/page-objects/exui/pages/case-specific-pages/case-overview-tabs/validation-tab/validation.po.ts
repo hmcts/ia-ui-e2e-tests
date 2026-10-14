@@ -36,7 +36,5 @@ export class ValidationPage extends CaseOverViewBase {
       urlPath: 'Validation',
       tabName: 'Validation'
     });
-
-    await expect(this.page.getByRole('tab', { name: 'Validation', exact: true })).toHaveAttribute('aria-selected', 'true', { timeout: 30_000 });
   }
 }

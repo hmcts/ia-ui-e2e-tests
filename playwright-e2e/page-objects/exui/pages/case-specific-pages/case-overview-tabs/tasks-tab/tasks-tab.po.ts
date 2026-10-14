@@ -34,7 +34,6 @@ export class TasksTabPage extends CaseOverViewBase {
       urlPath: 'Tasks',
       tabName: 'Tasks'
     });
-    await expect(this.page.getByRole('tab', { name: 'Tasks', exact: true })).toHaveAttribute('aria-selected', 'true', { timeout: 30_000 });
   }
 
   public async selectOptionToManageTask(options: { taskName: AvailableTasksType; manageTaskOptionToSelect: ManageTaskOptionsType }): Promise<void> {

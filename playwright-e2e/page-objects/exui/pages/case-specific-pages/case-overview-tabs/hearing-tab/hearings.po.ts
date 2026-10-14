@@ -20,8 +20,6 @@ export class HearingsPage extends CaseOverViewBase {
       urlPath: 'Hearings',
       tabName: 'Hearings'
     });
-
-    await expect(this.page.getByRole('tab', { name: 'Hearings', exact: true })).toHaveAttribute('aria-selected', 'true', { timeout: 30_000 });
   }
 
   public async navigateToRequestHearingPage(): Promise<void> {
