@@ -28,6 +28,7 @@ type DropdownEventTypes =
   | 'Create a service request'
   | 'Complete case review'
   | 'Add Statutory Timeframe'
+  | 'Remove Statutory Timeframe'
   | 'Raise Query';
 
 type CaseOverviewTabsType =
