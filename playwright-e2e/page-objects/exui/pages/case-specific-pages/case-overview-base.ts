@@ -81,4 +81,16 @@ export abstract class CaseOverViewBase extends ExuiBase {
     );
     await expect(this.$commonCaseOverviewElements.alertMessage).toBeVisible();
   }
+
+  public async verifyUserIsOnExpectedTab(options: { urlPath: string; tabName: CaseOverviewTabsType; timeout?: number }): Promise<void> {
+    const timeout = options.timeout ?? 15_000;
+    await Promise.all([
+      expect(async () => {
+        const currentURL = this.page.url();
+        expect(currentURL.includes(options.urlPath), { message: `Verify page URL (${currentURL}) contains (${options.urlPath})` }).toBeTruthy();
+      }).toPass({ intervals: [100], timeout: timeout }),
+
+      expect(this.page.getByRole('tab', { name: options.tabName })).toHaveAttribute('aria-selected', 'true', { timeout: timeout }),
+    ]);
+  }
 }

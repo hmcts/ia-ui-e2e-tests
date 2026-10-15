@@ -33,12 +33,10 @@ export class ServiceRequestTabPage extends CaseOverViewBase {
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {
-    await this.verifyUserIsOnExpectedPage({
-      urlPath: '#Service%20Request',
-      pageHeading: this.$static.pageHeading,
+    await this.verifyUserIsOnExpectedTab({
+      urlPath: 'Service%20Request',
+      tabName: 'Service Request'
     });
-
-    await expect(this.page.getByRole('tab', { name: 'Service Request', exact: true })).toHaveAttribute('aria-selected', 'true', { timeout: 60_000 });
   }
 
   public async verifyServiceRequestStatus(options: {

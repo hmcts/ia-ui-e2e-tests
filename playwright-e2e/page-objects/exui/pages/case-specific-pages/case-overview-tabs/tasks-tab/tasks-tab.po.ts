@@ -30,14 +30,10 @@ export class TasksTabPage extends CaseOverViewBase {
 
   public async verifyUserIsOnPage(options: { timeoutMs?: number }): Promise<void> {
     options.timeoutMs = options.timeoutMs ?? 30_000;
-
-    await this.verifyUserIsOnExpectedPage({
-      urlPath: '#Tasks',
-      pageHeading: this.$static.pageHeading,
-      timeout: options.timeoutMs,
+    await this.verifyUserIsOnExpectedTab({
+      urlPath: 'Tasks',
+      tabName: 'Tasks'
     });
-
-    await expect(this.page.getByRole('tab', { name: 'Tasks', exact: true })).toHaveAttribute('aria-selected', 'true', { timeout: 30_000 });
   }
 
   public async selectOptionToManageTask(options: { taskName: AvailableTasksType; manageTaskOptionToSelect: ManageTaskOptionsType }): Promise<void> {

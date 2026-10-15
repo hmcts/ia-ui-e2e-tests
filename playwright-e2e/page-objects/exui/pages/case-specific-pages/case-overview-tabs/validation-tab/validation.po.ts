@@ -32,11 +32,9 @@ export class ValidationPage extends CaseOverViewBase {
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {
-    await this.verifyUserIsOnExpectedPage({
+    await this.verifyUserIsOnExpectedTab({
       urlPath: 'Validation',
-      pageHeading: this.$static.pageHeading,
+      tabName: 'Validation'
     });
-
-    await expect(this.page.getByRole('tab', { name: 'Validation', exact: true })).toHaveAttribute('aria-selected', 'true', { timeout: 30_000 });
   }
 }
