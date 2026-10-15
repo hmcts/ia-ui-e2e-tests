@@ -100,7 +100,7 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
         .replace('Sept', 'Sep');
 
       const expectedDocument: ExpectedDocument = {
-        tribunalDocumentNumber: 'Tribunal documents 1',
+        documentSectionName: 'Tribunal documents 1',
         documentName: 'Doe-stf-24weeks-removal-notice-of-decision.PDF',
         uploadedDate: todaysFormattedDate,
       };
