@@ -60,7 +60,7 @@ test.describe('Test to verify legal rep is able to submit build your case event 
       ]);
     });
 
-    /*     await test.step('Select Build your case from next steps dropdown and submit event', async () => {
+    await test.step('Select Build your case from next steps dropdown and submit event', async () => {
       await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Build your case' });
 
       await exui_pages.buildCase.verifyUserIsOnPage();
@@ -120,6 +120,6 @@ test.describe('Test to verify legal rep is able to submit build your case event 
           "Your case is now under review. You'll get an email telling you what happens next.",
         ),
       ]);
-    }); */
+    });
   });
 });
