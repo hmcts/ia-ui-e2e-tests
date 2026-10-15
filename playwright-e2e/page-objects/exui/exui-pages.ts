@@ -162,6 +162,7 @@ import {
   ValidationPage,
   QueriesTabPage,
   QueriesTabQueryDetailsPage,
+  DocumentsTabPage,
   TasksTabPage,
 } from './pages/index';
 import { CardPaymentDetailsPage } from '../card-payment-details.po';
@@ -334,6 +335,7 @@ export class ExuiPages {
   public readonly cardPaymentConfirmDetails: CardPaymentConfirmDetailsPage;
   public readonly queriesTab: QueriesTabPage;
   public readonly queriesTabQueryDetails: QueriesTabQueryDetailsPage;
+  public readonly documentsTab: DocumentsTabPage;
   public readonly tasksTab: TasksTabPage;
 
   constructor(page: Page) {
@@ -502,6 +504,7 @@ export class ExuiPages {
     this.cardPaymentConfirmDetails = new CardPaymentConfirmDetailsPage(this.page);
     this.queriesTab = new QueriesTabPage(this.page);
     this.queriesTabQueryDetails = new QueriesTabQueryDetailsPage(this.page);
+    this.documentsTab = new DocumentsTabPage(this.page);
     this.tasksTab = new TasksTabPage(this.page);
   }
 

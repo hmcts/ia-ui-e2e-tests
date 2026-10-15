@@ -157,6 +157,7 @@ export * from './case-specific-pages/events/create-a-service-request/generate-se
 export * from './case-specific-pages/case-overview-tabs/validation-tab/validation.po.ts';
 export * from './case-specific-pages/case-overview-tabs/queries-tab/queries-tab.po.ts';
 export * from './case-specific-pages/case-overview-tabs/queries-tab/queries-tab-query-details.po.ts';
+export * from './case-specific-pages/case-overview-tabs/documents-tab/documents-tab.po.ts';
 export * from './case-specific-pages/case-overview-tabs/tasks-tab/respond-to-a-query/respond-to-a-query.po.ts';
 export * from './case-specific-pages/case-overview-tabs/tasks-tab/respond-to-a-query/respond-to-a-query-submit.po.ts';
 export * from './case-specific-pages/case-overview-tabs/tasks-tab/respond-to-a-query/respond-to-a-query-confirm.po.ts';

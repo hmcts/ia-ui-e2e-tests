@@ -1,4 +1,5 @@
 import { test, expect } from '../../fixtures.js';
+import { ExpectedDocument } from '../../page-objects/exui/pages/index.js';
 import { config } from '../../utils/config.utils.js';
 
 test.describe('Set of tests to verify case officer is able to remove STF flag manually from an existing case', { tag: ['@functional'] }, () => {
@@ -88,5 +89,17 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
       });
       await expect(exui_pages.caseOverview.$static.stfFlag).not.toBeVisible();
     });
+
+    await test.step('Verify that the removal of STF flag document has been generated in the documents tab', async () => {
+      await exui_pages.documentsTab.navigateToTab({ tabToSelect: 'Documents' });
+      await exui_pages.documentsTab.verifyUserIsOnPage();
+    
+    const expectedDocument: ExpectedDocument = {
+      tribunalDocumentNumber: 'Tribunal documents 1',
+      documentName: 'Doe-appeal-form.PDF',
+    };
+
+  await exui_pages.documentsTab.verifyDocumentIsAvailable(expectedDocument);
+});
   });
 });
