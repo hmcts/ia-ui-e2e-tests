@@ -27,6 +27,9 @@ type DropdownEventTypes =
   | 'Submit your appeal'
   | 'Create a service request'
   | 'Complete case review'
+  | 'Raise Query'
+  | 'Request case building'
+  | 'Build your case'
   | 'Add Statutory Timeframe'
   | 'Remove Statutory Timeframe'
   | 'Raise Query';

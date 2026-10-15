@@ -58,6 +58,12 @@ import {
   RecordRemissionDecisionDetailsPage,
   RecordRemissionDecisionSubmitPage,
   RecordRemissionDecisionConfirmPage,
+  RequestCaseBuildingPage,
+  BuildCasePage,
+  BuildCaseSubmitPage,
+  BuildCaseConfirmPage,
+  RequestCaseBuildingSubmitPage,
+  RequestCaseBuildingConfirmPage,
   RequestRespondentEvidencePage,
   RequestRespondentEvidenceSubmitPage,
   RequestRespondentEvidenceConfirmPage,
@@ -228,6 +234,12 @@ export class ExuiPages {
   public readonly recordRemissionDecisionDetails: RecordRemissionDecisionDetailsPage;
   public readonly recordRemissionDecisionSubmit: RecordRemissionDecisionSubmitPage;
   public readonly recordRemissionDecisionConfirm: RecordRemissionDecisionConfirmPage;
+  public readonly requestCaseBuilding: RequestCaseBuildingPage;
+  public readonly buildCase: BuildCasePage;
+  public readonly buildCaseSubmit: BuildCaseSubmitPage;
+  public readonly buildCaseConfirm: BuildCaseConfirmPage;
+  public readonly requestCaseBuildingSubmit: RequestCaseBuildingSubmitPage;
+  public readonly requestCaseBuildingConfirm: RequestCaseBuildingConfirmPage;
   public readonly requestRespondentEvidence: RequestRespondentEvidencePage;
   public readonly requestRespondentEvidenceSubmit: RequestRespondentEvidenceSubmitPage;
   public readonly requestRespondentEvidenceConfirm: RequestRespondentEvidenceConfirmPage;
@@ -396,6 +408,12 @@ export class ExuiPages {
     this.recordRemissionDecisionDetails = new RecordRemissionDecisionDetailsPage(this.page);
     this.recordRemissionDecisionSubmit = new RecordRemissionDecisionSubmitPage(this.page);
     this.recordRemissionDecisionConfirm = new RecordRemissionDecisionConfirmPage(this.page);
+    this.requestCaseBuilding = new RequestCaseBuildingPage(this.page);
+    this.buildCase = new BuildCasePage(this.page);
+    this.buildCaseSubmit = new BuildCaseSubmitPage(this.page);
+    this.buildCaseConfirm = new BuildCaseConfirmPage(this.page);
+    this.requestCaseBuildingSubmit = new RequestCaseBuildingSubmitPage(this.page);
+    this.requestCaseBuildingConfirm = new RequestCaseBuildingConfirmPage(this.page);
     this.requestRespondentEvidence = new RequestRespondentEvidencePage(this.page);
     this.requestRespondentEvidenceSubmit = new RequestRespondentEvidenceSubmitPage(this.page);
     this.requestRespondentEvidenceConfirm = new RequestRespondentEvidenceConfirmPage(this.page);

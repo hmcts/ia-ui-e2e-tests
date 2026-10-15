@@ -1,6 +1,14 @@
-import { APIRequestContext } from '@playwright/test';
+import { APIRequestContext, expect } from '@playwright/test';
 import { CaseListApi, CaseDataApi } from './requests/index';
 import { fetchedCaseInformation } from './requests/case-list.api';
+
+type ExpectedApplicationStates =
+  | 'Appeal started'
+  | 'Appeal submitted'
+  | 'Awaiting respondent evidence'
+  | 'Pre hearing'
+  | 'Case building'
+  | 'Case under review';
 
 export abstract class BaseExuiApiClient {
   private exui_caseListApi: CaseListApi;
@@ -26,8 +34,18 @@ export abstract class BaseExuiApiClient {
     return caseData.then((caseData) => caseData.appealReference);
   }
 
-  public async fetchCaseOverviewData(option: { caseId: string }): Promise<JSON> {
+  private async fetchCaseOverviewData(option: { caseId: string }): Promise<JSON> {
     const caseData = await this.exui_caseDataApi.fetchCaseData({ caseId: option.caseId });
     return caseData;
+  }
+
+  public async verifyCaseIsInExpectedState(options: { caseId: string; expectedStateName: ExpectedApplicationStates }): Promise<void> {
+    await expect(async () => {
+      const caseData = await this.fetchCaseOverviewData({ caseId: options.caseId });
+      expect((caseData as any).state.name).toBe(options.expectedStateName);
+    }).toPass({
+      timeout: 60_000,
+      intervals: [2_000],
+    });
   }
 }

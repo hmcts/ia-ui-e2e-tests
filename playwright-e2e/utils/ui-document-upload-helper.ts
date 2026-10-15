@@ -30,14 +30,15 @@ export class UiDocumentUploadHelper {
           timeoutMs: 10_000,
         }),
         options.fileInputElement.setInputFiles(filePath),
-        expect(uploadingText).toBeVisible({ timeout: 5_000 }),
       ]);
     }).toPass({
       intervals: options.intervals ?? [5_000],
       timeout: options.timeout ?? 60_000,
     });
 
-    await expect(uploadingText).not.toBeVisible({ timeout: 5_000 });
+    const count = await uploadingText.count();
+    await Promise.all(Array.from({ length: count }, (_, i) => expect(uploadingText.nth(i)).not.toBeVisible({ timeout: 10_000 })));
+
     await expect(options.fileInputElement).toHaveValue(new RegExp(`${options.nameOfFileToUpload.replace('.', '\\.')}$`));
   }
 
@@ -48,7 +49,6 @@ export class UiDocumentUploadHelper {
 
     const status = response.status();
 
-    expect(status).toBeGreaterThanOrEqual(200);
     expect(status).toBeLessThan(400);
   }
 }

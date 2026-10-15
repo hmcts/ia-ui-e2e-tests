@@ -12,6 +12,7 @@ import {
   GenerateHearingBundleApi,
   DecisionAndReasonsStartedApi,
   CompleteCaseReviewApi,
+  RequestCaseBuildingApi,
 } from './requests/index';
 import {
   RequestRespondentEvidenceEventType,
@@ -22,6 +23,7 @@ import {
   ReviewHearingRequirementsEventType,
   CreateCaseSummaryEventType,
   DecisionAndReasonsStartedEventType,
+  RequestCaseBuildingEventType,
 } from '../../exui-event-types';
 
 export class CaseOfficerApiClient extends BaseExuiApiClient {
@@ -36,6 +38,7 @@ export class CaseOfficerApiClient extends BaseExuiApiClient {
   private generateHearingBundleApi: GenerateHearingBundleApi;
   private decisionAndReasonsStartedApi: DecisionAndReasonsStartedApi;
   private completeCaseReviewApi: CompleteCaseReviewApi;
+  private requestCaseBuildingApi: RequestCaseBuildingApi;
 
   constructor(apiContext: APIRequestContext) {
     super(apiContext);
@@ -50,9 +53,14 @@ export class CaseOfficerApiClient extends BaseExuiApiClient {
     this.generateHearingBundleApi = new GenerateHearingBundleApi(apiContext);
     this.decisionAndReasonsStartedApi = new DecisionAndReasonsStartedApi(apiContext);
     this.completeCaseReviewApi = new CompleteCaseReviewApi(apiContext);
+    this.requestCaseBuildingApi = new RequestCaseBuildingApi(apiContext);
   }
 
   public async submitCompleteCaseReviewEvent(options: { caseId: string }): Promise<void> {
+    await this.verifyCaseIsInExpectedState({
+      caseId: options.caseId,
+      expectedStateName: 'Appeal submitted',
+    });
     await this.completeCaseReviewApi.submitEvent(options);
   }
 
@@ -93,18 +101,15 @@ export class CaseOfficerApiClient extends BaseExuiApiClient {
   }
 
   public async submitDecisionAndReasonsStartedEvent(options: DecisionAndReasonsStartedEventType): Promise<void> {
-    await expect(async () => {
-      const caseData = await this.fetchCaseOverviewData({ caseId: options.caseId });
-      const caseDataString = JSON.stringify(caseData);
-
-      const hasInstructionText = caseDataString.includes('You can start to create the decision and reasons document');
-
-      expect(hasInstructionText, `Waiting for "Decision and Reasons" event to be available on case ${options.caseId}`).toBeTruthy();
-    }).toPass({
-      timeout: 60_000,
-      intervals: [2_000],
+    await this.verifyCaseIsInExpectedState({
+      caseId: options.caseId,
+      expectedStateName: 'Pre hearing',
     });
 
     await this.decisionAndReasonsStartedApi.submitEvent(options);
+  }
+
+  public async submitRequestCaseBuildingEvent(options: RequestCaseBuildingEventType): Promise<void> {
+    await this.requestCaseBuildingApi.submitEvent(options);
   }
 }
