@@ -21,11 +21,11 @@ export class DocumentsTabPage extends CaseOverViewBase {
     documentsTable: this.page.locator('table.documents'),
   } as const satisfies Record<string, Locator>;
 
-public $documentSectionLocator(sectionName: ExpectedDocument['tribunalDocumentNumber']): Locator {
-  return this.page.locator('.complex-panel').filter({
-    has: this.page.locator('.complex-panel-title').getByText(sectionName, { exact: true }),
-  });
-}
+  public $documentSectionLocator(sectionName: ExpectedDocument['tribunalDocumentNumber']): Locator {
+    return this.page.locator('.complex-panel').filter({
+      has: this.page.locator('.complex-panel-title').getByText(sectionName, { exact: true }),
+    });
+  }
 
   public $documentNameLocator(documentName: string): Locator {
     return this.$static.documentsTable.getByRole('button', { name: documentName, exact: true });
@@ -38,21 +38,24 @@ public $documentSectionLocator(sectionName: ExpectedDocument['tribunalDocumentNu
     });
   }
 
-public async verifyDocumentIsAvailable(options: ExpectedDocument): Promise<void> {
-  const documentSection = this.$documentSectionLocator(options.tribunalDocumentNumber);
+  public async verifyDocumentIsAvailable(options: ExpectedDocument): Promise<void> {
+    const documentSection = this.$documentSectionLocator(options.tribunalDocumentNumber);
 
-  const escapedDocumentName = options.documentName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const documentName = documentSection.getByRole('button', {
-    name: new RegExp(`${escapedDocumentName}$`),
-  });
+    const escapedDocumentName = options.documentName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const documentName = documentSection.getByRole('button', {
+      name: new RegExp(`${escapedDocumentName}$`),
+    });
 
-  const uploadedDate = documentSection.locator('tr', { hasText: 'Date uploaded' }).locator('td');
+    await expect(documentSection).toBeVisible();
+    await expect(documentName).toBeVisible();
 
-  await expect(documentSection).toBeVisible();
-  await expect(documentName).toBeVisible();
-
-  if (options.uploadedDate) {
-    await expect(uploadedDate).toHaveText(options.uploadedDate);
+    if (options.uploadedDate) {
+      const uploadedDate = documentSection
+        .locator('tr.complex-panel-simple-field')
+        .filter({ has: this.page.getByText('Date uploaded', { exact: true }), visible: true })
+        .locator('td');
+      await expect(uploadedDate).toBeVisible();
+      await expect(uploadedDate).toContainText(options.uploadedDate);
+    }
   }
-}
 }

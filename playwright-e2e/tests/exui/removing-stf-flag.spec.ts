@@ -73,7 +73,7 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Reason for removal of 24 week timeframe')).toHaveText(
           'Removing STF for automated test',
         ),
-        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible(),
       ]);
 
       await exui_pages.removeStatutoryTimeframeSubmit.submitEvent();
@@ -93,13 +93,18 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
     await test.step('Verify that the removal of STF flag document has been generated in the documents tab', async () => {
       await exui_pages.documentsTab.navigateToTab({ tabToSelect: 'Documents' });
       await exui_pages.documentsTab.verifyUserIsOnPage();
-    
-    const expectedDocument: ExpectedDocument = {
-      tribunalDocumentNumber: 'Tribunal documents 1',
-      documentName: 'Doe-appeal-form.PDF',
-    };
 
-  await exui_pages.documentsTab.verifyDocumentIsAvailable(expectedDocument);
+      const todaysDate = await dataUtils.getDateFromToday({});
+      const todaysFormattedDate = new Date(todaysDate.year, todaysDate.month - 1, todaysDate.day)
+        .toLocaleString('en-GB', { 'day': 'numeric', 'month': 'short', 'year': 'numeric' })
+        .replace('Sept', 'Sep');
+
+      const expectedDocument: ExpectedDocument = {
+        tribunalDocumentNumber: 'Tribunal documents 1',
+        documentName: 'Doe-stf-24weeks-removal-notice-of-decision.PDF',
+        uploadedDate: todaysFormattedDate,
+      };
+      await exui_pages.documentsTab.verifyDocumentIsAvailable(expectedDocument);
+    });
 });
   });
-});
