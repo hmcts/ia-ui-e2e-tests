@@ -1,10 +1,10 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify case officer is able to remove STF flag manually from an existing case', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.caseOfficer.sessionFile });
 
-  test.beforeEach(async ({ exui_legalRepApiClient, exui_pages }) => {
+  test.beforeEach(async ({ exui_legalRepApiClient, exui_pages, exui_caseOfficerApiClient }) => {
     const caseId = await test.step('Legal rep API: Submit a new appeal', async () => {
       return exui_legalRepApiClient.createAndSubmitAppealMasterApplication({
         appealType: 'Deprivation of citizenship',
@@ -21,22 +21,14 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
     });
 
     await test.step('Case officer: Navigate to case overview page on EXUI', async () => {
-      await exui_pages.caseOverview.goTo({ caseId });
-      await exui_pages.caseOverview.refreshPageUntilExpectedTextIsVisible({
-        expectedText: 'Complete case review',
+      await exui_caseOfficerApiClient.submitAddStatutoryTimeFrameEvent({
+        caseId: caseId,
+        reasonForAddingStatutoryTimeFrame: 'Adding STF flag for automated removal test',
       });
     });
 
-    await test.step('Case officer: Add STF flag to the case', async () => {
-      await exui_pages.caseOverview.selectEventFromDropdown({
-        eventToSelect: 'Add Statutory Timeframe',
-      });
-      await exui_pages.addStatutoryTimeFrame.verifyUserIsOnPage();
-      await exui_pages.addStatutoryTimeFrame.completePageAndContinue({
-        reason: 'Adding STF flag for automated removal of STF flag test',
-      });
-      await exui_pages.addStatutoryTimeFrameSubmit.submitEvent();
-      await exui_pages.addStatutoryTimeFrameConfirm.returnToCaseDetails();
+    await test.step('Case officer: Navigate to case overview page on EXUI', async () => {
+      await exui_pages.caseOverview.goTo({ caseId });
     });
   });
 
@@ -64,15 +56,13 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
         expect(exui_pages.removeStatutoryTimeframeSubmit.$static.checkYourAnswersHeading).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$static.checkInformationCarefullyText).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionLocator('Name of decision maker')).toBeVisible(),
-        expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Name of decision maker')).toHaveText(
-          'Test Case Officer',
-        ),
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Name of decision maker')).toHaveText('Test Case Officer'),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Name of decision maker')).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionLocator('Reason for removal of 24 week timeframe')).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Reason for removal of 24 week timeframe')).toHaveText(
           'Removing STF for automated test',
         ),
-        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible,
       ]);
 
       await exui_pages.removeStatutoryTimeframeSubmit.submitEvent();

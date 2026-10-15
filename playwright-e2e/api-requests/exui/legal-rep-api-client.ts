@@ -7,9 +7,11 @@ import {
   CreateServiceRequestApi,
   PaymentGroupsApi,
   CardPaymentApi,
+  BuildYourCaseApi,
 } from './requests/index';
 import { AppealMasterPayload, AppealMasterPayloadOptionsType } from './new-appeal-payload-builder/appeal-master-payload';
 import { DataUtils } from '../../utils/data.utils.js';
+import { BuildYourCaseEventType } from '../../exui-event-types';
 
 export class LegalRepApiClient extends BaseExuiApiClient {
   private startAppealApi: StartAppealApi;
@@ -18,6 +20,7 @@ export class LegalRepApiClient extends BaseExuiApiClient {
   private appealMasterPayload = new AppealMasterPayload();
   private paymentGroupsApi: PaymentGroupsApi;
   private cardPaymentApi: CardPaymentApi;
+  private buildYourCaseApi: BuildYourCaseApi;
   private dataUtils = new DataUtils();
 
   constructor(apiContext: APIRequestContext) {
@@ -27,6 +30,7 @@ export class LegalRepApiClient extends BaseExuiApiClient {
     this.createServiceRequestApi = new CreateServiceRequestApi(apiContext);
     this.cardPaymentApi = new CardPaymentApi(apiContext);
     this.paymentGroupsApi = new PaymentGroupsApi(apiContext);
+    this.buildYourCaseApi = new BuildYourCaseApi(apiContext);
   }
 
   public async createDraftAppealMasterApplication(appealData: AppealMasterPayloadOptionsType): Promise<StartAppealResponseDataType> {
@@ -76,5 +80,9 @@ export class LegalRepApiClient extends BaseExuiApiClient {
     }
 
     return caseId;
+  }
+
+  public async submitBuildYourCaseEvent(options: BuildYourCaseEventType): Promise<void> {
+    await this.buildYourCaseApi.submitEvent(options);
   }
 }

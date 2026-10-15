@@ -56,6 +56,12 @@ export * from './case-specific-pages/events/record-remission-decision/record-rem
 export * from './case-specific-pages/events/record-remission-decision/record-remission-decision-details.po';
 export * from './case-specific-pages/events/record-remission-decision/record-remission-decision-submit.po';
 export * from './case-specific-pages/events/record-remission-decision/record-remission-decision-confirm.po';
+export * from './case-specific-pages/events/request-case-building/request-case-building.po';
+export * from './case-specific-pages/events/build-your-case/build-case.po';
+export * from './case-specific-pages/events/build-your-case/build-case-submit.po';
+export * from './case-specific-pages/events/build-your-case/build-case-confirm.po';
+export * from './case-specific-pages/events/request-case-building/request-case-building-submit.po';
+export * from './case-specific-pages/events/request-case-building/request-case-building-confirm.po';
 export * from './case-specific-pages/events/request-respondent-evidence/request-respondent-evidence.po';
 export * from './case-specific-pages/events/request-respondent-evidence/request-respondent-evidence-submit.po';
 export * from './case-specific-pages/events/request-respondent-evidence/request-respondent-evidence-confirm.po';

@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe(
   'Set of tests to verify case officer is able to review home office response and request hearing requirements on exui manage cases',
