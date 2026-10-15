@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify admin user is able to record a remission decision on exui manage cases', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.adminOfficer.sessionFile });

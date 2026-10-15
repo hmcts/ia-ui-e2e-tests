@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify home office user is able to upload appeal response on exui manage cases', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.homeOfficeUser.sessionFile });

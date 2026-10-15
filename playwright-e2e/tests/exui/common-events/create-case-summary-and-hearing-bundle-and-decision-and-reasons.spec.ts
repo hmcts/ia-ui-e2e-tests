@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe(
   'Set of tests to verify citizen user is able to create a case summary and generate a hearing bundle whilst also submitting a decision and reasons event on exui manage cases',

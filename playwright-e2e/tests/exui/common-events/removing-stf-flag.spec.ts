@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify case officer is able to remove STF flag manually from an existing case', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.caseOfficer.sessionFile });
@@ -64,15 +64,13 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
         expect(exui_pages.removeStatutoryTimeframeSubmit.$static.checkYourAnswersHeading).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$static.checkInformationCarefullyText).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionLocator('Name of decision maker')).toBeVisible(),
-        expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Name of decision maker')).toHaveText(
-          'Test Case Officer',
-        ),
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Name of decision maker')).toHaveText('Test Case Officer'),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Name of decision maker')).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionLocator('Reason for removal of 24 week timeframe')).toBeVisible(),
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Reason for removal of 24 week timeframe')).toHaveText(
           'Removing STF for automated test',
         ),
-        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible,
       ]);
 
       await exui_pages.removeStatutoryTimeframeSubmit.submitEvent();

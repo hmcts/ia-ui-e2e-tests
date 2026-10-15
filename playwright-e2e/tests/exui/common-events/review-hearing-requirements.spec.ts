@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify case officer is able to review hearing requirements on exui manage cases', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.caseOfficer.sessionFile });
