@@ -24,6 +24,7 @@ import {
   CreateCaseSummaryEventType,
   DecisionAndReasonsStartedEventType,
   RequestCaseBuildingEventType,
+  AddStatutoryTimeFrameEventType,
 } from '../../exui-event-types';
 
 export class CaseOfficerApiClient extends BaseExuiApiClient {
@@ -111,5 +112,9 @@ export class CaseOfficerApiClient extends BaseExuiApiClient {
 
   public async submitRequestCaseBuildingEvent(options: RequestCaseBuildingEventType): Promise<void> {
     await this.requestCaseBuildingApi.submitEvent(options);
+  }
+
+  public async submitAddStatutoryTimeFrameEvent(options: AddStatutoryTimeFrameEventType): Promise<void> {
+    await this.addStatutoryTimeFrame(options);
   }
 }

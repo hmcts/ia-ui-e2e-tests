@@ -39,6 +39,11 @@ export type RequestRespondentReviewEventType = RequestRespondentEvidenceEventTyp
 export type RequestResponseReviewEventType = RequestRespondentEvidenceEventType;
 export type RequestCaseBuildingEventType = RequestRespondentEvidenceEventType;
 
+export type AddStatutoryTimeFrameEventType = {
+  caseId: string;
+  reasonForAddingStatutoryTimeFrame: string;
+};
+
 export type UploadHomeOfficeBundleEventType = {
   caseId: string;
   nameOfFileToUpload?: string;

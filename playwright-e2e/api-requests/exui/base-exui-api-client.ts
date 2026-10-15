@@ -1,6 +1,7 @@
 import { APIRequestContext, expect } from '@playwright/test';
-import { CaseListApi, CaseDataApi } from './requests/index';
+import { CaseListApi, CaseDataApi, StatutoryTimeFrameApi } from './requests/index';
 import { fetchedCaseInformation } from './requests/case-list.api';
+import { AddStatutoryTimeFrameEventType } from '../../exui-event-types';
 
 type ExpectedApplicationStates =
   | 'Appeal started'
@@ -13,10 +14,12 @@ type ExpectedApplicationStates =
 export abstract class BaseExuiApiClient {
   private exui_caseListApi: CaseListApi;
   private exui_caseDataApi: CaseDataApi;
+  private exui_statutoryTimeFrameApi: StatutoryTimeFrameApi;
 
   constructor(apiContext: APIRequestContext) {
     this.exui_caseListApi = new CaseListApi(apiContext);
     this.exui_caseDataApi = new CaseDataApi(apiContext);
+    this.exui_statutoryTimeFrameApi = new StatutoryTimeFrameApi(apiContext);
   }
 
   public async searchForACaseList(option: { homeOfficeReferenceNumber: string }): Promise<fetchedCaseInformation> {
@@ -39,13 +42,34 @@ export abstract class BaseExuiApiClient {
     return caseData;
   }
 
-  public async verifyCaseIsInExpectedState(options: { caseId: string; expectedStateName: ExpectedApplicationStates }): Promise<void> {
+  public async verifyCaseIsInExpectedState(options: {
+    caseId: string;
+    expectedStateName: ExpectedApplicationStates | ExpectedApplicationStates[];
+  }): Promise<void> {
     await expect(async () => {
       const caseData = await this.fetchCaseOverviewData({ caseId: options.caseId });
-      expect((caseData as any).state.name).toBe(options.expectedStateName);
+      const actualState = (caseData as any).state.name;
+
+      if (Array.isArray(options.expectedStateName)) {
+        expect(options.expectedStateName, {
+          message: `Expected state to be one of ${JSON.stringify(options.expectedStateName)}, but got "${actualState}"`,
+        }).toEqual(expect.arrayContaining([actualState]));
+      } else {
+        expect(actualState, {
+          message: `Expected ${options.expectedStateName} but got ${actualState}`,
+        }).toBe(options.expectedStateName);
+      }
     }).toPass({
       timeout: 60_000,
       intervals: [2_000],
     });
+  }
+
+  protected async addStatutoryTimeFrame(options: AddStatutoryTimeFrameEventType): Promise<void> {
+    await this.verifyCaseIsInExpectedState({
+      caseId: options.caseId,
+      expectedStateName: ['Appeal submitted', 'Awaiting respondent evidence'],
+    });
+    await this.exui_statutoryTimeFrameApi.submitEvent(options);
   }
 }

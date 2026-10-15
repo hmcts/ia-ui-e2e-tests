@@ -25,3 +25,4 @@ export * from './legal-rep/payment-groups.api';
 export * from './legal-rep/card-payment.api';
 export * from './case-officer/request-case-building.api';
 export * from './legal-rep/build-your-case.api';
+export * from './add-statutory-time-frame.api';

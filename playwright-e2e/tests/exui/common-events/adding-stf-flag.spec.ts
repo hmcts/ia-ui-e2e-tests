@@ -22,8 +22,12 @@ test.describe('Set of tests to verify case officer is able to add stf flag manua
     });
 
     await test.step(`Case officer: Navigate to case overview page on exui`, async () => {
+      await exui_legalRepApiClient.verifyCaseIsInExpectedState({
+        caseId: caseId,
+        expectedStateName: 'Appeal submitted',
+      });
+
       await exui_pages.caseOverview.goTo({ caseId: caseId });
-      await exui_pages.caseOverview.refreshPageUntilExpectedTextIsVisible({ expectedText: 'Complete case review' });
     });
   });
 
@@ -56,7 +60,7 @@ test.describe('Set of tests to verify case officer is able to add stf flag manua
       await exui_pages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Add Statutory Timeframe' });
       const expectedDate = await dataUtils.getDateFromToday({ dayOffset: 168 });
       const expectedFormattedDate = new Date(expectedDate.year, expectedDate.month - 1, expectedDate.day)
-        .toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+        .toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
         .replace('Sept', 'Sep');
       await expect(exui_pages.caseOverview.$static.stfFlag).toBeVisible();
       await expect(exui_pages.caseOverview.$static.stfFlag).toHaveText(`24 Week STF (${expectedFormattedDate})`);
