@@ -2,7 +2,7 @@ import { expect, Locator, Page } from '@playwright/test';
 import { CaseOverViewBase } from '../../case-overview-base';
 
 export type ExpectedDocument = {
-  documentSectionName: `${
+  documentType: `${
     'Tribunal' | 'Appellant' | 'Home Office'
   } documents ${
     '1' | '2' | '3' | '4 ' | '5' | '6' | '7' | '8'
@@ -25,7 +25,7 @@ export class DocumentsTabPage extends CaseOverViewBase {
     documentsTable: this.page.locator('table.documents'),
   } as const satisfies Record<string, Locator>;
 
-  public $documentSectionLocator(sectionName: ExpectedDocument['documentSectionName']): Locator {
+  public $documentSectionLocator(sectionName: ExpectedDocument['documentType']): Locator {
     return this.page.locator('.complex-panel').filter({
       has: this.page.locator('.complex-panel-title').getByText(sectionName, { exact: true }),
     });
@@ -43,7 +43,7 @@ export class DocumentsTabPage extends CaseOverViewBase {
   }
 
   public async verifyDocumentIsAvailable(options: ExpectedDocument): Promise<void> {
-    const documentSection = this.$documentSectionLocator(options.documentSectionName);
+    const documentSection = this.$documentSectionLocator(options.documentType);
 
     const escapedDocumentName = options.documentName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const documentName = documentSection.getByRole('button', {
