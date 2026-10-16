@@ -37,6 +37,12 @@ export type RequestRespondentEvidenceEventType = {
 export type RequestReasonsForAppealEventType = RequestRespondentEvidenceEventType;
 export type RequestRespondentReviewEventType = RequestRespondentEvidenceEventType;
 export type RequestResponseReviewEventType = RequestRespondentEvidenceEventType;
+export type RequestCaseBuildingEventType = RequestRespondentEvidenceEventType;
+
+export type AddStatutoryTimeFrameEventType = {
+  caseId: string;
+  reasonForAddingStatutoryTimeFrame: string;
+};
 
 export type UploadHomeOfficeBundleEventType = {
   caseId: string;
@@ -55,6 +61,13 @@ export type CreateCaseSummaryEventType = {
   caseId: string;
   nameOfFileToUpload?: string;
   description?: string;
+};
+
+export type BuildYourCaseEventType = {
+  caseId: string;
+  appealSkeletonFileDescription?: string;
+  addAddtionalNewEvidence: YesOrNoType;
+  newEvidenceFileDescription?: string;
 };
 
 export type SendDirectionEventType = {

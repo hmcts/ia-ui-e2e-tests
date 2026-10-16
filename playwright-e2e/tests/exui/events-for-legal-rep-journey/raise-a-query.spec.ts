@@ -1,5 +1,5 @@
-import { test, expect } from '../../fixtures.js';
-import { config } from '../../utils/config.utils.js';
+import { test, expect } from '../../../fixtures.js';
+import { config } from '../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify legal rep user is able to raise a query', { tag: ['@functional'] }, () => {
   test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });

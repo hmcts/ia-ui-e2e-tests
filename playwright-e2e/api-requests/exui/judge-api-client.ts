@@ -1,7 +1,7 @@
 import { APIRequestContext } from '@playwright/test';
 import { BaseExuiApiClient } from './base-exui-api-client';
 import { GenerateDecisionAndReasonsApi, sendDecisionAndReasonsApi } from './requests';
-import { GenerateDecisionAndReasonsEventType, SendDecisionAndReasonsEventType } from '../../exui-event-types';
+import { GenerateDecisionAndReasonsEventType, SendDecisionAndReasonsEventType, AddStatutoryTimeFrameEventType } from '../../exui-event-types';
 
 export class JudgeApiClient extends BaseExuiApiClient {
   private generateDecisionAndReasonsApi: GenerateDecisionAndReasonsApi;
@@ -19,5 +19,9 @@ export class JudgeApiClient extends BaseExuiApiClient {
 
   public async submitSendDecisionAndReasonsEvent(options: SendDecisionAndReasonsEventType): Promise<void> {
     await this.sendDecisionAndReasonsApi.submitEvent(options);
+  }
+
+  public async submitAddStatutoryTimeFrameEvent(options: AddStatutoryTimeFrameEventType): Promise<void> {
+    await this.addStatutoryTimeFrame(options);
   }
 }
