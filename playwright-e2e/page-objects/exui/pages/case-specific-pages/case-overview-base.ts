@@ -93,5 +93,7 @@ export abstract class CaseOverViewBase extends ExuiBase {
         expect(currentURL.includes(options.urlPath), { message: `Verify page URL (${currentURL}) contains (${options.urlPath})` }).toBeTruthy();
       }).toPass({ intervals: [100], timeout: timeout }),
     ]);
+
+    expect(this.page.getByRole('tab', { name: options.tabName })).toHaveAttribute('aria-selected', 'true', { timeout: timeout });
   }
 }
