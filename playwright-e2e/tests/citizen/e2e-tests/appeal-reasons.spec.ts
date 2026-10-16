@@ -107,7 +107,7 @@ test.describe('Set of tests to verify user is able to submit answers to appeal r
       await cui_pages.appealReasonsCheckAnswers.submitAnswer();
       await cui_pages.appealReasonsAnswerSent.verifyUserIsOnPage();
 
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).full;
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
 
       await Promise.all([
         expect(cui_pages.appealReasonsAnswerSent.$static.whatHappensNextHeading).toBeVisible(),

@@ -29,7 +29,7 @@ export class HearingSuccessPage extends CuiBase {
   }
 
   public async verifyAllTextOnPage(): Promise<void> {
-    const expectedDate = (await this.dataUtils.getDateFromToday({ dayOffset: 14 })).full;
+    const expectedDate = (await this.dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
 
     await Promise.all([
       expect(this.$static.whatHappensNextHeading).toBeVisible(),

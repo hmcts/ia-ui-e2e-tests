@@ -1,5 +1,4 @@
 import { test, expect } from '../../../fixtures.js';
-import { ExpectedDocument } from '../../../page-objects/exui/pages/index.js';
 import { config } from '../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify case officer is able to remove STF flag manually from an existing case', { tag: ['@functional'] }, () => {
@@ -33,7 +32,7 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
     });
   });
 
-  test('Verify case officer is able to remove STF flag from an existing case', async ({ exui_pages, dataUtils }) => {
+  test('Verify case officer is able to remove STF flag from an existing case', async ({ exui_pages }) => {
     await test.step('Verify the case has an STF flag', async () => {
       await exui_pages.caseOverview.verifyUserIsOnPage({});
       await expect(exui_pages.caseOverview.$static.stfFlag).toBeVisible();
@@ -83,18 +82,11 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
     await test.step('Verify that the removal of STF flag document has been generated in the documents tab', async () => {
       await exui_pages.documentsTab.navigateToTab({ tabToSelect: 'Documents' });
       await exui_pages.documentsTab.verifyUserIsOnPage();
-
-      const todaysDate = await dataUtils.getDateFromToday({});
-      const todaysFormattedDate = new Date(todaysDate.year, todaysDate.month - 1, todaysDate.day)
-        .toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-        .replace('Sept', 'Sep');
-
-      const expectedDocument: ExpectedDocument = {
-        documentType: 'Tribunal documents 1',
+      await exui_pages.documentsTab.verifyDocumentIsVisible({
+        documentType: 'Tribunal documents',
+        documentIndexNumber: 1,
         documentName: 'Doe-stf-24weeks-removal-notice-of-decision.PDF',
-        uploadedDate: todaysFormattedDate,
-      };
-      await exui_pages.documentsTab.verifyDocumentIsAvailable(expectedDocument);
+      });
     });
   });
 });

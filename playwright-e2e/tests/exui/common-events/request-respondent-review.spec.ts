@@ -92,9 +92,7 @@ test.describe('Set of tests to verify case officer is able to request respondent
 
       await exui_pages.requestRespondentReviewSubmit.verifyUserIsOnPage();
 
-      const expectedDate = await dataUtils.getDateFromToday({ dayOffset: 14 });
-      const date = new Date(expectedDate.year, expectedDate.month - 1, expectedDate.day);
-      const formattedExpectedDate = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedShortMonthDate;
 
       await Promise.all([
         expect(exui_pages.requestRespondentReviewSubmit.$static.caseRecordHeading).toBeVisible(),
@@ -131,7 +129,7 @@ test.describe('Set of tests to verify case officer is able to request respondent
 
         expect(exui_pages.requestRespondentReviewSubmit.$static.byWhatDateMustTheyComplyQuestion).toHaveText('By what date must they comply?'),
         expect(exui_pages.requestRespondentReviewSubmit.$static.byWhatDateMustTheyComplyQuestion).toBeVisible(),
-        expect(exui_pages.requestRespondentReviewSubmit.$static.byWhatDateMustTheyComplyValue).toHaveText(formattedExpectedDate),
+        expect(exui_pages.requestRespondentReviewSubmit.$static.byWhatDateMustTheyComplyValue).toHaveText(expectedDate),
         expect(exui_pages.requestRespondentReviewSubmit.$static.byWhatDateMustTheyComplyValue).toBeVisible(),
 
         expect(exui_pages.requestRespondentReviewSubmit.$interactive.changeDirectionYouAreIssuingButton).toHaveText('Change'),

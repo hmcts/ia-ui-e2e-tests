@@ -540,7 +540,7 @@ test.describe('Set of tests to verify user is able to submit answers to hearing 
       await cui_pages.hearingDatesAvoid.completePageAndContinue({ anyDatesToAvoid: 'No' });
 
       await cui_pages.hearingNeeds.verifyUserIsOnPage();
-      return dateToAvoid.full;
+      return dateToAvoid.formattedLongMonthDate;
     });
 
     await test.step('Verify user is able to see their answers on check your answers page', async () => {

@@ -101,9 +101,7 @@ test.describe(
 
         await exui_pages.reviewHomeOfficeResponseSubmit.verifyUserIsOnPage();
 
-        const expectedDate = await dataUtils.getDateFromToday({ dayOffset: 5 });
-        const date = new Date(expectedDate.year, expectedDate.month - 1, expectedDate.day);
-        const formattedExpectedDate = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
+        const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 5 })).formattedShortMonthDate;
 
         await Promise.all([
           expect(exui_pages.reviewHomeOfficeResponseSubmit.$static.caseRecordHeading).toBeVisible(),
@@ -134,9 +132,7 @@ If you do not respond by the date indicated below, the case will automatically g
           await expect(exui_pages.reviewHomeOfficeResponseSubmit.$questionValueLocator('Who are you giving the direction to?')).toBeVisible(),
           // Verify by what date must they comply question and answer are displayed correctly on check your answers page
           await expect(exui_pages.reviewHomeOfficeResponseSubmit.$questionLocator('By what date must they comply?')).toBeVisible(),
-          await expect(exui_pages.reviewHomeOfficeResponseSubmit.$questionValueLocator('By what date must they comply?')).toHaveText(
-            formattedExpectedDate,
-          ),
+          await expect(exui_pages.reviewHomeOfficeResponseSubmit.$questionValueLocator('By what date must they comply?')).toHaveText(expectedDate),
           await expect(exui_pages.reviewHomeOfficeResponseSubmit.$questionValueLocator('By what date must they comply?')).toBeVisible(),
           await expect(exui_pages.reviewHomeOfficeResponseSubmit.$changeAnswerToQuestionLocator('By what date must they comply?')).toHaveText(
             'Change',

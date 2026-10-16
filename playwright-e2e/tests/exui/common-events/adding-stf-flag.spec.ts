@@ -58,12 +58,9 @@ test.describe('Set of tests to verify case officer is able to add stf flag manua
     await test.step('Verify Statutory Timeframe flag has been added successfully on case overview page', async () => {
       await exui_pages.caseOverview.verifyUserIsOnPage({});
       await exui_pages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Add Statutory Timeframe' });
-      const expectedDate = await dataUtils.getDateFromToday({ dayOffset: 168 });
-      const expectedFormattedDate = new Date(expectedDate.year, expectedDate.month - 1, expectedDate.day)
-        .toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
-        .replace('Sept', 'Sep');
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 168 })).formattedShortMonthDate;
       await expect(exui_pages.caseOverview.$static.stfFlag).toBeVisible();
-      await expect(exui_pages.caseOverview.$static.stfFlag).toHaveText(`24 Week STF (${expectedFormattedDate})`);
+      await expect(exui_pages.caseOverview.$static.stfFlag).toHaveText(`24 Week STF (${expectedDate})`);
     });
   });
 });
