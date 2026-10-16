@@ -40,11 +40,9 @@ export class CaseOverviewPage extends CaseOverViewBase {
 
   public async verifyUserIsOnPage(options: { timeoutMs?: number }): Promise<void> {
     options.timeoutMs = options.timeoutMs ?? 30_000;
-    await this.verifyUserIsOnExpectedPage({ urlPath: '#Overview', pageHeading: this.$static.pageHeading, timeout: options.timeoutMs });
+    await this.verifyUserIsOnExpectedTab({ urlPath: '#Overview', tabName: 'Overview', timeout: options.timeoutMs });
 
-    await expect(this.page.getByRole('tab', { name: /^Overview/ })).toHaveAttribute('aria-selected', 'true', {
-      timeout: options.timeoutMs,
-    });
+    await expect(this.$static.pageHeading).toBeVisible({ timeout: 10_000 });
   }
 
   public async goTo(options: { caseId: string; timeoutInMs?: number }): Promise<void> {
