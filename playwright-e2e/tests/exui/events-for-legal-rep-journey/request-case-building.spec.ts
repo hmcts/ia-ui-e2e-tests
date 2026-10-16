@@ -68,9 +68,8 @@ test.describe('Set of tests to verify case officer is able to request case build
       await exui_pages.requestCaseBuilding.completePageAndContinue();
 
       await exui_pages.requestCaseBuildingSubmit.verifyUserIsOnPage();
-      const expectedDate = await dataUtils.getDateFromToday({ dayOffset: 42 });
-      const date = new Date(expectedDate.year, expectedDate.month - 1, expectedDate.day);
-      const formattedExpectedDate = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 42 })).formattedShortMonthDate;
+
       await Promise.all([
         expect(exui_pages.requestCaseBuildingSubmit.$static.caseRecordHeading).toBeVisible(),
         expect(exui_pages.requestCaseBuildingSubmit.$static.checkYouAnswersHeading).toBeVisible(),
@@ -107,7 +106,7 @@ Parties must ensure they conduct proceedings with procedural rigour. The Tribuna
 
         expect(exui_pages.requestCaseBuildingSubmit.$questionLocator('By what date must they comply?')).toBeVisible(),
         expect(exui_pages.requestCaseBuildingSubmit.$questionValueLocator('By what date must they comply?')).toBeVisible(),
-        expect(exui_pages.requestCaseBuildingSubmit.$questionValueLocator('By what date must they comply?')).toHaveText(formattedExpectedDate),
+        expect(exui_pages.requestCaseBuildingSubmit.$questionValueLocator('By what date must they comply?')).toHaveText(expectedDate),
         expect(exui_pages.requestCaseBuildingSubmit.$changeAnswerToQuestionLocator('By what date must they comply?')).toBeVisible(),
       ]);
       await exui_pages.requestCaseBuildingSubmit.sendDirection();

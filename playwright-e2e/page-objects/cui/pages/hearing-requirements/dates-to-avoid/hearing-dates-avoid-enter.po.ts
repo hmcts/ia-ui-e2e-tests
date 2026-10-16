@@ -38,8 +38,8 @@ export class HearingDatesAvoidEnterPage extends CuiBase {
   }
 
   public async verifyAllTextOnPage(): Promise<void> {
-    const startOfDateRange = (await this.dataUtils.getDateFromToday({ dayOffset: 5 })).full;
-    const endOfDateRange = (await this.dataUtils.getDateFromToday({ dayOffset: 47 })).full;
+    const startOfDateRange = (await this.dataUtils.getDateFromToday({ dayOffset: 5 })).formattedLongMonthDate;
+    const endOfDateRange = (await this.dataUtils.getDateFromToday({ dayOffset: 47 })).formattedLongMonthDate;
     await Promise.all([
       expect(this.$static.onlyIncludeDatesWithinRangeText).toHaveText(`Only include dates from ${startOfDateRange} to ${endOfDateRange}.`),
       expect(this.$static.onlyIncludeDatesWithinRangeText).toBeVisible(),

@@ -202,7 +202,7 @@ test.describe('Test to verify user can submit an appeal via the UI', { tag: ['@e
       await expect(cui_pages.appealDetailsSent.$static.pageHeading).toHaveText('Your appeal has been submitted');
       await expect(cui_pages.appealDetailsSent.$static.whatHappensNextHeading).toBeVisible();
       await expect(cui_pages.appealDetailsSent.$static.whatHappensNextBulletPointList).toBeVisible();
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).full;
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
       await expect(cui_pages.appealDetailsSent.$static.whatHappensNextBulletPointList).toHaveText(
         `
             You must pay for your appeal by ${expectedDate}.
@@ -229,7 +229,7 @@ test.describe('Test to verify user can submit an appeal via the UI', { tag: ['@e
       await expect(cui_pages.confirmationOfPayment.$static.pageHeading).toHaveText('Your late appeal details have been sent');
       await expect(cui_pages.confirmationOfPayment.$static.whatHappensNextHeading).toBeVisible();
       await expect(cui_pages.confirmationOfPayment.$static.whatHappensNextBulletPointList).toBeVisible();
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 5 })).full;
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 5 })).formattedLongMonthDate;
       await expect(cui_pages.confirmationOfPayment.$static.whatHappensNextBulletPointList).toHaveText(
         `
             A Legal Officer will look at the reasons your appeal was late and decide if your appeal can continue

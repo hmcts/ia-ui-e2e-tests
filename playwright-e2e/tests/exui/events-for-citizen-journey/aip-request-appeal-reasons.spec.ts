@@ -76,9 +76,7 @@ test.describe('Set of tests to verify case officer is able to request appeal rea
 
       await exui_pages.aipRequestAppealReasonsSubmit.verifyUserIsOnPage();
 
-      const expectedDate = await dataUtils.getDateFromToday({ dayOffset: 28 });
-      const date = new Date(expectedDate.year, expectedDate.month - 1, expectedDate.day);
-      const formattedExpectedDate = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 28 })).formattedShortMonthDate;
 
       await Promise.all([
         expect(exui_pages.aipRequestAppealReasonsSubmit.$static.caseRecordHeading).toBeVisible(),
@@ -101,7 +99,7 @@ test.describe('Set of tests to verify case officer is able to request appeal rea
 
         expect(exui_pages.aipRequestAppealReasonsSubmit.$static.byWhatDateMustTheyComplyQuestion).toHaveText('By what date must they comply?'),
         expect(exui_pages.aipRequestAppealReasonsSubmit.$static.byWhatDateMustTheyComplyQuestion).toBeVisible(),
-        expect(exui_pages.aipRequestAppealReasonsSubmit.$static.byWhatDateMustTheyComplyValue).toHaveText(formattedExpectedDate),
+        expect(exui_pages.aipRequestAppealReasonsSubmit.$static.byWhatDateMustTheyComplyValue).toHaveText(expectedDate),
         expect(exui_pages.aipRequestAppealReasonsSubmit.$static.byWhatDateMustTheyComplyValue).toBeVisible(),
 
         expect(exui_pages.aipRequestAppealReasonsSubmit.$interactive.changeByWhatDateMustTheyComplyButton).toHaveText('Change'),

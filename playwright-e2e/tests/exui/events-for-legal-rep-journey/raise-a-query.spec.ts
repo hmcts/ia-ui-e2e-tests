@@ -58,10 +58,6 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
       });
 
       await legalRepExuiPages.raiseQuerySubmit.verifyUserIsOnPage();
-      const hearingDate = new Date(dateOfHearing.year, dateOfHearing.month - 1, dateOfHearing.day);
-      const formattedHearingDate = hearingDate
-        .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
-        .replace('Sept', 'Sep');
       await Promise.all([
         await expect(legalRepExuiPages.raiseQuerySubmit.$static.reviewQueryDetailsHeading).toBeVisible(),
         await expect(legalRepExuiPages.raiseQuerySubmit.$static.caseRecordHeading).toBeVisible(),
@@ -83,7 +79,9 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
 
         await expect(legalRepExuiPages.raiseQuerySubmit.$questionLocator('What is the date of the hearing?')).toBeVisible(),
         await expect(legalRepExuiPages.raiseQuerySubmit.$questionValueLocator('What is the date of the hearing?')).toBeVisible(),
-        await expect(legalRepExuiPages.raiseQuerySubmit.$questionValueLocator('What is the date of the hearing?')).toHaveText(formattedHearingDate),
+        await expect(legalRepExuiPages.raiseQuerySubmit.$questionValueLocator('What is the date of the hearing?')).toHaveText(
+          dateOfHearing.formattedShortMonthDate,
+        ),
         await expect(legalRepExuiPages.raiseQuerySubmit.$changeAnswerToQuestionLocator('What is the date of the hearing?')).toBeVisible(),
 
         await expect(legalRepExuiPages.raiseQuerySubmit.$questionLocator('Upload a file to the query')).toBeVisible(),
@@ -107,9 +105,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
     await test.step('Legal rep: Verify details of query submitted can be found in query tab', async () => {
       await legalRepExuiPages.caseOverview.navigateToTab({ tabToSelect: 'Queries' });
 
-      const formattedSubmissionDate = new Date()
-        .toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-        .replace('Sept', 'Sep');
+      const formattedSubmissionDate = (await dataUtils.getDateFromToday({})).formattedShortMonthDate;
 
       await legalRepExuiPages.queriesTab.verifyUserIsOnPage();
       await legalRepExuiPages.queriesTab.verifyTableHeadings();
@@ -200,10 +196,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
 
       await adminUserExuiPages.respondToAQuery.verifyUserIsOnPage();
       await adminUserExuiPages.respondToAQuery.verifyAllStaticTextOnPage();
-      const expectedDateOfHearing = await dataUtils.getDateFromToday({ dayOffset: 5 });
-      const formattedExpectedDateOfHearing = new Date(expectedDateOfHearing.year, expectedDateOfHearing.month - 1, expectedDateOfHearing.day)
-        .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
-        .replace('Sept', 'Sep');
+      const expectedDateOfHearing = (await dataUtils.getDateFromToday({ dayOffset: 5 })).formattedShortMonthDate;
 
       await Promise.all([
         expect(adminUserExuiPages.respondToAQuery.$queryDetailsTableHeadingLocator('Sender name')).toBeVisible(),
@@ -235,7 +228,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
         expect(adminUserExuiPages.respondToAQuery.$queryDetailsTableHeadingLocator('What is the date of the hearing?')).toBeVisible(),
         expect(adminUserExuiPages.respondToAQuery.$queryDetailsTableValueLocator('What is the date of the hearing?')).toBeVisible(),
         expect(adminUserExuiPages.respondToAQuery.$queryDetailsTableValueLocator('What is the date of the hearing?')).toHaveText(
-          formattedExpectedDateOfHearing,
+          expectedDateOfHearing,
         ),
 
         expect(adminUserExuiPages.respondToAQuery.$queryDetailsTableHeadingLocator('Attachments')).toBeVisible(),
@@ -285,7 +278,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
 
       await legalRepExuiPages.queriesTab.verifyUserIsOnPage();
       await legalRepExuiPages.queriesTab.refreshPageUntilQueryStatusHasBeenUpdated({ querySubject: 'Test Query Subject', queryStatus: 'Closed' });
-      const formattedTodaysDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
+      const formattedTodaysDate = (await dataUtils.getDateFromToday({})).formattedShortMonthDate;
       await legalRepExuiPages.queriesTab.verifyDetailsOfTableRow({
         querySubject: 'Test Query Subject',
         senderName: 'LR Bails Org',
@@ -302,10 +295,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
       await legalRepExuiPages.queriesTabQueryDetails.verifyUserIsOnPage();
       await legalRepExuiPages.queriesTabQueryDetails.verifyAllStaticTextOnPage();
       const formattedTodaysDate1 = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-      const dateOfHearing = await dataUtils.getDateFromToday({ dayOffset: 5 });
-      const formattedDateOfHearing = new Date(dateOfHearing.year, dateOfHearing.month - 1, dateOfHearing.day)
-        .toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
-        .replace('Sept', 'Sep');
+      const dateOfHearing = (await dataUtils.getDateFromToday({ dayOffset: 5 })).formattedShortMonthDate;
 
       await Promise.all([
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionLocator('Sender name')).toBeVisible(),
@@ -335,7 +325,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionLocator('What is the date of the hearing?')).toBeVisible(),
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionValueLocator('What is the date of the hearing?')).toBeVisible(),
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionValueLocator('What is the date of the hearing?')).toHaveText(
-          formattedDateOfHearing,
+          dateOfHearing,
         ),
 
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionLocator('Attachments')).toBeVisible(),

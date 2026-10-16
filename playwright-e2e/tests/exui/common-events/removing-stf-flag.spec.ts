@@ -20,7 +20,7 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
       });
     });
 
-    await test.step('Case officer: Navigate to case overview page on EXUI', async () => {
+    await test.step('Case officer: Verify case is in correct state', async () => {
       await exui_caseOfficerApiClient.submitAddStatutoryTimeFrameEvent({
         caseId: caseId,
         reasonForAddingStatutoryTimeFrame: 'Adding STF flag for automated removal test',
@@ -32,7 +32,7 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
     });
   });
 
-  test('Verify case officer is able to remove STF flag from an existing case', async ({ exui_pages, dataUtils }) => {
+  test('Verify case officer is able to remove STF flag from an existing case', async ({ exui_pages }) => {
     await test.step('Verify the case has an STF flag', async () => {
       await exui_pages.caseOverview.verifyUserIsOnPage({});
       await expect(exui_pages.caseOverview.$static.stfFlag).toBeVisible();
@@ -62,7 +62,7 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
         expect(exui_pages.removeStatutoryTimeframeSubmit.$questionValueLocator('Reason for removal of 24 week timeframe')).toHaveText(
           'Removing STF for automated test',
         ),
-        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible,
+        expect(exui_pages.removeStatutoryTimeframeSubmit.$changeAnswerToQuestionLocator('Reason for removal of 24 week timeframe')).toBeVisible(),
       ]);
 
       await exui_pages.removeStatutoryTimeframeSubmit.submitEvent();
@@ -77,6 +77,16 @@ test.describe('Set of tests to verify case officer is able to remove STF flag ma
         eventSubmitted: 'Remove Statutory Timeframe',
       });
       await expect(exui_pages.caseOverview.$static.stfFlag).not.toBeVisible();
+    });
+
+    await test.step('Verify that the removal of STF flag document has been generated in the documents tab', async () => {
+      await exui_pages.documentsTab.navigateToTab({ tabToSelect: 'Documents' });
+      await exui_pages.documentsTab.verifyUserIsOnPage();
+      await exui_pages.documentsTab.verifyDocumentIsVisible({
+        documentType: 'Tribunal documents',
+        documentIndexNumber: 1,
+        documentName: 'Doe-stf-24weeks-removal-notice-of-decision.PDF',
+      });
     });
   });
 });
