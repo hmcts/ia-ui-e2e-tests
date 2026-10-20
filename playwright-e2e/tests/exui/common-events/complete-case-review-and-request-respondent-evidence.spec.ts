@@ -76,7 +76,9 @@ test.describe('Set of tests to verify case officer is able to request respondent
       await exui_pages.requestRespondentEvidence.continueOnToNextPage();
 
       await exui_pages.requestRespondentEvidenceSubmit.verifyUserIsOnPage();
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedShortMonthDate;
+      const expectedDate = (
+        await dataUtils.getDateFromToday({ dayOffset: 14, formattingOptions: { day: 'numeric', month: 'short', year: 'numeric' } })
+      ).formattedDate;
 
       await Promise.all([
         expect(exui_pages.requestRespondentEvidenceSubmit.$static.caseRecordHeading).toBeVisible(),

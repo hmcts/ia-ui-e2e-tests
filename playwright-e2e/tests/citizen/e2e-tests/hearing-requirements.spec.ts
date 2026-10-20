@@ -522,7 +522,7 @@ test.describe('Set of tests to verify user is able to submit answers to hearing 
       await cui_pages.hearingDatesAvoid.verifyUserIsOnPage({ urlPath: 'hearing-dates-avoid' });
       await cui_pages.hearingDatesAvoid.completePageAndContinue({ anyDatesToAvoid: 'Yes' });
 
-      const dateToAvoid = await dataUtils.getDateFromToday({ dayOffset: 10 });
+      const dateToAvoid = await dataUtils.getDateFromToday({ dayOffset: 10, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } });
       await cui_pages.hearingDatesAvoidEnter.verifyUserIsOnPage();
       await cui_pages.hearingDatesAvoidEnter.verifyAllTextOnPage();
       await cui_pages.hearingDatesAvoidEnter.completePageAndContinue({
@@ -540,7 +540,7 @@ test.describe('Set of tests to verify user is able to submit answers to hearing 
       await cui_pages.hearingDatesAvoid.completePageAndContinue({ anyDatesToAvoid: 'No' });
 
       await cui_pages.hearingNeeds.verifyUserIsOnPage();
-      return dateToAvoid.formattedLongMonthDate;
+      return dateToAvoid.formattedDate;
     });
 
     await test.step('Verify user is able to see their answers on check your answers page', async () => {

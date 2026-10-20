@@ -161,7 +161,9 @@ test.describe('Tests the allow the user to submit a response to a judges decisio
     cui_apiClient,
   }) => {
     await test.step('Citizen User: Verify application is in the correct state', async () => {
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
+      const expectedDate = (
+        await dataUtils.getDateFromToday({ dayOffset: 14, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })
+      ).formattedDate;
 
       await Promise.all([
         expect(cui_pages.appealOverview.$static.applicantInstructionsWindow).toBeVisible(),

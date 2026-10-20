@@ -39,7 +39,9 @@ test.describe('Set of tests to verify functionality of application overview page
     });
 
     await test.step('Verify text on application overview page has been updated to reflect details have been sent', async () => {
-      const formattedExpectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
+      const formattedExpectedDate = (
+        await dataUtils.getDateFromToday({ dayOffset: 14, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })
+      ).formattedDate;
 
       await expect(cui_pages.appealOverview.$static.applicantInstructionsWindow).toBeVisible();
       await expect(cui_pages.appealOverview.$static.applicantInstructionsWindow).toHaveText(
@@ -52,7 +54,9 @@ test.describe('Set of tests to verify functionality of application overview page
     });
 
     await test.step('Verify appeal details section of appeal overview page', async () => {
-      const formattedTodaysDate = (await dataUtils.getDateFromToday({})).formattedLongMonthDate;
+      const formattedTodaysDate = (await dataUtils.getDateFromToday({ formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } }))
+        .formattedDate;
+
       await expect(cui_pages.appealOverview.$static.completedHeading).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealDetailsHeading).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealDetailsTimeLine).toBeVisible();
@@ -106,7 +110,7 @@ test.describe('Set of tests to verify functionality of application overview page
     });
 
     await test.step('Verify text on application overview page has been updated to reflect details have been sent', async () => {
-      const formattedExpectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
+      const formattedExpectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })).formattedDate;
       await expect(cui_pages.appealOverview.$static.applicantInstructionsWindow).toBeVisible();
       await expect(cui_pages.appealOverview.$static.applicantInstructionsWindow).toHaveText(
         `Your appeal details have been sent to the Tribunal.
@@ -119,7 +123,7 @@ test.describe('Set of tests to verify functionality of application overview page
     });
 
     await test.step('Verify appeal argument section of appeal overview page', async () => {
-      const formattedTodaysDate = (await dataUtils.getDateFromToday({})).formattedLongMonthDate;
+      const formattedTodaysDate = (await dataUtils.getDateFromToday({ formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })).formattedDate;
       await expect(cui_pages.appealOverview.$static.completedHeading).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealArgumentHeading).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealArgumentTimeLine).toBeVisible();
@@ -132,7 +136,7 @@ test.describe('Set of tests to verify functionality of application overview page
     });
 
     await test.step('Verify appeal details section of appeal overview page', async () => {
-      const formattedTodaysDate = (await dataUtils.getDateFromToday({})).formattedLongMonthDate;
+      const formattedTodaysDate = (await dataUtils.getDateFromToday({ formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })).formattedDate;
       await expect(cui_pages.appealOverview.$static.yourAppealDetailsHeading).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealDetailsTimeLine).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealDetailsTimeLine).toHaveText(
@@ -183,7 +187,7 @@ test.describe('Set of tests to verify functionality of application overview page
     });
 
     await test.step('Verify text on application overview page has been updated to reflect details have been sent', async () => {
-      const formattedExpectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
+      const formattedExpectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })).formattedDate;
       await expect(cui_pages.appealOverview.$static.applicantInstructionsWindow).toBeVisible();
       await expect(cui_pages.appealOverview.$static.applicantInstructionsWindow).toHaveText(
         `Your appeal details have been sent to the Tribunal.
@@ -196,7 +200,7 @@ test.describe('Set of tests to verify functionality of application overview page
     });
 
     await test.step('Verify appeal details section of appeal overview page', async () => {
-      const formattedTodaysDate = (await dataUtils.getDateFromToday({})).formattedLongMonthDate;
+      const formattedTodaysDate = (await dataUtils.getDateFromToday({ formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })).formattedDate;
       await expect(cui_pages.appealOverview.$static.completedHeading).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealDetailsHeading).toBeVisible();
       await expect(cui_pages.appealOverview.$static.yourAppealDetailsTimeLine).toBeVisible();

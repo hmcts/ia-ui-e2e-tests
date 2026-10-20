@@ -101,7 +101,7 @@ test.describe(
 
         await exui_pages.reviewHomeOfficeResponseSubmit.verifyUserIsOnPage();
 
-        const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 5 })).formattedShortMonthDate;
+        const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 5, formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } })).formattedDate;
 
         await Promise.all([
           expect(exui_pages.reviewHomeOfficeResponseSubmit.$static.caseRecordHeading).toBeVisible(),

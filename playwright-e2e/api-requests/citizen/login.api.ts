@@ -1,45 +1,59 @@
 import { APIRequestContext, expect } from '@playwright/test';
 
 export class CuiLoginApi {
-  private apiContext: APIRequestContext;
-
-  constructor(apiContext: APIRequestContext) {
-    this.apiContext = apiContext;
-  }
+  constructor(private readonly apiContext: APIRequestContext) {}
 
   public async login(username: string, password: string): Promise<void> {
     await expect(async () => {
       const startLoginResponse = await this.apiContext.get('login');
       await expect(startLoginResponse).toBeOK();
 
-      const idamHtml = await startLoginResponse.text();
-      const idamUrl = startLoginResponse.url();
+      const idamBaseUrl = new URL(startLoginResponse.url()).origin;
+      const enterEmailUrl = new URL('/enter-email', idamBaseUrl).toString();
+      const enterPasswordUrl = new URL('/enter-password', idamBaseUrl).toString();
 
-      const idamCsrf = idamHtml.match(/name="_csrf" value="([^"]+)"/)?.[1];
-      if (!idamCsrf) {
-        throw new Error('Could not extract CSRF token from IDAM login page');
-      }
+      const enterEmailPage = await this.apiContext.get(enterEmailUrl);
+      await expect(enterEmailPage).toBeOK();
+      const emailCsrf = this.getCsrfToken(await enterEmailPage.text());
 
-      const postCredentialsResponse = await this.apiContext.post(idamUrl, {
+      const enterPasswordPage = await this.apiContext.post(enterEmailUrl, {
         form: {
-          username: username,
-          password: password,
-          selfRegistrationEnabled: 'true',
-          _csrf: idamCsrf,
+          email: username,
+          _csrf: emailCsrf,
         },
       });
+      await expect(enterPasswordPage).toBeOK();
 
-      await expect(postCredentialsResponse).toBeOK();
+      const passwordPage = enterPasswordPage.url().includes('/enter-password') ? enterPasswordPage : await this.apiContext.get(enterPasswordUrl);
+      await expect(passwordPage).toBeOK();
+      const passwordCsrf = this.getCsrfToken(await passwordPage.text());
 
-      const cookies = await this.apiContext.storageState();
-      const hasAuthToken = cookies.cookies.some((c) => c.name === '__auth-token');
+      const submitCredentialsResponse = await this.apiContext.post(enterPasswordUrl, {
+        form: {
+          action: '_submit',
+          email: username,
+          password,
+          _csrf: passwordCsrf,
+        },
+      });
+      await expect(submitCredentialsResponse).toBeOK();
 
+      const state = await this.apiContext.storageState();
+      const hasAuthToken = state.cookies.some((cookie) => cookie.name === '__auth-token');
       if (!hasAuthToken) {
-        throw new Error('Login failed: __auth-token cookie not found after redirect chain');
+        throw new Error('Login failed: __auth-token cookie not found after IDAM redirect chain');
       }
     }).toPass({
       timeout: 30_000,
       intervals: [1_000],
     });
+  }
+
+  private getCsrfToken(html: string): string {
+    const token = html.match(/name="_csrf" value="([^"]+)"/)?.[1];
+    if (!token) {
+      throw new Error('Could not extract CSRF token from IDAM page');
+    }
+    return token;
   }
 }

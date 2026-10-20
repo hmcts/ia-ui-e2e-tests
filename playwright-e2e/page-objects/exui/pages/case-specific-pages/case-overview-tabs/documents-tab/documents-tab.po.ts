@@ -56,7 +56,8 @@ export class DocumentsTabPage extends CaseOverViewBase {
       await expect(descriptionValue).not.toBeVisible();
     }
 
-    const todaysDate = (await this.dataUtils.getDateFromToday({})).formattedShortMonthDate;
+    const todaysDate = (await this.dataUtils.getDateFromToday({ formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } }))
+      .formattedDate;
     await expect(dateUploadedValue).toBeVisible();
     await expect(dateUploadedValue).toContainText(todaysDate);
   }
