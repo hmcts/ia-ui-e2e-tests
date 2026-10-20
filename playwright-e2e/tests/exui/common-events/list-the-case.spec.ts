@@ -114,7 +114,7 @@ test.describe('Set of tests to verify admin user is able to list a case for hear
         hourToSet: 13,
       });
 
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 1 })).formattedShortMonthDate;
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 1, formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } })).formattedDate;
 
       await exui_pages.listCaseSubmit.verifyUserIsOnPage();
       await Promise.all([

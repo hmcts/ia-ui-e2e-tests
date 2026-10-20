@@ -67,7 +67,17 @@ export class DataUtils {
     dayOffset?: number;
     monthOffset?: number;
     yearOffset?: number;
-  }): Promise<{ day: number; month: number; year: number; formattedLongMonthDate: string; formattedShortMonthDate: string }> {
+    formattingOptions?: {
+      day: 'numeric' | '2-digit';
+      month: 'numeric' | '2-digit' | 'long' | 'short';
+      year: 'numeric' | '2-digit';
+    };
+  }): Promise<{
+    day: number;
+    month: number;
+    year: number;
+    formattedDate: string;
+  }> {
     const date = new Date();
 
     if (options.yearOffset !== undefined) date.setFullYear(date.getFullYear() + options.yearOffset);
@@ -78,15 +88,18 @@ export class DataUtils {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
 
-    const formattedLongMonthDate = date.toLocaleString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
-    const formattedShortMonthDate = date.toLocaleString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).replace('Sept', 'Sep');
+    const formattingOptions = options.formattingOptions ?? { day: '2-digit', month: 'long', year: 'numeric' };
+    let formattedDate = date.toLocaleDateString('en-GB', formattingOptions);
+
+    if (options.formattingOptions?.month === 'short') {
+      formattedDate = formattedDate.replace('Sept', 'Sep');
+    }
 
     return {
       day: day,
       month: month,
       year: year,
-      formattedLongMonthDate: formattedLongMonthDate,
-      formattedShortMonthDate: formattedShortMonthDate,
+      formattedDate,
     };
   }
 

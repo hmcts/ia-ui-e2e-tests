@@ -38,8 +38,14 @@ export class HearingDatesAvoidPage extends CuiBase {
   }
 
   public async verifyAllTextOnPage(): Promise<void> {
-    const startOfPageHeadingDateRange = (await this.dataUtils.getDateFromToday({ dayOffset: 5 })).formattedLongMonthDate;
-    const endOfPageHeadingDateRange = (await this.dataUtils.getDateFromToday({ dayOffset: 47 })).formattedLongMonthDate;
+    const startOfPageHeadingDateRange = (
+      await this.dataUtils.getDateFromToday({ dayOffset: 5, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })
+    ).formattedDate;
+
+    const endOfPageHeadingDateRange = (
+      await this.dataUtils.getDateFromToday({ dayOffset: 47, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })
+    ).formattedDate;
+
     let pageHeadingText: string;
 
     if (this.page.url().includes('hearing-dates-avoid-new')) {

@@ -76,7 +76,7 @@ test.describe('Set of tests to verify case officer is able to request appeal rea
 
       await exui_pages.aipRequestAppealReasonsSubmit.verifyUserIsOnPage();
 
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 28 })).formattedShortMonthDate;
+      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 28, formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } })).formattedDate;
 
       await Promise.all([
         expect(exui_pages.aipRequestAppealReasonsSubmit.$static.caseRecordHeading).toBeVisible(),

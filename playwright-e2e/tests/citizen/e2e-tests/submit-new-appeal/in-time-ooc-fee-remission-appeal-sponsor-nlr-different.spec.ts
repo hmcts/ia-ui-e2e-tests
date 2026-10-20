@@ -224,7 +224,10 @@ test.describe('Test to verify user is able to submit an appeal via the UI', { ta
 
       await expect(cui_pages.appealDetailsSent.$static.pageHeading).toHaveText('You have sent your appeal details');
       await expect(cui_pages.appealDetailsSent.$static.whatHappensNextHeading).toBeVisible();
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 14 })).formattedLongMonthDate;
+      const expectedDate = (
+        await dataUtils.getDateFromToday({ dayOffset: 14, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })
+      ).formattedDate;
+
       await expect(cui_pages.appealDetailsSent.$static.whatHappensNextBulletPointList).toHaveText(
         `
         The Tribunal will check the information you sent and let you know if you need to pay a fee

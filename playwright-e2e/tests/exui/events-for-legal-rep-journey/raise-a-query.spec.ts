@@ -44,7 +44,10 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
 
       await legalRepExuiPages.raiseAQuery.verifyUserIsOnPage();
       await legalRepExuiPages.raiseAQuery.verifyAllTextOnPage();
-      const dateOfHearing = await dataUtils.getDateFromToday({ dayOffset: 5 });
+      const dateOfHearing = await dataUtils.getDateFromToday({
+        dayOffset: 5,
+        formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' },
+      });
       await legalRepExuiPages.raiseAQuery.completePageAndContinue({
         querySubject: 'Test Query Subject',
         queryDetail: 'Test Query Detail',
@@ -80,7 +83,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
         await expect(legalRepExuiPages.raiseQuerySubmit.$questionLocator('What is the date of the hearing?')).toBeVisible(),
         await expect(legalRepExuiPages.raiseQuerySubmit.$questionValueLocator('What is the date of the hearing?')).toBeVisible(),
         await expect(legalRepExuiPages.raiseQuerySubmit.$questionValueLocator('What is the date of the hearing?')).toHaveText(
-          dateOfHearing.formattedShortMonthDate,
+          dateOfHearing.formattedDate,
         ),
         await expect(legalRepExuiPages.raiseQuerySubmit.$changeAnswerToQuestionLocator('What is the date of the hearing?')).toBeVisible(),
 
@@ -105,7 +108,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
     await test.step('Legal rep: Verify details of query submitted can be found in query tab', async () => {
       await legalRepExuiPages.caseOverview.navigateToTab({ tabToSelect: 'Queries' });
 
-      const formattedSubmissionDate = (await dataUtils.getDateFromToday({})).formattedShortMonthDate;
+      const formattedSubmissionDate = (await dataUtils.getDateFromToday({ formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } })).formattedDate;
 
       await legalRepExuiPages.queriesTab.verifyUserIsOnPage();
       await legalRepExuiPages.queriesTab.verifyTableHeadings();
@@ -196,7 +199,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
 
       await adminUserExuiPages.respondToAQuery.verifyUserIsOnPage();
       await adminUserExuiPages.respondToAQuery.verifyAllStaticTextOnPage();
-      const expectedDateOfHearing = (await dataUtils.getDateFromToday({ dayOffset: 5 })).formattedShortMonthDate;
+      const expectedDateOfHearing = (await dataUtils.getDateFromToday({ dayOffset: 5, formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } })).formattedDate;
 
       await Promise.all([
         expect(adminUserExuiPages.respondToAQuery.$queryDetailsTableHeadingLocator('Sender name')).toBeVisible(),
@@ -278,7 +281,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
 
       await legalRepExuiPages.queriesTab.verifyUserIsOnPage();
       await legalRepExuiPages.queriesTab.refreshPageUntilQueryStatusHasBeenUpdated({ querySubject: 'Test Query Subject', queryStatus: 'Closed' });
-      const formattedTodaysDate = (await dataUtils.getDateFromToday({})).formattedShortMonthDate;
+      const formattedTodaysDate = (await dataUtils.getDateFromToday({ formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } })).formattedDate;
       await legalRepExuiPages.queriesTab.verifyDetailsOfTableRow({
         querySubject: 'Test Query Subject',
         senderName: 'LR Bails Org',
@@ -295,7 +298,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
       await legalRepExuiPages.queriesTabQueryDetails.verifyUserIsOnPage();
       await legalRepExuiPages.queriesTabQueryDetails.verifyAllStaticTextOnPage();
       const formattedTodaysDate1 = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-      const dateOfHearing = (await dataUtils.getDateFromToday({ dayOffset: 5 })).formattedShortMonthDate;
+      const dateOfHearing = (await dataUtils.getDateFromToday({ dayOffset: 5, formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' } })).formattedDate;
 
       await Promise.all([
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionLocator('Sender name')).toBeVisible(),

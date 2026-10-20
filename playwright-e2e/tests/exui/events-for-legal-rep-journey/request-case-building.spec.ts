@@ -68,7 +68,9 @@ test.describe('Set of tests to verify case officer is able to request case build
       await exui_pages.requestCaseBuilding.completePageAndContinue();
 
       await exui_pages.requestCaseBuildingSubmit.verifyUserIsOnPage();
-      const expectedDate = (await dataUtils.getDateFromToday({ dayOffset: 42 })).formattedShortMonthDate;
+      const expectedDate = (
+        await dataUtils.getDateFromToday({ dayOffset: 42, formattingOptions: { day: 'numeric', month: 'short', year: 'numeric' } })
+      ).formattedDate;
 
       await Promise.all([
         expect(exui_pages.requestCaseBuildingSubmit.$static.caseRecordHeading).toBeVisible(),
