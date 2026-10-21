@@ -84,6 +84,10 @@ import {
   ReviewHomeOfficeResponseSubmitPage,
   ReviewHomeOfficeResponseConfirmPage,
   RequestHearingRequirementsPage,
+  SubmitHearingRequirementsPage,
+  HearingRequirementsAttendancePage,
+  HearingRequirementsOralEvidencePage,
+  SubmitHearingRequirementsWitnessPage,
   ReviewHearingRequirementsPage,
   ReviewHearingRequirementsRemoteHearingPage,
   ReviewHearingRequirementsPersonalVulnerabilitiesPage,
@@ -261,6 +265,10 @@ export class ExuiPages {
   public readonly reviewHomeOfficeResponseSubmit: ReviewHomeOfficeResponseSubmitPage;
   public readonly reviewHomeOfficeResponseConfirm: ReviewHomeOfficeResponseConfirmPage;
   public readonly requestHearingRequirements: RequestHearingRequirementsPage;
+  public readonly submitHearingRequirements: SubmitHearingRequirementsPage;
+  public readonly hearingRequirementsAttendance: HearingRequirementsAttendancePage;
+  public readonly hearingRequirementsOralEvidence: HearingRequirementsOralEvidencePage;
+  public readonly submitHearingRequirementsWitness: SubmitHearingRequirementsWitnessPage;
   public readonly reviewHearingRequirements: ReviewHearingRequirementsPage;
   public readonly reviewHearingRequirementsRemoteHearing: ReviewHearingRequirementsRemoteHearingPage;
   public readonly reviewHearingRequirementsPersonalVulnerabilities: ReviewHearingRequirementsPersonalVulnerabilitiesPage;
@@ -436,6 +444,10 @@ export class ExuiPages {
     this.reviewHomeOfficeResponseSubmit = new ReviewHomeOfficeResponseSubmitPage(this.page);
     this.reviewHomeOfficeResponseConfirm = new ReviewHomeOfficeResponseConfirmPage(this.page);
     this.requestHearingRequirements = new RequestHearingRequirementsPage(this.page);
+    this.submitHearingRequirements = new SubmitHearingRequirementsPage(this.page);
+    this.hearingRequirementsAttendance = new HearingRequirementsAttendancePage(this.page);
+    this.hearingRequirementsOralEvidence = new HearingRequirementsOralEvidencePage(this.page);
+    this.submitHearingRequirementsWitness = new SubmitHearingRequirementsWitnessPage(this.page);
     this.reviewHearingRequirements = new ReviewHearingRequirementsPage(this.page);
     this.reviewHearingRequirementsRemoteHearing = new ReviewHearingRequirementsRemoteHearingPage(this.page);
     this.reviewHearingRequirementsPersonalVulnerabilities = new ReviewHearingRequirementsPersonalVulnerabilitiesPage(this.page);

@@ -82,6 +82,10 @@ export * from './case-specific-pages/events/review-home-office-response/review-h
 export * from './case-specific-pages/events/review-home-office-response/review-home-office-response-submit.po';
 export * from './case-specific-pages/events/review-home-office-response/review-home-office-response-confirm.po';
 export * from './case-specific-pages/events/request-hearing-requirements/request-hearing-requirements.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/submit-hearing-requirements.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-attendance.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-oral-evidence.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/submit-hearing-requirements-witness.po';
 export * from './case-specific-pages/events/review-hearing-requirements/review-hearing-requirements.po';
 export * from './case-specific-pages/events/review-hearing-requirements/review-hearing-requirements-remote-hearing.po';
 export * from './case-specific-pages/events/review-hearing-requirements/review-hearing-requirements-personal-vulnerabilities.po';
