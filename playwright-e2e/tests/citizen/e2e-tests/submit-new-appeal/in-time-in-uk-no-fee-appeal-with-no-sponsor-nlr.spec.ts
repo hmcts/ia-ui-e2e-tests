@@ -162,7 +162,7 @@ test.describe('Test to verify user is able to submit an appeal via the UI', { ta
         ).toBeVisible();
 
         const expectedDate = (
-          await dataUtils.getDateFromToday({ dayOffset: 14, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })
+          await dataUtils.getDateFromToday({ dayOffset: 5, formattingOptions: { day: '2-digit', month: 'long', year: 'numeric' } })
         ).formattedDate;
 
         await expect(
