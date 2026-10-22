@@ -78,14 +78,32 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
 
       await exui_pages.submitHearingRequirementsWitness.verifyUserIsOnPage();
       await exui_pages.submitHearingRequirementsWitness.verifyAllTextOnPage();
-      await exui_pages.submitHearingRequirementsWitness.$interactive.addNewWitnessButton;
-      await exui_pages.submitHearingRequirementsWitness.completePageAndContinue({ 
+      await exui_pages.submitHearingRequirementsWitness.completePageAndContinue({
         witnessesAttending: 'Yes',
         witness: {
-        givenNames: 'Test Witness',
-        familyName: '1'
-      } })
-      //await exui_pages.submitHearingRequirementsWitness.$interactive.addNewWitnessButton;
+          givenNames: 'Test Witness',
+          familyName: '1',
+        },
+      });
+
+      await exui_pages.hearingRequirementsOralEvidenceOutsideUk.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsOralEvidenceOutsideUk.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsOralEvidenceOutsideUk.completePageAndContinue({ evidenceFromOutsideUk: 'Yes' });
+
+      await exui_pages.hearingRequirementsInterpreterNeeded.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsInterpreterNeeded.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsInterpreterNeeded.completePageAndContinue({ interpreterServicesNeeded: 'Yes' });
+
+      await exui_pages.hearingRequirementsTypeOfInterpreter.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsTypeOfInterpreter.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsTypeOfInterpreter.completePageAndContinue({
+        interpreterTypes: ['signLanguageInterpreter', 'spokenLanguageInterpreter'],
+      });
+
+      await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.completePageAndContinue({ manualLanguage: 'Portuguese' });
+
     });
   });
 });

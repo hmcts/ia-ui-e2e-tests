@@ -86,6 +86,10 @@ export * from './case-specific-pages/events/submit-hearing-requirements/submit-h
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-attendance.po';
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-oral-evidence.po';
 export * from './case-specific-pages/events/submit-hearing-requirements/submit-hearing-requirements-witness.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-oral-evidence-outside-uk.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/interpreter-details/hearing-requirements-interpreter-needed.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/interpreter-details/hearing-requirements-type-of-interpreter.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/interpreter-details/hearing-requirements-spoken-language-interpreter-details.po';
 export * from './case-specific-pages/events/review-hearing-requirements/review-hearing-requirements.po';
 export * from './case-specific-pages/events/review-hearing-requirements/review-hearing-requirements-remote-hearing.po';
 export * from './case-specific-pages/events/review-hearing-requirements/review-hearing-requirements-personal-vulnerabilities.po';

@@ -15,7 +15,7 @@ export class SubmitHearingRequirementsWitnessPage extends ExuiBase {
   } as const satisfies Record<string, Locator>;
 
   public readonly $interactive = {
-    addNewWitnessButton: this.page.getByRole('button', { name: 'Add new', exact: true }),
+    addNewWitnessButton: this.page.getByRole('button', { name: 'Add new', exact: true }).first(),
     continueButton: this.$commonElements.continueButton,
     previousButton: this.$commonElements.previousButton,
     cancelButton: this.$commonElements.cancelButton,
@@ -64,15 +64,16 @@ export class SubmitHearingRequirementsWitnessPage extends ExuiBase {
     await expect(radio).toBeChecked();
 
     if (options.witnessesAttending === 'Yes') {
+      await this.$interactive.addNewWitnessButton.click();
       await Promise.all([
         expect(this.$static.witnessDetailsHeading).toBeVisible(),
         expect(this.$interactive.addNewWitnessButton).toBeVisible(),
-        await this.$interactive.addNewWitnessButton.click(),
         expect(this.$static.witnessGivenNamesLabel).toHaveText('Given names'),
         expect(this.$static.witnessGivenNamesLabel).toBeVisible(),
         expect(this.$static.witnessFamilyNameLabel).toHaveText('Family name'),
         expect(this.$static.witnessFamilyNameLabel).toBeVisible(),
       ]);
+      //await this.$interactive.addNewWitnessButton.click();
 
       if (options.witness) {
         await this.$inputs.witnessGivenNamesInput.fill(options.witness.givenNames);

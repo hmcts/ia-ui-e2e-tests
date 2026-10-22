@@ -88,6 +88,10 @@ import {
   HearingRequirementsAttendancePage,
   HearingRequirementsOralEvidencePage,
   SubmitHearingRequirementsWitnessPage,
+  HearingRequirementsOralEvidenceOutsideUkPage,
+  HearingRequirementsInterpreterNeededPage,
+  HearingRequirementsTypeOfInterpreterPage,
+  HearingRequirementsSpokenLanguageInterpreterDetailsPage,
   ReviewHearingRequirementsPage,
   ReviewHearingRequirementsRemoteHearingPage,
   ReviewHearingRequirementsPersonalVulnerabilitiesPage,
@@ -269,6 +273,10 @@ export class ExuiPages {
   public readonly hearingRequirementsAttendance: HearingRequirementsAttendancePage;
   public readonly hearingRequirementsOralEvidence: HearingRequirementsOralEvidencePage;
   public readonly submitHearingRequirementsWitness: SubmitHearingRequirementsWitnessPage;
+  public readonly hearingRequirementsOralEvidenceOutsideUk: HearingRequirementsOralEvidenceOutsideUkPage;
+  public readonly hearingRequirementsInterpreterNeeded: HearingRequirementsInterpreterNeededPage;
+  public readonly hearingRequirementsTypeOfInterpreter: HearingRequirementsTypeOfInterpreterPage;
+  public readonly hearingRequirementsSpokenLanguageInterpreterDetails: HearingRequirementsSpokenLanguageInterpreterDetailsPage;
   public readonly reviewHearingRequirements: ReviewHearingRequirementsPage;
   public readonly reviewHearingRequirementsRemoteHearing: ReviewHearingRequirementsRemoteHearingPage;
   public readonly reviewHearingRequirementsPersonalVulnerabilities: ReviewHearingRequirementsPersonalVulnerabilitiesPage;
@@ -448,6 +456,10 @@ export class ExuiPages {
     this.hearingRequirementsAttendance = new HearingRequirementsAttendancePage(this.page);
     this.hearingRequirementsOralEvidence = new HearingRequirementsOralEvidencePage(this.page);
     this.submitHearingRequirementsWitness = new SubmitHearingRequirementsWitnessPage(this.page);
+    this.hearingRequirementsOralEvidenceOutsideUk = new HearingRequirementsOralEvidenceOutsideUkPage(this.page);
+    this.hearingRequirementsInterpreterNeeded = new HearingRequirementsInterpreterNeededPage(this.page);
+    this.hearingRequirementsTypeOfInterpreter = new HearingRequirementsTypeOfInterpreterPage(this.page);
+    this.hearingRequirementsSpokenLanguageInterpreterDetails = new HearingRequirementsSpokenLanguageInterpreterDetailsPage(this.page);
     this.reviewHearingRequirements = new ReviewHearingRequirementsPage(this.page);
     this.reviewHearingRequirementsRemoteHearing = new ReviewHearingRequirementsRemoteHearingPage(this.page);
     this.reviewHearingRequirementsPersonalVulnerabilities = new ReviewHearingRequirementsPersonalVulnerabilitiesPage(this.page);
