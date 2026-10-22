@@ -90,6 +90,7 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
       await exui_pages.hearingRequirementsOralEvidenceOutsideUk.verifyAllTextOnPage();
       await exui_pages.hearingRequirementsOralEvidenceOutsideUk.completePageAndContinue({ evidenceFromOutsideUk: 'Yes' });
 
+      //Appellant Interpreter details
       await exui_pages.hearingRequirementsInterpreterNeeded.verifyUserIsOnPage();
       await exui_pages.hearingRequirementsInterpreterNeeded.verifyAllTextOnPage();
       await exui_pages.hearingRequirementsInterpreterNeeded.completePageAndContinue({ interpreterServicesNeeded: 'Yes' });
@@ -104,6 +105,109 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
       await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.verifyAllTextOnPage();
       await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.completePageAndContinue({ manualLanguage: 'Portuguese' });
 
+      await exui_pages.hearingRequirementsSignLanguageInterpreterDetails.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsSignLanguageInterpreterDetails.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsSignLanguageInterpreterDetails.completePageAndContinue({ signLanguage: "British Sign Language (BSL)" });
+
+      //Witness Interpreter details
+      await exui_pages.hearingRequirementsInterpreterNeededForWitness.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsInterpreterNeededForWitness.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsInterpreterNeededForWitness.completePageAndContinue({ witnessInterpreterRequired: 'Yes' });
+
+      await exui_pages.hearingRequirementsTypeOfWitnessInterpreter.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsTypeOfWitnessInterpreter.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsTypeOfWitnessInterpreter.completePageAndContinue({ witnessInterpreterTypes: [
+        ['spokenLanguageInterpreter', 'signLanguageInterpreter'],
+      ]})
+
+      await exui_pages.hearingRequirementsWitnessSpokenLanguageInterpreterDetails.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsWitnessSpokenLanguageInterpreterDetails.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsWitnessSpokenLanguageInterpreterDetails.completePageAndContinue({ spokenLanguage: 'Arabic' });
+
+      await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.completePageAndContinue({ manualLanguage: 'Test manual language' });
+      })
+
+      await exui_pages.hearingRequirementsStepFreeAccess.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsStepFreeAccess.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsStepFreeAccess.completePageAndContinue({ stepFreeAccessRequired: 'No' });
+
+      await exui_pages.hearingRequirementsHearingLoop.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsHearingLoop.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsHearingLoop.completePageAndContinue({ hearingLoopRequired: 'No' });
+
+      await exui_pages.hearingRequirementsAdditionalRequests.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsAdditionalRequests.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsAdditionalRequests.completePageAndContinue();
+
+      await exui_pages.hearingRequirementsVideoHearings.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsVideoHearings.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsVideoHearings.completePageAndContinue({ 
+        'remoteVideoCall': 'Yes', 
+        'remoteVideoCallDescription': 'Test Remote Video Call details' 
+      });
+
+      await exui_pages.hearingRequirementsHealthConditions.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsHealthConditions.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsHealthConditions.completePageAndContinue({ 
+        'healthConditionsPresent': 'Yes', 
+        'healthConditionsDescription': 'Test Health Conditions Description' 
+      });
+
+      await exui_pages.hearingRequirementsPastExperiences.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsPastExperiences.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsPastExperiences.completePageAndContinue({ 
+        'pastExperiencesPresent': 'Yes', 
+        'pastExperiencesDescription': 'Test Past Experiences Description' 
+      });
+
+      await exui_pages.hearingRequirementsMultimediaEvidence.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsMultimediaEvidence.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsMultimediaEvidence.completePageAndContinue({ 
+        'multimediaEvidence': 'Yes', 
+        'multimediaEvidenceDescription': 'Test Past Experiences Description' 
+      });
+
+      await exui_pages.hearingRequirementsSingleSexCourtRequired.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsSingleSexCourtRequired.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsSingleSexCourtRequired.completePageAndContinue({ singleSexCourtRequired: 'Yes' });
+
+      await exui_pages.hearingRequirementsWhichSingleSexCourtRequired.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsWhichSingleSexCourtRequired.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsWhichSingleSexCourtRequired.completePageAndContinue({ 
+        'singleSexCourtType': 'All male', 
+        'reason': 'Test reason for all-male court' 
+      });
+
+      await exui_pages.hearingRequirementsInCameraCourt.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsInCameraCourt.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsInCameraCourt.completePageAndContinue({
+        'inCameraCourtRequired': 'Yes',
+        'inCameraCourtDescription': 'Test In Caera Court description'
+      });
+
+      await exui_pages.hearingRequirementsAdditionalRequestsFinal.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsAdditionalRequestsFinal.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsAdditionalRequestsFinal.completePageAndContinue({
+        'additionalRequests': 'Yes',
+        'additionalRequestsDescription': 'Test Additional Requests'
+      });
+
+      await exui_pages.hearingRequirementsDatesToAvoid.verifyUserIsOnPage();
+      await exui_pages.hearingRequirementsDatesToAvoid.verifyAllTextOnPage();
+      await exui_pages.hearingRequirementsDatesToAvoid.completePageAndContinue({
+        'datesToAvoid': 'Yes',
+        'dates': [
+          {
+            day: '15',
+            month: '01',
+            year: '2026',
+            reason: 'Test date to avoid',
+          },
+        ],
+      });
+
     });
   });
-});
+  

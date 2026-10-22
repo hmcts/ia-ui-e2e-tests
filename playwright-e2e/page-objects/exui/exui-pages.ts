@@ -89,9 +89,26 @@ import {
   HearingRequirementsOralEvidencePage,
   SubmitHearingRequirementsWitnessPage,
   HearingRequirementsOralEvidenceOutsideUkPage,
-  HearingRequirementsInterpreterNeededPage,
+  HearingRequirementsInterpreterNeededForAppellantPage,
+  HearingRequirementsInterpreterNeededForWitnessPage,
+  HearingRequirementsStepFreeAccessPage,
+  HearingRequirementsHearingLoopPage,
+  HearingRequirementsAdditionalRequestsPage,
+  HearingRequirementsAdditionalRequestsFinalPage,
+  HearingRequirementsDatesToAvoidPage,
+  HearingRequirementsVideoHearingsPage,
+  HearingRequirementsHealthConditionsPage,
+  HearingRequirementsPastExperiencesPage,
+  HearingRequirementsMultimediaEvidencePage,
+  HearingRequirementsSingleSexCourtRequiredPage,
+  HearingRequirementsWhichSingleSexCourtRequiredPage,
+  HearingRequirementsInCameraCourtPage,
   HearingRequirementsTypeOfInterpreterPage,
   HearingRequirementsSpokenLanguageInterpreterDetailsPage,
+  HearingRequirementsSignLanguageInterpreterDetailsPage,
+  HearingRequirementsTypeOfWitnessInterpreterPage,
+  HearingRequirementsWitnessSpokenLanguageInterpreterDetailsPage,
+  HearingRequirementsWitnessSignLanguageInterpreterDetailsPage,
   ReviewHearingRequirementsPage,
   ReviewHearingRequirementsRemoteHearingPage,
   ReviewHearingRequirementsPersonalVulnerabilitiesPage,
@@ -274,9 +291,26 @@ export class ExuiPages {
   public readonly hearingRequirementsOralEvidence: HearingRequirementsOralEvidencePage;
   public readonly submitHearingRequirementsWitness: SubmitHearingRequirementsWitnessPage;
   public readonly hearingRequirementsOralEvidenceOutsideUk: HearingRequirementsOralEvidenceOutsideUkPage;
-  public readonly hearingRequirementsInterpreterNeeded: HearingRequirementsInterpreterNeededPage;
+  public readonly hearingRequirementsInterpreterNeeded: HearingRequirementsInterpreterNeededForAppellantPage;
+  public readonly hearingRequirementsInterpreterNeededForWitness: HearingRequirementsInterpreterNeededForWitnessPage;
+  public readonly hearingRequirementsStepFreeAccess: HearingRequirementsStepFreeAccessPage;
+  public readonly hearingRequirementsHearingLoop: HearingRequirementsHearingLoopPage;
+  public readonly hearingRequirementsAdditionalRequests: HearingRequirementsAdditionalRequestsPage;
+  public readonly hearingRequirementsAdditionalRequestsFinal: HearingRequirementsAdditionalRequestsFinalPage;
+  public readonly hearingRequirementsDatesToAvoid: HearingRequirementsDatesToAvoidPage;
+  public readonly hearingRequirementsVideoHearings: HearingRequirementsVideoHearingsPage;
+  public readonly hearingRequirementsHealthConditions: HearingRequirementsHealthConditionsPage;
+  public readonly hearingRequirementsPastExperiences: HearingRequirementsPastExperiencesPage;
+  public readonly hearingRequirementsMultimediaEvidence: HearingRequirementsMultimediaEvidencePage;
+  public readonly hearingRequirementsSingleSexCourtRequired: HearingRequirementsSingleSexCourtRequiredPage;
+  public readonly hearingRequirementsWhichSingleSexCourtRequired: HearingRequirementsWhichSingleSexCourtRequiredPage;
+  public readonly hearingRequirementsInCameraCourt: HearingRequirementsInCameraCourtPage;
   public readonly hearingRequirementsTypeOfInterpreter: HearingRequirementsTypeOfInterpreterPage;
   public readonly hearingRequirementsSpokenLanguageInterpreterDetails: HearingRequirementsSpokenLanguageInterpreterDetailsPage;
+  public readonly hearingRequirementsSignLanguageInterpreterDetails: HearingRequirementsSignLanguageInterpreterDetailsPage;
+  public readonly hearingRequirementsTypeOfWitnessInterpreter: HearingRequirementsTypeOfWitnessInterpreterPage;
+  public readonly hearingRequirementsWitnessSpokenLanguageInterpreterDetails: HearingRequirementsWitnessSpokenLanguageInterpreterDetailsPage;
+  public readonly hearingRequirementsWitnessSignLanguageInterpreterDetails: HearingRequirementsWitnessSignLanguageInterpreterDetailsPage;
   public readonly reviewHearingRequirements: ReviewHearingRequirementsPage;
   public readonly reviewHearingRequirementsRemoteHearing: ReviewHearingRequirementsRemoteHearingPage;
   public readonly reviewHearingRequirementsPersonalVulnerabilities: ReviewHearingRequirementsPersonalVulnerabilitiesPage;
@@ -457,9 +491,26 @@ export class ExuiPages {
     this.hearingRequirementsOralEvidence = new HearingRequirementsOralEvidencePage(this.page);
     this.submitHearingRequirementsWitness = new SubmitHearingRequirementsWitnessPage(this.page);
     this.hearingRequirementsOralEvidenceOutsideUk = new HearingRequirementsOralEvidenceOutsideUkPage(this.page);
-    this.hearingRequirementsInterpreterNeeded = new HearingRequirementsInterpreterNeededPage(this.page);
+    this.hearingRequirementsInterpreterNeeded = new HearingRequirementsInterpreterNeededForAppellantPage(this.page);
+    this.hearingRequirementsInterpreterNeededForWitness = new HearingRequirementsInterpreterNeededForWitnessPage(this.page);
+    this.hearingRequirementsStepFreeAccess = new HearingRequirementsStepFreeAccessPage(this.page);
+    this.hearingRequirementsHearingLoop = new HearingRequirementsHearingLoopPage(this.page);
+    this.hearingRequirementsAdditionalRequests = new HearingRequirementsAdditionalRequestsPage(this.page);
+    this.hearingRequirementsAdditionalRequestsFinal = new HearingRequirementsAdditionalRequestsFinalPage(this.page);
+    this.hearingRequirementsDatesToAvoid = new HearingRequirementsDatesToAvoidPage(this.page);
+    this.hearingRequirementsVideoHearings = new HearingRequirementsVideoHearingsPage(this.page);
+    this.hearingRequirementsHealthConditions = new HearingRequirementsHealthConditionsPage(this.page);
+    this.hearingRequirementsPastExperiences = new HearingRequirementsPastExperiencesPage(this.page);
+    this.hearingRequirementsMultimediaEvidence = new HearingRequirementsMultimediaEvidencePage(this.page);
+    this.hearingRequirementsSingleSexCourtRequired = new HearingRequirementsSingleSexCourtRequiredPage(this.page);
+    this.hearingRequirementsWhichSingleSexCourtRequired = new HearingRequirementsWhichSingleSexCourtRequiredPage(this.page);
+    this.hearingRequirementsInCameraCourt = new HearingRequirementsInCameraCourtPage(this.page);
     this.hearingRequirementsTypeOfInterpreter = new HearingRequirementsTypeOfInterpreterPage(this.page);
     this.hearingRequirementsSpokenLanguageInterpreterDetails = new HearingRequirementsSpokenLanguageInterpreterDetailsPage(this.page);
+    this.hearingRequirementsSignLanguageInterpreterDetails = new HearingRequirementsSignLanguageInterpreterDetailsPage(this.page);
+    this.hearingRequirementsTypeOfWitnessInterpreter = new HearingRequirementsTypeOfWitnessInterpreterPage(this.page);
+    this.hearingRequirementsWitnessSpokenLanguageInterpreterDetails = new HearingRequirementsWitnessSpokenLanguageInterpreterDetailsPage(this.page);
+    this.hearingRequirementsWitnessSignLanguageInterpreterDetails = new HearingRequirementsWitnessSignLanguageInterpreterDetailsPage(this.page);
     this.reviewHearingRequirements = new ReviewHearingRequirementsPage(this.page);
     this.reviewHearingRequirementsRemoteHearing = new ReviewHearingRequirementsRemoteHearingPage(this.page);
     this.reviewHearingRequirementsPersonalVulnerabilities = new ReviewHearingRequirementsPersonalVulnerabilitiesPage(this.page);
