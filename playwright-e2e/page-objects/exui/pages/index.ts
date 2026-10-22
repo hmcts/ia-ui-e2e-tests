@@ -94,6 +94,7 @@ export * from './case-specific-pages/events/submit-hearing-requirements/hearing-
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-additional-requests.po';
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-additional-requests-final.po';
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-dates-to-avoid.po';
+export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-cya.po';
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-video-hearings.po';
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-health-conditions.po';
 export * from './case-specific-pages/events/submit-hearing-requirements/hearing-requirements-past-experiences.po';

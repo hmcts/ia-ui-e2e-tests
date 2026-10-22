@@ -127,7 +127,6 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
       await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.verifyUserIsOnPage();
       await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.verifyAllTextOnPage();
       await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.completePageAndContinue({ manualLanguage: 'Test manual language' });
-      })
 
       await exui_pages.hearingRequirementsStepFreeAccess.verifyUserIsOnPage();
       await exui_pages.hearingRequirementsStepFreeAccess.verifyAllTextOnPage();
@@ -208,6 +207,87 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
         ],
       });
 
+      await exui_pages.hearingRequirementsCYA.verifyUserIsOnPage();
+
+      const summaryRows = [
+        { question: 'Will the appellant attend the hearing?', values: ['Yes'] },
+        { question: 'Will the appellant give oral evidence at the hearing?', values: ['Yes'] },
+        { question: 'Will any witnesses attend the hearing?', values: ['Yes'] },
+        { question: 'Witness details', values: ['Test Witness', '1'] },
+        {
+          question: 'Will the appellant or anyone else be giving oral evidence from outside the United Kingdom?',
+          values: ['Yes'],
+        },
+        { question: 'Will the appellant need a spoken or sign language interpreter at the hearing?', values: ['Yes'] },
+        {
+          question: 'What kind of interpreter will the appellant need?',
+          values: ['Spoken language interpreter', 'Sign language interpreter'],
+        },
+        { question: 'Tell us which spoken language is needed for the appellant', values: ['Portuguese'] },
+        { question: 'Tell us which sign language is needed for the appellant', values: ['British Sign Language (BSL)'] },
+        { question: 'Will any of the witnesses require a spoken or sign language interpreter at the hearing?', values: ['Yes'] },
+        {
+          question: 'What kind of interpreter does Test Witness 1 need?',
+          values: ['Spoken language interpreter', 'Sign language interpreter'],
+        },
+        { question: 'Which spoken language interpreter is needed for Test Witness 1?', values: ['Arabic'] },
+        { question: 'Which sign language is needed for Test Witness 1?', values: ['Test manual language'] },
+        { question: 'Do you need a hearing room with step-free access?', values: ['No'] },
+        { question: 'Do you need a hearing loop?', values: ['No'] },
+        {
+          question: "Is there anything you'd like the Tribunal to consider when deciding if a video call is suitable?",
+          values: ['Yes'],
+        },
+        { question: 'Explain in detail anything you would like the Tribunal to consider', values: ['Test Remote Video Call details'] },
+        {
+          question: 'Does the appellant have any physical or mental health issues that may impact them on the day?',
+          values: ['Yes'],
+        },
+        {
+          question: 'Explain in detail how any physical or mental health issues may affect them on the day.',
+          values: ['Test Health Conditions Description'],
+        },
+        { question: 'Has the appellant had any past experiences that may impact them on the day?', values: ['Yes'] },
+        {
+          question: 'Explain in detail how any past experiences may affect them on the day?',
+          values: ['Test Past Experiences Description'],
+        },
+        { question: 'Do you have multimedia evidence?', values: ['Yes'] },
+        {
+          question:
+            "You should provide the equipment to play this evidence. If this is not possible, explain why and what equipment you'll need to play it.",
+          values: ['Test Past Experiences Description'],
+        },
+        { question: 'Does the appellant need a single-sex court?', values: ['Yes'] },
+        { question: 'What type of court do they need?', values: ['All male'] },
+        { question: 'Explain in detail why the appellant needs a single-sex court.', values: ['Test reason for all-male court'] },
+        { question: 'Does the appellant need an in camera court?', values: ['Yes'] },
+        { question: 'Explain in detail why the appellant needs an in camera court.', values: ['Test In Caera Court description'] },
+        { question: 'Is there anything else you would like to request?', values: ['Yes'] },
+        { question: 'Provide details of any additional requests and why they are necessary.', values: ['Test Additional Requests'] },
+        {
+          question: 'Are there any dates that the appellant or their on-day representation cannot attend?',
+          values: ['Yes'],
+        },
+        { question: 'Dates to avoid', values: ['15 Jan 2026', 'Test date to avoid'] },
+      ] as const satisfies ReadonlyArray<{
+        question: Parameters<typeof exui_pages.hearingRequirementsCYA.$questionLocator>[0];
+        values: readonly string[];
+      }>;
+
+      await Promise.all([
+        expect(exui_pages.hearingRequirementsCYA.$static.checkYourAnswersHeading).toBeVisible(),
+        expect(exui_pages.hearingRequirementsCYA.$static.checkInformationCarefullyText).toBeVisible(),
+        expect(exui_pages.hearingRequirementsCYA.$static.checkYourAnswersTable).toBeVisible(),
+        ...summaryRows.flatMap(({ question, values }) => {
+          const questionLocator = exui_pages.hearingRequirementsCYA.$questionLocator(question);
+          const valueLocator = exui_pages.hearingRequirementsCYA.$questionValueLocator(question);
+
+          return [expect(questionLocator).toBeVisible(), ...values.map((value) => expect(valueLocator).toContainText(value))];
+        }),
+      ]);
+
+      await exui_pages.hearingRequirementsCYA.submit();
     });
   });
-  
+});
