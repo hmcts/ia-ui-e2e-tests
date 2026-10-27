@@ -97,6 +97,7 @@ import {
   HearingRequirementsAdditionalRequestsFinalPage,
   HearingRequirementsDatesToAvoidPage,
   HearingRequirementsCYAPage,
+  ConfirmHearingRequirementsPage,
   HearingRequirementsVideoHearingsPage,
   HearingRequirementsHealthConditionsPage,
   HearingRequirementsPastExperiencesPage,
@@ -300,6 +301,7 @@ export class ExuiPages {
   public readonly hearingRequirementsAdditionalRequestsFinal: HearingRequirementsAdditionalRequestsFinalPage;
   public readonly hearingRequirementsDatesToAvoid: HearingRequirementsDatesToAvoidPage;
   public readonly hearingRequirementsCYA: HearingRequirementsCYAPage;
+  public readonly confirmHearingRequirements: ConfirmHearingRequirementsPage;
   public readonly hearingRequirementsVideoHearings: HearingRequirementsVideoHearingsPage;
   public readonly hearingRequirementsHealthConditions: HearingRequirementsHealthConditionsPage;
   public readonly hearingRequirementsPastExperiences: HearingRequirementsPastExperiencesPage;
@@ -501,6 +503,7 @@ export class ExuiPages {
     this.hearingRequirementsAdditionalRequestsFinal = new HearingRequirementsAdditionalRequestsFinalPage(this.page);
     this.hearingRequirementsDatesToAvoid = new HearingRequirementsDatesToAvoidPage(this.page);
     this.hearingRequirementsCYA = new HearingRequirementsCYAPage(this.page);
+    this.confirmHearingRequirements = new ConfirmHearingRequirementsPage(this.page);
     this.hearingRequirementsVideoHearings = new HearingRequirementsVideoHearingsPage(this.page);
     this.hearingRequirementsHealthConditions = new HearingRequirementsHealthConditionsPage(this.page);
     this.hearingRequirementsPastExperiences = new HearingRequirementsPastExperiencesPage(this.page);

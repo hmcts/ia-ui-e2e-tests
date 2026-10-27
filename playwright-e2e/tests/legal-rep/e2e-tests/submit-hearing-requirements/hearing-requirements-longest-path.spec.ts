@@ -288,6 +288,14 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
       ]);
 
       await exui_pages.hearingRequirementsCYA.submit();
+
+      await exui_pages.confirmHearingRequirements.verifyUserIsOnPage();
+      await exui_pages.confirmHearingRequirements.verifyAllTextOnPage();
+      await exui_pages.confirmHearingRequirements.returnToCaseDetails();
+
+    await test.step('Verify event has successfully been submitted and correct next steps have been shown', async () => {
+      await exui_pages.caseOverview.verifyUserIsOnPage({});
+      await exui_pages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Submit hearing requirements' });
     });
   });
-});
+})});
