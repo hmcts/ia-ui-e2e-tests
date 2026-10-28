@@ -65,21 +65,21 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
     await test.step('Open the submit hearing requirements event', async () => {
       await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Submit hearing requirements' });
       
-      await exui_pages.draftSubmitHearingRequirements.verifyUserIsOnPage();
-      await exui_pages.draftSubmitHearingRequirements.verifyAllTextOnPage();
-      await exui_pages.draftSubmitHearingRequirements.continueOntoNextPage();
+      await exui_pages.draftHearingRequirementsdraftHearingRequirements.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsdraftHearingRequirements.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsdraftHearingRequirements.continueOntoNextPage();
 
-      await exui_pages.draftHearingRequirementsAttendance.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsAttendance.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsAttendance.completePageAndContinue({ appellantAttendingTheHearing: 'Yes' });
+      await exui_pages.draftHearingRequirementsattendTheHearing.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsattendTheHearing.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsattendTheHearing.completePageAndContinue({ appellantAttendingTheHearing: 'Yes' });
 
       await exui_pages.draftHearingRequirementsOralEvidence.verifyUserIsOnPage();
       await exui_pages.draftHearingRequirementsOralEvidence.verifyAllTextOnPage();
       await exui_pages.draftHearingRequirementsOralEvidence.completePageAndContinue({ appellantGivingOralEvidence: 'Yes' });
 
-      await exui_pages.draftSubmitHearingRequirementsWitness.verifyUserIsOnPage();
-      await exui_pages.draftSubmitHearingRequirementsWitness.verifyAllTextOnPage();
-      await exui_pages.draftSubmitHearingRequirementsWitness.completePageAndContinue({
+      await exui_pages.draftHearingRequirementsisWitnessesAttending.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsisWitnessesAttending.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsisWitnessesAttending.completePageAndContinue({
         witnessesAttending: 'Yes',
         witness: {
           givenNames: 'Test Witness',
@@ -87,9 +87,9 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
         },
       });
 
-      await exui_pages.draftHearingRequirementsOralEvidenceOutsideUk.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsOralEvidenceOutsideUk.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsOralEvidenceOutsideUk.completePageAndContinue({ evidenceFromOutsideUk: 'Yes' });
+      await exui_pages.draftHearingRequirementsisEvidenceFromOutsideUkInCountry.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsisEvidenceFromOutsideUkInCountry.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsisEvidenceFromOutsideUkInCountry.completePageAndContinue({ evidenceFromOutsideUk: 'Yes' });
 
       //Appellant Interpreter details
       await exui_pages.draftHearingRequirementsInterpreterNeeded.verifyUserIsOnPage();
@@ -111,9 +111,9 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
       await exui_pages.draftHearingRequirementsappellantInterpreterSignLanguage.completePageAndContinue({ signLanguage: "British Sign Language (BSL)" });
 
       //Witness Interpreter details
-      await exui_pages.draftHearingRequirementsIsAnyWitnessInterpreterRequiredPage.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsIsAnyWitnessInterpreterRequiredPage.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsIsAnyWitnessInterpreterRequiredPage.completePageAndContinue({ witnessInterpreterRequired: 'Yes' });
+      await exui_pages.draftHearingRequirementsisAnyWitnessInterpreterRequired.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsisAnyWitnessInterpreterRequired.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsisAnyWitnessInterpreterRequired.completePageAndContinue({ witnessInterpreterRequired: 'Yes' });
 
       await exui_pages.draftHearingRequirementswhichWitnessRequiresInterpreter.verifyUserIsOnPage();
       await exui_pages.draftHearingRequirementswhichWitnessRequiresInterpreter.verifyAllTextOnPage();
@@ -129,28 +129,28 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
       await exui_pages.draftHearingRequirementswitness1InterpreterSignLanguage.verifyAllTextOnPage();
       await exui_pages.draftHearingRequirementswitness1InterpreterSignLanguage.completePageAndContinue({ manualLanguage: 'Test manual language' });
 
-      await exui_pages.draftHearingRequirementsStepFreeAccess.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsStepFreeAccess.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsStepFreeAccess.completePageAndContinue({ stepFreeAccessRequired: 'No' });
+      await exui_pages.draftHearingRequirementsisHearingRoomNeeded.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsisHearingRoomNeeded.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsisHearingRoomNeeded.completePageAndContinue({ stepFreeAccessRequired: 'No' });
 
-      await exui_pages.draftHearingRequirementsHearingLoop.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsHearingLoop.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsHearingLoop.completePageAndContinue({ hearingLoopRequired: 'No' });
+      await exui_pages.draftHearingRequirementsisHearingLoopNeeded.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsisHearingLoopNeeded.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsisHearingLoopNeeded.completePageAndContinue({ hearingLoopRequired: 'No' });
 
-      await exui_pages.draftHearingRequirementsAdditionalRequests.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsAdditionalRequests.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsAdditionalRequests.completePageAndContinue();
+      await exui_pages.draftHearingRequirementssubmitHearingRequirementsAdditionalRequests.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementssubmitHearingRequirementsAdditionalRequests.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementssubmitHearingRequirementsAdditionalRequests.completePageAndContinue();
 
-      await exui_pages.draftHearingRequirementsVideoHearings.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsVideoHearings.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsVideoHearings.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementsremoteVideoCall.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsremoteVideoCall.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsremoteVideoCall.completePageAndContinue({ 
         'remoteVideoCall': 'Yes', 
         'remoteVideoCallDescription': 'Test Remote Video Call details' 
       });
 
-      await exui_pages.draftHearingRequirementsHealthConditions.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsHealthConditions.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsHealthConditions.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementsphysicalOrMentalHealthIssues.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsphysicalOrMentalHealthIssues.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsphysicalOrMentalHealthIssues.completePageAndContinue({ 
         'healthConditionsPresent': 'Yes', 
         'healthConditionsDescription': 'Test Health Conditions Description' 
       });
@@ -173,9 +173,9 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
       await exui_pages.draftHearingRequirementsSingleSexCourtRequired.verifyAllTextOnPage();
       await exui_pages.draftHearingRequirementsSingleSexCourtRequired.completePageAndContinue({ singleSexCourtRequired: 'Yes' });
 
-      await exui_pages.draftHearingRequirementsWhichSingleSexCourtRequired.verifyUserIsOnPage();
-      await exui_pages.draftHearingRequirementsWhichSingleSexCourtRequired.verifyAllTextOnPage();
-      await exui_pages.draftHearingRequirementsWhichSingleSexCourtRequired.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementssingleSexCourtType.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementssingleSexCourtType.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementssingleSexCourtType.completePageAndContinue({ 
         'singleSexCourtType': 'All male', 
         'reason': 'Test reason for all-male court' 
       });

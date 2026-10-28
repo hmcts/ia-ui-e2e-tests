@@ -1,19 +1,19 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { ExuiBase } from '../../../../../exui-base';
-import { LanguagesType } from '../../../../../../../citizen-types';
+import { SignLanguagesType } from '../../../../../../../citizen-types';
 
-export class DraftHearingRequirementsappellantInterpreterSpokenLanguage extends ExuiBase {
+export class DraftHearingRequirementsappellantInterpreterSignLanguagePage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
 
   public readonly $inputs = {
-    manualLanguageInput: this.page.locator('input[id="appellantInterpreterSpokenLanguage_languageManualEntryDescription"]'),
+    manualLanguageInput: this.page.locator('input[id="appellantInterpreterSignLanguage_languageManualEntryDescription"]'),
   } as const satisfies Record<string, Locator>;
 
   public readonly $interactive = {
-    spokenLanguageDropdown: this.page.locator('select[id="appellantInterpreterSpokenLanguage_languageRefData"]'),
-    enterLanguageManuallyCheckbox: this.page.locator('input[id="appellantInterpreterSpokenLanguage_languageManualEntry-Yes"]'),
+    signLanguageDropdown: this.page.locator('select[id="appellantInterpreterSignLanguage_languageRefData"]'),
+    enterLanguageManuallyCheckbox: this.page.locator('input[id="appellantInterpreterSignLanguage_languageManualEntry-Yes"]'),
     continueButton: this.$commonElements.continueButton,
     previousButton: this.$commonElements.previousButton,
     cancelButton: this.$commonElements.cancelButton,
@@ -22,18 +22,18 @@ export class DraftHearingRequirementsappellantInterpreterSpokenLanguage extends 
   public readonly $static = {
     pageHeading: this.page.getByRole('heading', { level: 1, name: 'Submit hearing requirements', exact: true }),
     caseRecordHeading: this.$commonElements.caseRecordHeading,
-    spokenLanguageHeading: this.page.getByRole('heading', {
+    signLanguageHeading: this.page.getByRole('heading', {
       level: 2,
-      name: 'Tell us which spoken language is needed for the appellant',
+      name: 'Tell us which sign language is needed for the appellant',
       exact: true,
     }),
-    spokenLanguageLabel: this.page.locator('label[for="appellantInterpreterSpokenLanguage_languageRefData"]'),
-    enterLanguageManuallyLabel: this.page.locator('label[for="appellantInterpreterSpokenLanguage_languageManualEntry-Yes"]'),
+    signLanguageLabel: this.page.locator('label[for="appellantInterpreterSignLanguage_languageRefData"]'),
+    enterLanguageManuallyLabel: this.page.locator('label[for="appellantInterpreterSignLanguage_languageManualEntry-Yes"]'),
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {
     await this.verifyUserIsOnExpectedPage({
-      urlPath: 'trigger/draftHearingRequirements/draftHearingRequirementsappellantInterpreterSpokenLanguage',
+      urlPath: 'trigger/draftHearingRequirements/draftHearingRequirementsappellantInterpreterSignLanguage',
       pageHeading: this.$static.pageHeading,
     });
   }
@@ -41,20 +41,20 @@ export class DraftHearingRequirementsappellantInterpreterSpokenLanguage extends 
   public async verifyAllTextOnPage(): Promise<void> {
     await Promise.all([
       expect(this.$static.caseRecordHeading).toBeVisible(),
-      expect(this.$static.spokenLanguageHeading).toBeVisible(),
-      expect(this.$static.spokenLanguageLabel).toHaveText('Spoken language'),
-      expect(this.$static.spokenLanguageLabel).toBeVisible(),
+      expect(this.$static.signLanguageHeading).toBeVisible(),
+      expect(this.$static.signLanguageLabel).toHaveText('Sign language'),
+      expect(this.$static.signLanguageLabel).toBeVisible(),
       expect(this.$static.enterLanguageManuallyLabel).toHaveText('Enter the language manually'),
       expect(this.$static.enterLanguageManuallyLabel).toBeVisible(),
     ]);
   }
 
   public async completePageAndContinue(
-    options: { spokenLanguage: LanguagesType; manualLanguage?: never } | { spokenLanguage?: never; manualLanguage: string },
+    options: { signLanguage: SignLanguagesType; manualLanguage?: never } | { signLanguage?: never; manualLanguage: string },
   ): Promise<void> {
-    if (options.spokenLanguage) {
-      await this.$interactive.spokenLanguageDropdown.selectOption({ label: options.spokenLanguage });
-      await expect(this.$interactive.spokenLanguageDropdown.locator('option:checked')).toHaveText(options.spokenLanguage);
+    if (options.signLanguage) {
+      await this.$interactive.signLanguageDropdown.selectOption({ label: options.signLanguage });
+      await expect(this.$interactive.signLanguageDropdown.locator('option:checked')).toHaveText(options.signLanguage);
     } else {
       await this.$interactive.enterLanguageManuallyCheckbox.check();
       await expect(this.$interactive.enterLanguageManuallyCheckbox).toBeChecked();
