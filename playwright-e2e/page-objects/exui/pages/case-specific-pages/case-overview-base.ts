@@ -32,6 +32,7 @@ type DropdownEventTypes =
   | 'Build your case'
   | 'Add Statutory Timeframe'
   | 'Remove Statutory Timeframe'
+  | 'Submit hearing requirements'
   | 'Raise Query';
 
 type CaseOverviewTabsType =

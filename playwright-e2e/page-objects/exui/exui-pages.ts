@@ -84,6 +84,33 @@ import {
   ReviewHomeOfficeResponseSubmitPage,
   ReviewHomeOfficeResponseConfirmPage,
   RequestHearingRequirementsPage,
+  DraftHearingRequirementsdraftHearingRequirementsPage,
+  DraftHearingRequirementsattendTheHearingPage,
+  DraftHearingRequirementsOralEvidencePage,
+  DraftHearingRequirementsisWitnessesAttendingPage,
+  DraftHearingRequirementsisEvidenceFromOutsideUkInCountryPage,
+  DraftHearingRequirementsInterpreterNeededForAppellantPage,
+  DraftHearingRequirementsisAnyWitnessInterpreterRequiredPage,
+  DraftHearingRequirementsisHearingRoomNeededPage,
+  DraftHearingRequirementsisHearingLoopNeededPage,
+  draftHearingRequirementssubmitHearingRequirementsAdditionalRequestsPage,
+  DraftHearingRequirementsAdditionalRequestsFinalPage,
+  DraftHearingRequirementsDatesToAvoidPage,
+  DraftHearingRequirementsSubmitPage,
+  draftHearingRequirementsConfirmPage as DraftHearingRequirementsConfirmPage,
+  DraftHearingRequirementsremoteVideoCallPage,
+  DraftHearingRequirementsphysicalOrMentalHealthIssuesPage,
+  DraftHearingRequirementsPastExperiencesPage,
+  DraftHearingRequirementsMultimediaEvidencePage,
+  DraftHearingRequirementsSingleSexCourtRequiredPage,
+  DraftHearingRequirementssingleSexCourtTypePage,
+  DraftHearingRequirementsInCameraCourtPage,
+  DraftHearingRequirementsappellantInterpreterLanguageCategoryPage,
+  DraftHearingRequirementsappellantInterpreterSpokenLanguagePage,
+  DraftHearingRequirementsappellantInterpreterSignLanguagePage,
+  DraftHearingRequirementswhichWitnessRequiresInterpreterPage,
+  DraftHearingRequirementswitness1InterpreterSpokenLanguagePage,
+  DraftHearingRequirementswitness1InterpreterSignLanguagePage,
   ReviewHearingRequirementsPage,
   ReviewHearingRequirementsRemoteHearingPage,
   ReviewHearingRequirementsPersonalVulnerabilitiesPage,
@@ -261,6 +288,33 @@ export class ExuiPages {
   public readonly reviewHomeOfficeResponseSubmit: ReviewHomeOfficeResponseSubmitPage;
   public readonly reviewHomeOfficeResponseConfirm: ReviewHomeOfficeResponseConfirmPage;
   public readonly requestHearingRequirements: RequestHearingRequirementsPage;
+  public readonly draftHearingRequirementsdraftHearingRequirements: DraftHearingRequirementsdraftHearingRequirementsPage;
+  public readonly draftHearingRequirementsattendTheHearing: DraftHearingRequirementsattendTheHearingPage;
+  public readonly draftHearingRequirementsOralEvidence: DraftHearingRequirementsOralEvidencePage;
+  public readonly draftHearingRequirementsisWitnessesAttending: DraftHearingRequirementsisWitnessesAttendingPage;
+  public readonly draftHearingRequirementsisEvidenceFromOutsideUkInCountry: DraftHearingRequirementsisEvidenceFromOutsideUkInCountryPage;
+  public readonly draftHearingRequirementsInterpreterNeeded: DraftHearingRequirementsInterpreterNeededForAppellantPage;
+  public readonly draftHearingRequirementsisAnyWitnessInterpreterRequired: DraftHearingRequirementsisAnyWitnessInterpreterRequiredPage;
+  public readonly draftHearingRequirementsisHearingRoomNeeded: DraftHearingRequirementsisHearingRoomNeededPage;
+  public readonly draftHearingRequirementsisHearingLoopNeeded: DraftHearingRequirementsisHearingLoopNeededPage;
+  public readonly draftHearingRequirementssubmitHearingRequirementsAdditionalRequests: draftHearingRequirementssubmitHearingRequirementsAdditionalRequestsPage;
+  public readonly hearingRequirementsAdditionalRequestsFinal: DraftHearingRequirementsAdditionalRequestsFinalPage;
+  public readonly draftHearingRequirementsDatesToAvoid: DraftHearingRequirementsDatesToAvoidPage;
+  public readonly draftHearingRequirementsSubmit: DraftHearingRequirementsSubmitPage;
+  public readonly draftHearingRequirementsConfirm: DraftHearingRequirementsConfirmPage;
+  public readonly draftHearingRequirementsremoteVideoCall: DraftHearingRequirementsremoteVideoCallPage;
+  public readonly draftHearingRequirementsphysicalOrMentalHealthIssues: DraftHearingRequirementsphysicalOrMentalHealthIssuesPage;
+  public readonly draftHearingRequirementsPastExperiences: DraftHearingRequirementsPastExperiencesPage;
+  public readonly draftHearingRequirementsMultimediaEvidence: DraftHearingRequirementsMultimediaEvidencePage;
+  public readonly draftHearingRequirementsSingleSexCourtRequired: DraftHearingRequirementsSingleSexCourtRequiredPage;
+  public readonly draftHearingRequirementssingleSexCourtType: DraftHearingRequirementssingleSexCourtTypePage;
+  public readonly draftHearingRequirementsInCameraCourt: DraftHearingRequirementsInCameraCourtPage;
+  public readonly draftHearingRequirementsappellantInterpreterLanguageCategory: DraftHearingRequirementsappellantInterpreterLanguageCategoryPage;
+  public readonly draftHearingRequirementsappellantInterpreterSpokenLanguage: DraftHearingRequirementsappellantInterpreterSpokenLanguagePage;
+  public readonly draftHearingRequirementsappellantInterpreterSignLanguage: DraftHearingRequirementsappellantInterpreterSignLanguagePage;
+  public readonly draftHearingRequirementswhichWitnessRequiresInterpreter: DraftHearingRequirementswhichWitnessRequiresInterpreterPage;
+  public readonly draftHearingRequirementswitness1InterpreterSpokenLanguage: DraftHearingRequirementswitness1InterpreterSpokenLanguagePage;
+  public readonly draftHearingRequirementswitness1InterpreterSignLanguage: DraftHearingRequirementswitness1InterpreterSignLanguagePage;
   public readonly reviewHearingRequirements: ReviewHearingRequirementsPage;
   public readonly reviewHearingRequirementsRemoteHearing: ReviewHearingRequirementsRemoteHearingPage;
   public readonly reviewHearingRequirementsPersonalVulnerabilities: ReviewHearingRequirementsPersonalVulnerabilitiesPage;
@@ -436,6 +490,33 @@ export class ExuiPages {
     this.reviewHomeOfficeResponseSubmit = new ReviewHomeOfficeResponseSubmitPage(this.page);
     this.reviewHomeOfficeResponseConfirm = new ReviewHomeOfficeResponseConfirmPage(this.page);
     this.requestHearingRequirements = new RequestHearingRequirementsPage(this.page);
+    this.draftHearingRequirementsdraftHearingRequirements = new DraftHearingRequirementsdraftHearingRequirementsPage(this.page);
+    this.draftHearingRequirementsattendTheHearing = new DraftHearingRequirementsattendTheHearingPage(this.page);
+    this.draftHearingRequirementsOralEvidence = new DraftHearingRequirementsOralEvidencePage(this.page);
+    this.draftHearingRequirementsisWitnessesAttending = new DraftHearingRequirementsisWitnessesAttendingPage(this.page);
+    this.draftHearingRequirementsisEvidenceFromOutsideUkInCountry = new DraftHearingRequirementsisEvidenceFromOutsideUkInCountryPage(this.page);
+    this.draftHearingRequirementsInterpreterNeeded = new DraftHearingRequirementsInterpreterNeededForAppellantPage(this.page);
+    this.draftHearingRequirementsisAnyWitnessInterpreterRequired = new DraftHearingRequirementsisAnyWitnessInterpreterRequiredPage(this.page);
+    this.draftHearingRequirementsisHearingRoomNeeded = new DraftHearingRequirementsisHearingRoomNeededPage(this.page);
+    this.draftHearingRequirementsisHearingLoopNeeded = new DraftHearingRequirementsisHearingLoopNeededPage(this.page);
+    this.draftHearingRequirementssubmitHearingRequirementsAdditionalRequests = new draftHearingRequirementssubmitHearingRequirementsAdditionalRequestsPage(this.page);
+    this.hearingRequirementsAdditionalRequestsFinal = new DraftHearingRequirementsAdditionalRequestsFinalPage(this.page);
+    this.draftHearingRequirementsDatesToAvoid = new DraftHearingRequirementsDatesToAvoidPage(this.page);
+    this.draftHearingRequirementsSubmit = new DraftHearingRequirementsSubmitPage(this.page);
+    this.draftHearingRequirementsConfirm = new DraftHearingRequirementsConfirmPage(this.page);
+    this.draftHearingRequirementsremoteVideoCall = new DraftHearingRequirementsremoteVideoCallPage(this.page);
+    this.draftHearingRequirementsphysicalOrMentalHealthIssues = new DraftHearingRequirementsphysicalOrMentalHealthIssuesPage(this.page);
+    this.draftHearingRequirementsPastExperiences = new DraftHearingRequirementsPastExperiencesPage(this.page);
+    this.draftHearingRequirementsMultimediaEvidence = new DraftHearingRequirementsMultimediaEvidencePage(this.page);
+    this.draftHearingRequirementsSingleSexCourtRequired = new DraftHearingRequirementsSingleSexCourtRequiredPage(this.page);
+    this.draftHearingRequirementssingleSexCourtType = new DraftHearingRequirementssingleSexCourtTypePage(this.page);
+    this.draftHearingRequirementsInCameraCourt = new DraftHearingRequirementsInCameraCourtPage(this.page);
+    this.draftHearingRequirementsappellantInterpreterLanguageCategory = new DraftHearingRequirementsappellantInterpreterLanguageCategoryPage(this.page);
+    this.draftHearingRequirementsappellantInterpreterSpokenLanguage = new DraftHearingRequirementsappellantInterpreterSpokenLanguagePage(this.page);
+    this.draftHearingRequirementsappellantInterpreterSignLanguage = new DraftHearingRequirementsappellantInterpreterSignLanguagePage(this.page);
+    this.draftHearingRequirementswhichWitnessRequiresInterpreter = new DraftHearingRequirementswhichWitnessRequiresInterpreterPage(this.page);
+    this.draftHearingRequirementswitness1InterpreterSpokenLanguage = new DraftHearingRequirementswitness1InterpreterSpokenLanguagePage(this.page);
+    this.draftHearingRequirementswitness1InterpreterSignLanguage = new DraftHearingRequirementswitness1InterpreterSignLanguagePage(this.page);
     this.reviewHearingRequirements = new ReviewHearingRequirementsPage(this.page);
     this.reviewHearingRequirementsRemoteHearing = new ReviewHearingRequirementsRemoteHearingPage(this.page);
     this.reviewHearingRequirementsPersonalVulnerabilities = new ReviewHearingRequirementsPersonalVulnerabilitiesPage(this.page);

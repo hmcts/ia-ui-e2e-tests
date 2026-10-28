@@ -3,6 +3,7 @@ import { AppealType, Nationality, YesOrNoType } from './citizen-types';
 export type RemissionDecisionType = 'approved' | 'partiallyApproved' | 'rejected';
 export type HomeOfficeAppealReviewOutcomeType = 'Decision maintained' | 'Decision withdrawn';
 export type GrantedOrRefusedType = 'Granted' | 'Refused';
+export type InterpreterLanguageCategoryType = 'spokenLanguageInterpreter' | 'signLanguageInterpreter';
 export type HearingChannelType = 'In Person' | 'Not in Attendance' | 'On the Papers' | 'Telephone' | 'Video';
 export type RaiseQueryOptionType =
   | 'How can I obtain access to my case on MyHMCTS?'
