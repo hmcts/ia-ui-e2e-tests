@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { ExuiBase } from '../../../../exui-base';
 
-type HearingRequirementsCYAQuestionsType =
+type DraftHearingRequirementsSubmitType =
   | 'Will the appellant attend the hearing?'
   | 'Will the appellant give oral evidence at the hearing?'
   | 'Will any witnesses attend the hearing?'
@@ -35,21 +35,21 @@ type HearingRequirementsCYAQuestionsType =
   | `Which spoken language interpreter is needed for ${string}?`
   | `Which sign language is needed for ${string}?`;
 
-export class HearingRequirementsCYAPage extends ExuiBase {
+export class DraftHearingRequirementsSubmitPage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
 
-  public $questionLocator = (question: HearingRequirementsCYAQuestionsType): Locator =>
+  public $questionLocator = (question: DraftHearingRequirementsSubmitType): Locator =>
     this.page.locator('tr [class*="case-field-label"]').getByText(question, { exact: true });
 
-  public $questionValueLocator(question: HearingRequirementsCYAQuestionsType): Locator {
+  public $questionValueLocator(question: DraftHearingRequirementsSubmitType): Locator {
     return this.page
       .locator('tr', { has: this.page.locator('[class*="case-field-label"]').getByText(question, { exact: true }) })
       .locator('td[class*="case-field-content"]');
   }
 
-  public $changeAnswerToQuestionLocator(question: HearingRequirementsCYAQuestionsType): Locator {
+  public $changeAnswerToQuestionLocator(question: DraftHearingRequirementsSubmitType): Locator {
     return this.page
       .locator('tr', { has: this.page.locator('[class*="case-field-label"]').getByText(question, { exact: true }) })
       .locator('td[class*="case-field-change"] span', { hasText: 'Change' });

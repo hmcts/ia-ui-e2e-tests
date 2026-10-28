@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { ExuiBase } from '../../../../exui-base';
 
-export class ConfirmHearingRequirementsPage extends ExuiBase {
+export class draftHearingRequirementsConfirmPage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
@@ -35,8 +35,8 @@ export class ConfirmHearingRequirementsPage extends ExuiBase {
       expect(this.$static.submittedHearingRequirementsHeading).toBeVisible(),
       expect(this.$static.whatHappensNextHeading).toBeVisible(),
       expect(this.$static.whatHappensNextParagraph).toHaveText(
-        "The Tribunal will review your hearing requirements and any additional requests for adjustments. We'll notify you when the hearing is listed. You'll then be able to review the hearing requirements.",
-      ),
+        /The Tribunal will review your hearing requirements and any additional requests for adjustments\.\s*We'll notify you when the hearing is listed\. You'll then be able to review the hearing requirements\./,
+      )
     ]);
   }
 

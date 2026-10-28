@@ -2,14 +2,14 @@ import { Page, Locator, expect } from '@playwright/test';
 import { ExuiBase } from '../../../../exui-base';
 import { YesOrNoType } from '../../../../../../citizen-types';
 
-export class HearingRequirementsStepFreeAccessPage extends ExuiBase {
+export class DraftHearingRequirementsOralEvidencePage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
 
   public readonly $inputs = {
-    stepFreeAccessYesRadio: this.page.locator('input[id="isHearingRoomNeeded_Yes"]'),
-    stepFreeAccessNoRadio: this.page.locator('input[id="isHearingRoomNeeded_No"]'),
+    appellantGivingOralEvidenceYesRadio: this.page.locator('input[id="isAppellantGivingOralEvidence_Yes"]'),
+    appellantGivingOralEvidenceNoRadio: this.page.locator('input[id="isAppellantGivingOralEvidence_No"]'),
   } as const satisfies Record<string, Locator>;
 
   public readonly $interactive = {
@@ -19,27 +19,27 @@ export class HearingRequirementsStepFreeAccessPage extends ExuiBase {
   } as const satisfies Record<string, Locator>;
 
   public readonly $static = {
-    pageCaption: this.page.locator('span.govuk-caption-l', { hasText: 'Submit hearing requirements' }),
-    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Step-free access', exact: true }),
+    eventCaption: this.page.locator('.govuk-caption-l'),
+    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Oral evidence', exact: true }),
     caseRecordHeading: this.$commonElements.caseRecordHeading,
-    stepFreeAccessQuestion: this.page.getByText('Do you need a hearing room with step-free access?', { exact: true }),
-    yesLabel: this.page.locator('label[for="isHearingRoomNeeded_Yes"]'),
-    noLabel: this.page.locator('label[for="isHearingRoomNeeded_No"]'),
+    appellantOralEvidenceQuestion: this.page.getByText('Will the appellant give oral evidence at the hearing?', { exact: true }),
+    yesLabel: this.page.locator('label[for="isAppellantGivingOralEvidence_Yes"]'),
+    noLabel: this.page.locator('label[for="isAppellantGivingOralEvidence_No"]'),
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {
     await this.verifyUserIsOnExpectedPage({
-      urlPath: 'trigger/draftHearingRequirements/draftHearingRequirementsisHearingRoomNeeded',
+      urlPath: 'trigger/draftHearingRequirements/draftHearingRequirementsoralEvidence',
       pageHeading: this.$static.pageHeading,
     });
   }
 
   public async verifyAllTextOnPage(): Promise<void> {
     await Promise.all([
-      expect(this.$static.pageCaption).toHaveText('Submit hearing requirements'),
-      expect(this.$static.pageCaption).toBeVisible(),
+      expect(this.$static.eventCaption).toHaveText('Submit hearing requirements'),
+      expect(this.$static.eventCaption).toBeVisible(),
       expect(this.$static.caseRecordHeading).toBeVisible(),
-      expect(this.$static.stepFreeAccessQuestion).toBeVisible(),
+      expect(this.$static.appellantOralEvidenceQuestion).toBeVisible(),
       expect(this.$static.yesLabel).toHaveText('Yes'),
       expect(this.$static.yesLabel).toBeVisible(),
       expect(this.$static.noLabel).toHaveText('No'),
@@ -47,8 +47,9 @@ export class HearingRequirementsStepFreeAccessPage extends ExuiBase {
     ]);
   }
 
-  public async completePageAndContinue(options: { stepFreeAccessRequired: YesOrNoType }): Promise<void> {
-    const radio = options.stepFreeAccessRequired === 'Yes' ? this.$inputs.stepFreeAccessYesRadio : this.$inputs.stepFreeAccessNoRadio;
+  public async completePageAndContinue(options: { appellantGivingOralEvidence: YesOrNoType }): Promise<void> {
+    const radio =
+      options.appellantGivingOralEvidence === 'Yes' ? this.$inputs.appellantGivingOralEvidenceYesRadio : this.$inputs.appellantGivingOralEvidenceNoRadio;
 
     await radio.check();
     await expect(radio).toBeChecked();

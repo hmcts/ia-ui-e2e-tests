@@ -2,14 +2,14 @@ import { Page, Locator, expect } from '@playwright/test';
 import { ExuiBase } from '../../../../exui-base';
 import { YesOrNoType } from '../../../../../../citizen-types';
 
-export class HearingRequirementsHearingLoopPage extends ExuiBase {
+export class DraftHearingRequirementsAttendancePage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
 
   public readonly $inputs = {
-    hearingLoopYesRadio: this.page.locator('input[id="isHearingLoopNeeded_Yes"]'),
-    hearingLoopNoRadio: this.page.locator('input[id="isHearingLoopNeeded_No"]'),
+    appellantAttendingYesRadio: this.page.locator('input[id="isAppellantAttendingTheHearing_Yes"]'),
+    appellantAttendingNoRadio: this.page.locator('input[id="isAppellantAttendingTheHearing_No"]'),
   } as const satisfies Record<string, Locator>;
 
   public readonly $interactive = {
@@ -19,27 +19,27 @@ export class HearingRequirementsHearingLoopPage extends ExuiBase {
   } as const satisfies Record<string, Locator>;
 
   public readonly $static = {
-    pageCaption: this.page.locator('span.govuk-caption-l', { hasText: 'Submit hearing requirements' }),
-    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Hearing loop', exact: true }),
+    eventCaption: this.page.locator('.govuk-caption-l'),
+    pageHeading: this.page.getByRole('heading', { level: 1, name: 'Attendance', exact: true }),
     caseRecordHeading: this.$commonElements.caseRecordHeading,
-    hearingLoopQuestion: this.page.getByText('Do you need a hearing loop?', { exact: true }),
-    yesLabel: this.page.locator('label[for="isHearingLoopNeeded_Yes"]'),
-    noLabel: this.page.locator('label[for="isHearingLoopNeeded_No"]'),
+    appellantAttendanceQuestion: this.page.getByText('Will the appellant attend the hearing?', { exact: true }),
+    yesLabel: this.page.locator('label[for="isAppellantAttendingTheHearing_Yes"]'),
+    noLabel: this.page.locator('label[for="isAppellantAttendingTheHearing_No"]'),
   } as const satisfies Record<string, Locator>;
 
   public async verifyUserIsOnPage(): Promise<void> {
     await this.verifyUserIsOnExpectedPage({
-      urlPath: 'trigger/draftHearingRequirements/draftHearingRequirementsisHearingLoopNeeded',
+      urlPath: 'trigger/draftHearingRequirements/draftHearingRequirementsattendTheHearing',
       pageHeading: this.$static.pageHeading,
     });
   }
 
   public async verifyAllTextOnPage(): Promise<void> {
     await Promise.all([
-      expect(this.$static.pageCaption).toHaveText('Submit hearing requirements'),
-      expect(this.$static.pageCaption).toBeVisible(),
+      expect(this.$static.eventCaption).toHaveText('Submit hearing requirements'),
+      expect(this.$static.eventCaption).toBeVisible(),
       expect(this.$static.caseRecordHeading).toBeVisible(),
-      expect(this.$static.hearingLoopQuestion).toBeVisible(),
+      expect(this.$static.appellantAttendanceQuestion).toBeVisible(),
       expect(this.$static.yesLabel).toHaveText('Yes'),
       expect(this.$static.yesLabel).toBeVisible(),
       expect(this.$static.noLabel).toHaveText('No'),
@@ -47,8 +47,9 @@ export class HearingRequirementsHearingLoopPage extends ExuiBase {
     ]);
   }
 
-  public async completePageAndContinue(options: { hearingLoopRequired: YesOrNoType }): Promise<void> {
-    const radio = options.hearingLoopRequired === 'Yes' ? this.$inputs.hearingLoopYesRadio : this.$inputs.hearingLoopNoRadio;
+  public async completePageAndContinue(options: { appellantAttendingTheHearing: YesOrNoType }): Promise<void> {
+    const radio =
+      options.appellantAttendingTheHearing === 'Yes' ? this.$inputs.appellantAttendingYesRadio : this.$inputs.appellantAttendingNoRadio;
 
     await radio.check();
     await expect(radio).toBeChecked();

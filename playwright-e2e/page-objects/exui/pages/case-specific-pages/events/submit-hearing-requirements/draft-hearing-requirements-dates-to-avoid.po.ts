@@ -9,7 +9,7 @@ type DateToAvoid = {
   reason: string;
 };
 
-export class HearingRequirementsDatesToAvoidPage extends ExuiBase {
+export class DraftHearingRequirementsDatesToAvoidPage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }

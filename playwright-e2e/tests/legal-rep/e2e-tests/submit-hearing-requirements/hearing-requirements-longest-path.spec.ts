@@ -2,7 +2,7 @@ import { expect, test } from '../../../../fixtures.js';
 import { config } from '../../../../utils/config.utils.js';
 
 test.describe('Set of tests to verify Legal Representative is able to submit hearing requirements via EXUI', { tag: ['@e2e'] }, () => {
-  test.use({ storageState: { cookies: [], origins: [] } });
+test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
 
   test.beforeEach(async ({ exui_caseOfficerApiClient, exui_legalRepApiClient, exui_homeOfficeUserApiClient, exui_pages, page, idam_signInPage }) => {
     const caseId = await test.step('Legal rep Api: Submit a new appeal', async () => {
@@ -50,35 +50,36 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
     await exui_caseOfficerApiClient.submitRequestResponseReviewEvent({ caseId: caseId });
 
     await exui_caseOfficerApiClient.submitRequestHearingRequirementsEvent({ caseId: caseId });
+    await exui_legalRepApiClient.verifyCaseIsInExpectedState({
+      caseId: caseId,
+      expectedStateName: 'Submit hearing requirements'
+    })
 
-    await test.step('Log in to EXUI as the legal representative', async () => {
-      await page.goto(config.urls.exuiDefaultUrl);
-      await idam_signInPage.exuiSignIn(config.exuiUsers.legalRepUser.username, config.exuiUsers.legalRepUser.password);
-      await expect(page.getByRole('heading', { name: 'Case list' })).toBeVisible({ timeout: 60_000 });
+    await test.step('Navigate to case overview page as legal rep', async () => {
+      await exui_pages.caseOverview.goTo({ caseId });
+      await exui_pages.caseOverview.verifyUserIsOnPage({})
     });
-
-    await exui_pages.caseOverview.goTo({ caseId });
   });
 
   test('submits hearing requirements', async ({ exui_pages }) => {
     await test.step('Open the submit hearing requirements event', async () => {
       await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Submit hearing requirements' });
       
-      await exui_pages.submitHearingRequirements.verifyUserIsOnPage();
-      await exui_pages.submitHearingRequirements.verifyAllTextOnPage();
-      await exui_pages.submitHearingRequirements.continueOntoNextPage();
+      await exui_pages.draftSubmitHearingRequirements.verifyUserIsOnPage();
+      await exui_pages.draftSubmitHearingRequirements.verifyAllTextOnPage();
+      await exui_pages.draftSubmitHearingRequirements.continueOntoNextPage();
 
-      await exui_pages.hearingRequirementsAttendance.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsAttendance.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsAttendance.completePageAndContinue({ appellantAttendingTheHearing: 'Yes' });
+      await exui_pages.draftHearingRequirementsAttendance.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsAttendance.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsAttendance.completePageAndContinue({ appellantAttendingTheHearing: 'Yes' });
 
-      await exui_pages.hearingRequirementsOralEvidence.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsOralEvidence.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsOralEvidence.completePageAndContinue({ appellantGivingOralEvidence: 'Yes' });
+      await exui_pages.draftHearingRequirementsOralEvidence.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsOralEvidence.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsOralEvidence.completePageAndContinue({ appellantGivingOralEvidence: 'Yes' });
 
-      await exui_pages.submitHearingRequirementsWitness.verifyUserIsOnPage();
-      await exui_pages.submitHearingRequirementsWitness.verifyAllTextOnPage();
-      await exui_pages.submitHearingRequirementsWitness.completePageAndContinue({
+      await exui_pages.draftSubmitHearingRequirementsWitness.verifyUserIsOnPage();
+      await exui_pages.draftSubmitHearingRequirementsWitness.verifyAllTextOnPage();
+      await exui_pages.draftSubmitHearingRequirementsWitness.completePageAndContinue({
         witnessesAttending: 'Yes',
         witness: {
           givenNames: 'Test Witness',
@@ -86,102 +87,102 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
         },
       });
 
-      await exui_pages.hearingRequirementsOralEvidenceOutsideUk.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsOralEvidenceOutsideUk.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsOralEvidenceOutsideUk.completePageAndContinue({ evidenceFromOutsideUk: 'Yes' });
+      await exui_pages.draftHearingRequirementsOralEvidenceOutsideUk.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsOralEvidenceOutsideUk.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsOralEvidenceOutsideUk.completePageAndContinue({ evidenceFromOutsideUk: 'Yes' });
 
       //Appellant Interpreter details
-      await exui_pages.hearingRequirementsInterpreterNeeded.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsInterpreterNeeded.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsInterpreterNeeded.completePageAndContinue({ interpreterServicesNeeded: 'Yes' });
+      await exui_pages.draftHearingRequirementsInterpreterNeeded.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsInterpreterNeeded.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsInterpreterNeeded.completePageAndContinue({ interpreterServicesNeeded: 'Yes' });
 
-      await exui_pages.hearingRequirementsTypeOfInterpreter.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsTypeOfInterpreter.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsTypeOfInterpreter.completePageAndContinue({
+      await exui_pages.draftHearingRequirementsappellantInterpreterLanguageCategory.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsappellantInterpreterLanguageCategory.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsappellantInterpreterLanguageCategory.completePageAndContinue({
         interpreterTypes: ['signLanguageInterpreter', 'spokenLanguageInterpreter'],
       });
 
-      await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsSpokenLanguageInterpreterDetails.completePageAndContinue({ manualLanguage: 'Portuguese' });
+      await exui_pages.draftHearingRequirementsappellantInterpreterSpokenLanguage.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsappellantInterpreterSpokenLanguage.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsappellantInterpreterSpokenLanguage.completePageAndContinue({ manualLanguage: 'Portuguese' });
 
-      await exui_pages.hearingRequirementsSignLanguageInterpreterDetails.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsSignLanguageInterpreterDetails.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsSignLanguageInterpreterDetails.completePageAndContinue({ signLanguage: "British Sign Language (BSL)" });
+      await exui_pages.draftHearingRequirementsappellantInterpreterSignLanguage.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsappellantInterpreterSignLanguage.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsappellantInterpreterSignLanguage.completePageAndContinue({ signLanguage: "British Sign Language (BSL)" });
 
       //Witness Interpreter details
-      await exui_pages.hearingRequirementsInterpreterNeededForWitness.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsInterpreterNeededForWitness.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsInterpreterNeededForWitness.completePageAndContinue({ witnessInterpreterRequired: 'Yes' });
+      await exui_pages.draftHearingRequirementsIsAnyWitnessInterpreterRequiredPage.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsIsAnyWitnessInterpreterRequiredPage.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsIsAnyWitnessInterpreterRequiredPage.completePageAndContinue({ witnessInterpreterRequired: 'Yes' });
 
-      await exui_pages.hearingRequirementsTypeOfWitnessInterpreter.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsTypeOfWitnessInterpreter.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsTypeOfWitnessInterpreter.completePageAndContinue({ witnessInterpreterTypes: [
+      await exui_pages.draftHearingRequirementswhichWitnessRequiresInterpreter.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementswhichWitnessRequiresInterpreter.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementswhichWitnessRequiresInterpreter.completePageAndContinue({ witnessInterpreterTypes: [
         ['spokenLanguageInterpreter', 'signLanguageInterpreter'],
       ]})
 
-      await exui_pages.hearingRequirementsWitnessSpokenLanguageInterpreterDetails.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsWitnessSpokenLanguageInterpreterDetails.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsWitnessSpokenLanguageInterpreterDetails.completePageAndContinue({ spokenLanguage: 'Arabic' });
+      await exui_pages.draftHearingRequirementswitness1InterpreterSpokenLanguage.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementswitness1InterpreterSpokenLanguage.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementswitness1InterpreterSpokenLanguage.completePageAndContinue({ spokenLanguage: 'Arabic' });
 
-      await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsWitnessSignLanguageInterpreterDetails.completePageAndContinue({ manualLanguage: 'Test manual language' });
+      await exui_pages.draftHearingRequirementswitness1InterpreterSignLanguage.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementswitness1InterpreterSignLanguage.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementswitness1InterpreterSignLanguage.completePageAndContinue({ manualLanguage: 'Test manual language' });
 
-      await exui_pages.hearingRequirementsStepFreeAccess.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsStepFreeAccess.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsStepFreeAccess.completePageAndContinue({ stepFreeAccessRequired: 'No' });
+      await exui_pages.draftHearingRequirementsStepFreeAccess.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsStepFreeAccess.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsStepFreeAccess.completePageAndContinue({ stepFreeAccessRequired: 'No' });
 
-      await exui_pages.hearingRequirementsHearingLoop.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsHearingLoop.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsHearingLoop.completePageAndContinue({ hearingLoopRequired: 'No' });
+      await exui_pages.draftHearingRequirementsHearingLoop.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsHearingLoop.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsHearingLoop.completePageAndContinue({ hearingLoopRequired: 'No' });
 
-      await exui_pages.hearingRequirementsAdditionalRequests.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsAdditionalRequests.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsAdditionalRequests.completePageAndContinue();
+      await exui_pages.draftHearingRequirementsAdditionalRequests.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsAdditionalRequests.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsAdditionalRequests.completePageAndContinue();
 
-      await exui_pages.hearingRequirementsVideoHearings.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsVideoHearings.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsVideoHearings.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementsVideoHearings.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsVideoHearings.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsVideoHearings.completePageAndContinue({ 
         'remoteVideoCall': 'Yes', 
         'remoteVideoCallDescription': 'Test Remote Video Call details' 
       });
 
-      await exui_pages.hearingRequirementsHealthConditions.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsHealthConditions.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsHealthConditions.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementsHealthConditions.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsHealthConditions.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsHealthConditions.completePageAndContinue({ 
         'healthConditionsPresent': 'Yes', 
         'healthConditionsDescription': 'Test Health Conditions Description' 
       });
 
-      await exui_pages.hearingRequirementsPastExperiences.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsPastExperiences.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsPastExperiences.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementsPastExperiences.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsPastExperiences.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsPastExperiences.completePageAndContinue({ 
         'pastExperiencesPresent': 'Yes', 
         'pastExperiencesDescription': 'Test Past Experiences Description' 
       });
 
-      await exui_pages.hearingRequirementsMultimediaEvidence.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsMultimediaEvidence.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsMultimediaEvidence.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementsMultimediaEvidence.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsMultimediaEvidence.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsMultimediaEvidence.completePageAndContinue({ 
         'multimediaEvidence': 'Yes', 
         'multimediaEvidenceDescription': 'Test Past Experiences Description' 
       });
 
-      await exui_pages.hearingRequirementsSingleSexCourtRequired.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsSingleSexCourtRequired.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsSingleSexCourtRequired.completePageAndContinue({ singleSexCourtRequired: 'Yes' });
+      await exui_pages.draftHearingRequirementsSingleSexCourtRequired.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsSingleSexCourtRequired.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsSingleSexCourtRequired.completePageAndContinue({ singleSexCourtRequired: 'Yes' });
 
-      await exui_pages.hearingRequirementsWhichSingleSexCourtRequired.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsWhichSingleSexCourtRequired.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsWhichSingleSexCourtRequired.completePageAndContinue({ 
+      await exui_pages.draftHearingRequirementsWhichSingleSexCourtRequired.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsWhichSingleSexCourtRequired.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsWhichSingleSexCourtRequired.completePageAndContinue({ 
         'singleSexCourtType': 'All male', 
         'reason': 'Test reason for all-male court' 
       });
 
-      await exui_pages.hearingRequirementsInCameraCourt.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsInCameraCourt.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsInCameraCourt.completePageAndContinue({
+      await exui_pages.draftHearingRequirementsInCameraCourt.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsInCameraCourt.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsInCameraCourt.completePageAndContinue({
         'inCameraCourtRequired': 'Yes',
         'inCameraCourtDescription': 'Test In Caera Court description'
       });
@@ -193,9 +194,9 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
         'additionalRequestsDescription': 'Test Additional Requests'
       });
 
-      await exui_pages.hearingRequirementsDatesToAvoid.verifyUserIsOnPage();
-      await exui_pages.hearingRequirementsDatesToAvoid.verifyAllTextOnPage();
-      await exui_pages.hearingRequirementsDatesToAvoid.completePageAndContinue({
+      await exui_pages.draftHearingRequirementsDatesToAvoid.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsDatesToAvoid.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsDatesToAvoid.completePageAndContinue({
         'datesToAvoid': 'Yes',
         'dates': [
           {
@@ -207,7 +208,7 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
         ],
       });
 
-      await exui_pages.hearingRequirementsCYA.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsSubmit.verifyUserIsOnPage();
 
       const summaryRows = [
         { question: 'Will the appellant attend the hearing?', values: ['Yes'] },
@@ -271,27 +272,28 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
         },
         { question: 'Dates to avoid', values: ['15 Jan 2026', 'Test date to avoid'] },
       ] as const satisfies ReadonlyArray<{
-        question: Parameters<typeof exui_pages.hearingRequirementsCYA.$questionLocator>[0];
+        question: Parameters<typeof exui_pages.draftHearingRequirementsSubmit.$questionLocator>[0];
         values: readonly string[];
       }>;
 
       await Promise.all([
-        expect(exui_pages.hearingRequirementsCYA.$static.checkYourAnswersHeading).toBeVisible(),
-        expect(exui_pages.hearingRequirementsCYA.$static.checkInformationCarefullyText).toBeVisible(),
-        expect(exui_pages.hearingRequirementsCYA.$static.checkYourAnswersTable).toBeVisible(),
+        expect(exui_pages.draftHearingRequirementsSubmit.$static.checkYourAnswersHeading).toBeVisible(),
+        expect(exui_pages.draftHearingRequirementsSubmit.$static.checkInformationCarefullyText).toBeVisible(),
+        expect(exui_pages.draftHearingRequirementsSubmit.$static.checkYourAnswersTable).toBeVisible(),
         ...summaryRows.flatMap(({ question, values }) => {
-          const questionLocator = exui_pages.hearingRequirementsCYA.$questionLocator(question);
-          const valueLocator = exui_pages.hearingRequirementsCYA.$questionValueLocator(question);
+          const questionLocator = exui_pages.draftHearingRequirementsSubmit.$questionLocator(question);
+          const valueLocator = exui_pages.draftHearingRequirementsSubmit.$questionValueLocator(question);
+          const changeAnswerToQuestionLocator = exui_pages.draftHearingRequirementsSubmit.$changeAnswerToQuestionLocator(question);
 
-          return [expect(questionLocator).toBeVisible(), ...values.map((value) => expect(valueLocator).toContainText(value))];
+          return [expect(questionLocator).toBeVisible(), expect(changeAnswerToQuestionLocator).toBeVisible(), ...values.map((value) => expect(valueLocator).toHaveText(value), expect(valueLocator).toBeVisible())];
         }),
       ]);
 
-      await exui_pages.hearingRequirementsCYA.submit();
+      await exui_pages.draftHearingRequirementsSubmit.submit();
 
-      await exui_pages.confirmHearingRequirements.verifyUserIsOnPage();
-      await exui_pages.confirmHearingRequirements.verifyAllTextOnPage();
-      await exui_pages.confirmHearingRequirements.returnToCaseDetails();
+      await exui_pages.draftHearingRequirementsConfirm.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsConfirm.verifyAllTextOnPage();
+      await exui_pages.draftHearingRequirementsConfirm.returnToCaseDetails();
 
     await test.step('Verify event has successfully been submitted and correct next steps have been shown', async () => {
       await exui_pages.caseOverview.verifyUserIsOnPage({});

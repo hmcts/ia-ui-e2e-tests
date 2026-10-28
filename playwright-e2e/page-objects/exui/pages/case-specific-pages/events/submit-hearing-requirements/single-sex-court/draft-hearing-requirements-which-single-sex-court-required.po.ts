@@ -2,7 +2,7 @@ import { Page, Locator, expect } from '@playwright/test';
 import { ExuiBase } from '../../../../../exui-base';
 import { AllMaleOrFemaleHearingType } from '../../../../../../../citizen-types';
 
-export class HearingRequirementsWhichSingleSexCourtRequiredPage extends ExuiBase {
+export class DraftHearingRequirementsWhichSingleSexCourtRequiredPage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
