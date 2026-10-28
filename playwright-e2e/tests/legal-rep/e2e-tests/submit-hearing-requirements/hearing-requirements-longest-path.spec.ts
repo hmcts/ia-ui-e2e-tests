@@ -59,9 +59,22 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
       await exui_pages.caseOverview.goTo({ caseId });
       await exui_pages.caseOverview.verifyUserIsOnPage({})
     });
+
+    await test.step('Verify correct next steps text is shown before submitting hearing requirements', async () => {
+      await exui_pages.caseOverview.verifyUserIsOnPage({});
+
+      await Promise.all([
+        expect(exui_pages.caseOverview.$static.doThisNextHeading).toBeVisible(),
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph).toBeVisible(),
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph).toHaveText(
+          "The appeal is now going to a hearing. You need to submit the appellant's hearing requirements."
+        ),
+      ])
+    });
   });
 
   test('submits hearing requirements', async ({ exui_pages }) => {
+
     await test.step('Open the submit hearing requirements event', async () => {
       await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Submit hearing requirements' });
       
@@ -298,6 +311,14 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
     await test.step('Verify event has successfully been submitted and correct next steps have been shown', async () => {
       await exui_pages.caseOverview.verifyUserIsOnPage({});
       await exui_pages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Submit hearing requirements' });
+
+      await Promise.all([
+        expect(exui_pages.caseOverview.$static.doThisNextHeading).toBeVisible(),
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph).toBeVisible(),
+        expect(exui_pages.caseOverview.$static.doThisNextParagraph).toHaveText(
+          "The case officer is reviewing the hearing requirements. Once the requirements have been agreed with the Tribunal, the case will be listed and you will receive a notification with the hearing notice."
+        ),
+      ])
     });
   });
 })});
