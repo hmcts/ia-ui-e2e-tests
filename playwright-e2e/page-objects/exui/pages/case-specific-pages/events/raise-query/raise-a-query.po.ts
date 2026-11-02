@@ -46,7 +46,7 @@ export class RaiseAQueryPage extends ExuiBase {
     hearingRelatedNoLabel: this.page.locator('label[for="isHearingRelated-no"]'),
     dateOfHearingLabel: this.page.getByText('What is the date of the hearing?', { exact: true }),
     addDocumentHeading: this.page.getByRole('heading', { level: 2, name: 'Attach a document to this query (Optional)', exact: true }),
-    documentHint: this.page.locator('span[class="form-hint"]'),
+    documentHint: this.page.locator('[id="documentCollection"] span[class="form-hint"]').last(),
     attachADocumentHeading: this.page.getByRole('heading', { level: 3, name: 'Attach a document to this query', exact: true }),
   } as const satisfies Record<string, Locator>;
 

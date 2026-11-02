@@ -49,7 +49,7 @@ export class RespondToAQueryPage extends ExuiBase {
     closeQueryLabel: this.page.locator('label[for="closeQuery"]'),
     closingTheQueryWarningMessage: this.page.locator('p.qm-service-message strong'),
     attachDocumentHeading: this.page.getByRole('heading', { level: 2, name: 'Attach a document to this query (Optional)', exact: true }),
-    attachDocumentHint: this.page.locator('[id="documentCollection"] span[class="form-hint"]'),
+    attachDocumentHint: this.page.locator('[id="documentCollection"] span[class="form-hint"]').last(),
     attachADocumentToQueryHeading: this.page.getByRole('heading', { level: 3, name: 'Attach a document to this query', exact: true }),
   } as const satisfies Record<string, Locator>;
 
