@@ -73,7 +73,12 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
     });
   });
 
-  test('submits hearing requirements', async ({ exui_pages }) => {
+  test('submits hearing requirements', async ({ exui_pages, dataUtils }) => {
+    const dateToAvoid = await dataUtils.getDateFromToday({
+      dayOffset: 15,
+      formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' },
+    });
+
 
     await test.step('Open the submit hearing requirements event', async () => {
       await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Submit hearing requirements' });
@@ -134,11 +139,11 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
         ['spokenLanguageInterpreter', 'signLanguageInterpreter'],
       ]})
 
-      await exui_pages.draftHearingRequirementsWitness1InterpreterSpokenLanguage.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsWitness1InterpreterSpokenLanguage.verifyUserIsOnPage(1);
       await exui_pages.draftHearingRequirementsWitness1InterpreterSpokenLanguage.verifyAllTextOnPage();
       await exui_pages.draftHearingRequirementsWitness1InterpreterSpokenLanguage.completePageAndContinue({ spokenLanguage: 'Arabic' });
 
-      await exui_pages.draftHearingRequirementsWitness1InterpreterSignLanguage.verifyUserIsOnPage();
+      await exui_pages.draftHearingRequirementsWitness1InterpreterSignLanguage.verifyUserIsOnPage(1);
       await exui_pages.draftHearingRequirementsWitness1InterpreterSignLanguage.verifyAllTextOnPage();
       await exui_pages.draftHearingRequirementsWitness1InterpreterSignLanguage.completePageAndContinue({ manualLanguage: 'Test manual language' });
 
@@ -213,9 +218,9 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
         'datesToAvoid': 'Yes',
         'dates': [
           {
-            day: '15',
-            month: '01',
-            year: '2026',
+            day: dateToAvoid.day.toString().padStart(2, '0'),
+            month: dateToAvoid.month.toString().padStart(2, '0'),
+            year: dateToAvoid.year.toString(),
             reason: 'Test date to avoid',
           },
         ],
@@ -437,7 +442,7 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
           `
           Dates to avoid 1
           Date
-          15 Jan 2026
+          ${dateToAvoid.formattedDate}
           Reason
           Test date to avoid
           `,

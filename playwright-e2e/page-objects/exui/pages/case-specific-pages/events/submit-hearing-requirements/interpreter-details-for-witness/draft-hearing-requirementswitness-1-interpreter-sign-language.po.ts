@@ -27,9 +27,9 @@ export class DraftHearingRequirementsWitnessInterpreterSignLanguagePage extends 
     enterLanguageManuallyLabel: this.page.locator('label[for="witness1InterpreterSignLanguage_languageManualEntry-Yes"]'),
   } as const satisfies Record<string, Locator>;
 
-  public async verifyUserIsOnPage(): Promise<void> {
+  public async verifyUserIsOnPage(witnessNumber: number): Promise<void> {
     await this.verifyUserIsOnExpectedPage({
-      urlPath: 'trigger/draftHearingRequirements/draftHearingRequirementswitness1InterpreterSignLanguage',
+      urlPath: `trigger/draftHearingRequirements/draftHearingRequirementswitness${witnessNumber}InterpreterSignLanguage`,
       pageHeading: this.$static.pageHeading,
     });
   }
