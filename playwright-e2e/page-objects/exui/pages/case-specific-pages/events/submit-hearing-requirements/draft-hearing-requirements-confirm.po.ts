@@ -1,7 +1,7 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { ExuiBase } from '../../../../exui-base';
 
-export class draftHearingRequirementsConfirmPage extends ExuiBase {
+export class DraftHearingRequirementsConfirmPage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }

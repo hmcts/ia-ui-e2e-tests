@@ -2,7 +2,7 @@ import { Page, Locator, expect } from '@playwright/test';
 import { ExuiBase } from '../../../../../exui-base';
 import { SignLanguagesType } from '../../../../../../../citizen-types';
 
-export class DraftHearingRequirementswitness1InterpreterSignLanguagePage extends ExuiBase {
+export class DraftHearingRequirementsWitnessInterpreterSignLanguagePage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
