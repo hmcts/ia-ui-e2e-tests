@@ -287,11 +287,16 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
         expect(
           exui_pages.draftHearingRequirementsSubmit
           .$questionValueLocator('Tell us which spoken language is needed for the appellant')
-          .locator(
-          '.complex-panel-table .multi-select-list-field-table tbody td > span.text-16, ' +
-          '.complex-panel-table .grey-bar ccd-read-text-field > span.text-16',
+          ).toHaveText(
+            `
+            Tell us which spoken language is needed for the appellant
+            Multi selection table
+            Value
+            Enter the language manually
+            Portuguese
+            `,
+            { useInnerText: true }
           ),
-          ).toHaveText(['Enter the language manually', 'Portuguese']),
         expect(exui_pages.draftHearingRequirementsSubmit.$changeAnswerToQuestionLocator('Tell us which spoken language is needed for the appellant')).toBeVisible(),
 
         expect(exui_pages.draftHearingRequirementsSubmit.$questionLocator('Tell us which sign language is needed for the appellant')).toBeVisible(),
@@ -299,8 +304,14 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
         expect(
           exui_pages.draftHearingRequirementsSubmit
           .$questionValueLocator('Tell us which sign language is needed for the appellant')
-          .locator('.complex-panel-table .grey-bar ccd-read-dynamic-list-field > span.text-16'),
-          ).toHaveText('British Sign Language (BSL)'),
+          ).toHaveText(
+            `
+            Tell us which sign language is needed for the appellant
+            Sign language
+            British Sign Language (BSL)
+            `,
+            { useInnerText: true }
+          ),
         expect(exui_pages.draftHearingRequirementsSubmit.$changeAnswerToQuestionLocator('Tell us which sign language is needed for the appellant')).toBeVisible(),
 
         expect(exui_pages.draftHearingRequirementsSubmit.$questionLocator('Will any of the witnesses require a spoken or sign language interpreter at the hearing?')).toBeVisible(),
@@ -328,8 +339,14 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
         expect(
         exui_pages.draftHearingRequirementsSubmit
         .$questionValueLocator('Which spoken language interpreter is needed for Test Witness 1?')
-        .locator('.complex-panel-table .grey-bar ccd-read-dynamic-list-field > span.text-16'),
-        ).toHaveText('Arabic'),
+        ).toHaveText(
+          `
+          Which spoken language interpreter is needed for Test Witness 1?
+          Spoken language
+          Arabic
+          `,
+          { useInnerText: true }
+        ),
         expect(exui_pages.draftHearingRequirementsSubmit.$changeAnswerToQuestionLocator('Which spoken language interpreter is needed for Test Witness 1?')).toBeVisible(),
 
         expect(exui_pages.draftHearingRequirementsSubmit.$questionLocator('Which sign language is needed for Test Witness 1?')).toBeVisible(),
@@ -337,11 +354,17 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
         expect(
           exui_pages.draftHearingRequirementsSubmit
           .$questionValueLocator('Which sign language is needed for Test Witness 1?')
-          .locator(
-          '.complex-panel-table .multi-select-list-field-table tbody td > span.text-16, ' +
-          '.complex-panel-table .grey-bar ccd-read-text-field > span.text-16',
+          ).toHaveText(
+            `
+            Which sign language is needed for Test Witness 1?
+            Multi selection table
+            Value
+            Enter the language manually
+            Test manual language
+            `,
+            { useInnerText: true }
           ),
-          ).toHaveText(['Enter the language manually', 'Test manual language']),
+          
         expect(exui_pages.draftHearingRequirementsSubmit.$changeAnswerToQuestionLocator('Which sign language is needed for Test Witness 1?')).toBeVisible(),
 
         expect(exui_pages.draftHearingRequirementsSubmit.$questionLocator('Do you need a hearing room with step-free access?')).toBeVisible(),
