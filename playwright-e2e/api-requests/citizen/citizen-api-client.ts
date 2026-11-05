@@ -76,7 +76,7 @@ export class CitizenApiClient {
   }
 
   public async completeAndSubmitNewAppealJourneyViaApi(appealData: AppealData): Promise<ApplicantDetailsType> {
-    await this.cui_createNewAppealApi.get();
+    await this.cui_createNewAppealApi.post();
 
     const applicantDetails = await this.cui_yourDetailsUserFlowApi.submitYourDetailsFlowViaApi({
       isUserInTheUk: appealData.isUserInTheUk,
