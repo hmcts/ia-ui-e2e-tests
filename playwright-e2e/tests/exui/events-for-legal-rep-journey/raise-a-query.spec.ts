@@ -289,7 +289,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
       await legalRepExuiPages.queriesTab.verifyDetailsOfTableRow({
         querySubject: 'Test Query Subject',
         senderName: 'LR Bails Org',
-        lastSubmittedBy: 'Admin4 Officer',
+        lastSubmittedBy: 'Admin4 Officer  - HMCTS',
         lastSubmissionDate: formattedTodaysDate,
         lastResponseDate: formattedTodaysDate,
         responseStatus: 'Closed',
@@ -313,7 +313,7 @@ test.describe('Set of tests to verify legal rep user is able to raise a query', 
 
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionLocator('Last submitted by')).toBeVisible(),
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionValueLocator('Last submitted by')).toBeVisible(),
-        expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionValueLocator('Last submitted by')).toHaveText('Admin4 Officer'),
+        expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionValueLocator('Last submitted by')).toHaveText('Admin4 Officer  - HMCTS'),
 
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionLocator('Submission date')).toBeVisible(),
         expect(legalRepExuiPages.queriesTabQueryDetails.$queryDetailsQuestionValueLocator('Submission date')).toBeVisible(),
