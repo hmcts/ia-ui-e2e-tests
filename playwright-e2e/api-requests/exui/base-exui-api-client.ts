@@ -9,7 +9,8 @@ type ExpectedApplicationStates =
   | 'Awaiting respondent evidence'
   | 'Pre hearing'
   | 'Case building'
-  | 'Case under review';
+  | 'Case under review'
+  | 'Submit hearing requirements';
 
 export abstract class BaseExuiApiClient {
   private exui_caseListApi: CaseListApi;
