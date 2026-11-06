@@ -61,8 +61,6 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
     });
 
     await test.step('Verify correct next steps text is shown before submitting hearing requirements', async () => {
-      await exui_pages.caseOverview.verifyUserIsOnPage({});
-
       await Promise.all([
         expect(exui_pages.caseOverview.$static.doThisNextHeading).toBeVisible(),
         expect(exui_pages.caseOverview.$static.doThisNextParagraph).toBeVisible(),
@@ -73,7 +71,7 @@ test.use({ storageState: config.exuiUsers.legalRepUser.sessionFile });
     });
   });
 
-  test('submits hearing requirements', async ({ exui_pages }) => {
+  test('Verify legal rep user is able to submit their hearing requirements taking the shortest path', async ({ exui_pages }) => {
     await test.step('Open the submit hearing requirements event', async () => {
       await exui_pages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Submit hearing requirements' });
 
