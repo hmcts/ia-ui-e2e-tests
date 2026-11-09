@@ -38,8 +38,9 @@ static Map secret(String secretName, String envVariable) {
    envVariable: envVariable
   ]
 }
+def vaultEnvironment = params.ENVIRONMENT == 'preview' ? 'aat' : params.ENVIRONMENT
 def secrets = [
-        "ia-${params.ENVIRONMENT}": [
+        "ia-${vaultEnvironment}": [
                 secret('github-branch-secret', 'GITHUB_TOKEN'),
                 secret('idam-client-id', 'IDAM_CLIENT_ID'),
                 secret('idam-secret', 'IDAM_SECRET'),
