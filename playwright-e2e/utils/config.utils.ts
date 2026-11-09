@@ -62,7 +62,7 @@ export const config: Config = {
     },
   },
   urls: {
-    exuiDefaultUrl: 'https://manage-case.aat.platform.hmcts.net/',
+    exuiDefaultUrl: getEnvVar('EXUI_BASE_URL'),
     citizenUrl: getEnvVar('CITIZEN_FRONTEND_BASE_URL'),
     idamWebUrl: getEnvVar('IDAM_WEB_URL'),
     idamTestingSupportUrl: getEnvVar('IDAM_TESTING_SUPPORT_URL'),
