@@ -73,19 +73,22 @@ withNightlyPipeline(type, product, component) {
 
 def environmentSetup(yarnBuilder) {
   env.TEST_ENVIRONMENT = params.ENVIRONMENT
-  env.IDAM_WEB_URL = "https://idam-web-public.${env.TEST_ENVIRONMENT}.platform.hmcts.net/"
-  env.IDAM_TESTING_SUPPORT_URL = "https://idam-testing-support-api.${env.TEST_ENVIRONMENT}.platform.hmcts.net"
   if (params.ENVIRONMENT == 'preview') {
     if (!(params.PR_NUMBER ==~ /[0-9]+/)) {
       error('PR_NUMBER must be provided as a number when ENVIRONMENT is preview.')
     }
+    env.IDAM_WEB_URL = "https://idam-web-public.aat.platform.hmcts.net/"
+    env.IDAM_TESTING_SUPPORT_URL = "https://idam-testing-support-api.aat.platform.hmcts.net"
     env.CITIZEN_FRONTEND_BASE_URL = "https://ia-case-api-pr-${params.PR_NUMBER}-aip-frontend.preview.platform.hmcts.net/"
     env.EXUI_BASE_URL = "https://xui-ia-case-api-pr-${params.PR_NUMBER}.preview.platform.hmcts.net/"
+    env.S2S_URL = "http://rpe-service-auth-provider-aat.service.core-compute-aat.internal/lease"
   } else {
+    env.IDAM_WEB_URL = "https://idam-web-public.${env.TEST_ENVIRONMENT}.platform.hmcts.net/"
+    env.IDAM_TESTING_SUPPORT_URL = "https://idam-testing-support-api.${env.TEST_ENVIRONMENT}.platform.hmcts.net"
     env.CITIZEN_FRONTEND_BASE_URL = "https://immigration-appeal.${env.TEST_ENVIRONMENT}.platform.hmcts.net/"
     env.EXUI_BASE_URL = "https://manage-case.${env.TEST_ENVIRONMENT}.platform.hmcts.net/"
+    env.S2S_URL = "http://rpe-service-auth-provider-${env.TEST_ENVIRONMENT}.service.core-compute-aat.internal/lease"
   }
-  env.S2S_URL = "http://rpe-service-auth-provider-${env.TEST_ENVIRONMENT}.service.core-compute-aat.internal/lease"
 }
 
 def runFunctionalTest(yarnBuilder) {
