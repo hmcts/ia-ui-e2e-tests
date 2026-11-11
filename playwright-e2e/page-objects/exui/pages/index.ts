@@ -137,6 +137,7 @@ export * from './case-specific-pages/case-overview-tabs/hearing-tab/hearing-crea
 export * from './case-specific-pages/case-overview-tabs/hearing-tab/hearing-confirmation.po.ts';
 export * from './case-specific-pages/case-overview-tabs/service-request-tab/service-request-tab.po.ts';
 export * from './case-specific-pages/events/list-case/list-case.po';
+export * from './case-specific-pages/events/list-case/list-case-list-case-requirements-24-week.po';
 export * from './case-specific-pages/events/list-case//list-case-submit.po';
 export * from './case-specific-pages/events/list-case//list-case-confirm.po';
 export * from './case-specific-pages/events/create-case-summary/create-case-summary.po';

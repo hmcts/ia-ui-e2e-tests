@@ -139,6 +139,7 @@ import {
   HearingConfirmationPage,
   ServiceRequestTabPage,
   ListCasePage,
+  ListCaseListCaseRequirements24WeekPage,
   ListCaseSubmitPage,
   ListCaseConfirmPage,
   CreateCaseSummaryPage,
@@ -343,6 +344,7 @@ export class ExuiPages {
   public readonly hearingConfirmation: HearingConfirmationPage;
   public readonly serviceRequestTab: ServiceRequestTabPage;
   public readonly listCase: ListCasePage;
+  public readonly listCaseListCaseRequirements24Week: ListCaseListCaseRequirements24WeekPage;
   public readonly listCaseSubmit: ListCaseSubmitPage;
   public readonly listCaseConfirm: ListCaseConfirmPage;
   public readonly createCaseSummary: CreateCaseSummaryPage;
@@ -545,6 +547,7 @@ export class ExuiPages {
     this.hearingConfirmation = new HearingConfirmationPage(this.page);
     this.serviceRequestTab = new ServiceRequestTabPage(this.page);
     this.listCase = new ListCasePage(this.page);
+    this.listCaseListCaseRequirements24Week = new ListCaseListCaseRequirements24WeekPage(this.page);
     this.listCaseSubmit = new ListCaseSubmitPage(this.page);
     this.listCaseConfirm = new ListCaseConfirmPage(this.page);
     this.createCaseSummary = new CreateCaseSummaryPage(this.page);
