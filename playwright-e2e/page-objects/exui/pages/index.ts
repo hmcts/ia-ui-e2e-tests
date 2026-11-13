@@ -145,6 +145,7 @@ export * from './case-specific-pages/events/create-case-summary/create-case-summ
 export * from './case-specific-pages/events/create-case-summary/create-case-summary-confirm.po';
 export * from './case-specific-pages/events/complete-case-review/complete-case-review.po';
 export * from './case-specific-pages/events/complete-case-review/complete-case-review-confirm.po';
+export * from './case-specific-pages/events/force-case-prepare-for-hearing/force-case-to-prepare-for-hearing.po';
 export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame.po';
 export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame-submit.po';
 export * from './case-specific-pages/events/add-statutory-time-frame/add-statutory-time-frame-confirm.po';

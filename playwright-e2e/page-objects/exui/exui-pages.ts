@@ -147,6 +147,7 @@ import {
   CreateCaseSummaryConfirmPage,
   CompleteCaseReviewPage,
   CompleteCaseReviewConfirmPage,
+  ForceCaseToPrepareForHearingPage,
   AddStatutoryTimeFramePage,
   AddStatutoryTimeFrameSubmitPage,
   AddStatutoryTimeFrameConfirmPage,
@@ -352,6 +353,7 @@ export class ExuiPages {
   public readonly createCaseSummaryConfirm: CreateCaseSummaryConfirmPage;
   public readonly completeCaseReview: CompleteCaseReviewPage;
   public readonly completeCaseReviewConfirm: CompleteCaseReviewConfirmPage;
+  public readonly forceCaseToPrepareForHearing: ForceCaseToPrepareForHearingPage;
   public readonly addStatutoryTimeFrame: AddStatutoryTimeFramePage;
   public readonly addStatutoryTimeFrameSubmit: AddStatutoryTimeFrameSubmitPage;
   public readonly addStatutoryTimeFrameConfirm: AddStatutoryTimeFrameConfirmPage;
@@ -555,6 +557,7 @@ export class ExuiPages {
     this.createCaseSummaryConfirm = new CreateCaseSummaryConfirmPage(this.page);
     this.completeCaseReview = new CompleteCaseReviewPage(this.page);
     this.completeCaseReviewConfirm = new CompleteCaseReviewConfirmPage(this.page);
+    this.forceCaseToPrepareForHearing = new ForceCaseToPrepareForHearingPage(this.page);
     this.addStatutoryTimeFrame = new AddStatutoryTimeFramePage(this.page);
     this.addStatutoryTimeFrameSubmit = new AddStatutoryTimeFrameSubmitPage(this.page);
     this.addStatutoryTimeFrameConfirm = new AddStatutoryTimeFrameConfirmPage(this.page);
