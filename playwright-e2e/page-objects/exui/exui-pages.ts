@@ -139,6 +139,7 @@ import {
   HearingConfirmationPage,
   ServiceRequestTabPage,
   ListCasePage,
+  ListCaseListCaseRequirements24WeekPage,
   ListCaseSubmitPage,
   ListCaseConfirmPage,
   CreateCaseSummaryPage,
@@ -146,6 +147,7 @@ import {
   CreateCaseSummaryConfirmPage,
   CompleteCaseReviewPage,
   CompleteCaseReviewConfirmPage,
+  ForceCaseToPrepareForHearingPage,
   AddStatutoryTimeFramePage,
   AddStatutoryTimeFrameSubmitPage,
   AddStatutoryTimeFrameConfirmPage,
@@ -343,6 +345,7 @@ export class ExuiPages {
   public readonly hearingConfirmation: HearingConfirmationPage;
   public readonly serviceRequestTab: ServiceRequestTabPage;
   public readonly listCase: ListCasePage;
+  public readonly listCaseListCaseRequirements24Week: ListCaseListCaseRequirements24WeekPage;
   public readonly listCaseSubmit: ListCaseSubmitPage;
   public readonly listCaseConfirm: ListCaseConfirmPage;
   public readonly createCaseSummary: CreateCaseSummaryPage;
@@ -350,6 +353,7 @@ export class ExuiPages {
   public readonly createCaseSummaryConfirm: CreateCaseSummaryConfirmPage;
   public readonly completeCaseReview: CompleteCaseReviewPage;
   public readonly completeCaseReviewConfirm: CompleteCaseReviewConfirmPage;
+  public readonly forceCaseToPrepareForHearing: ForceCaseToPrepareForHearingPage;
   public readonly addStatutoryTimeFrame: AddStatutoryTimeFramePage;
   public readonly addStatutoryTimeFrameSubmit: AddStatutoryTimeFrameSubmitPage;
   public readonly addStatutoryTimeFrameConfirm: AddStatutoryTimeFrameConfirmPage;
@@ -545,6 +549,7 @@ export class ExuiPages {
     this.hearingConfirmation = new HearingConfirmationPage(this.page);
     this.serviceRequestTab = new ServiceRequestTabPage(this.page);
     this.listCase = new ListCasePage(this.page);
+    this.listCaseListCaseRequirements24Week = new ListCaseListCaseRequirements24WeekPage(this.page);
     this.listCaseSubmit = new ListCaseSubmitPage(this.page);
     this.listCaseConfirm = new ListCaseConfirmPage(this.page);
     this.createCaseSummary = new CreateCaseSummaryPage(this.page);
@@ -552,6 +557,7 @@ export class ExuiPages {
     this.createCaseSummaryConfirm = new CreateCaseSummaryConfirmPage(this.page);
     this.completeCaseReview = new CompleteCaseReviewPage(this.page);
     this.completeCaseReviewConfirm = new CompleteCaseReviewConfirmPage(this.page);
+    this.forceCaseToPrepareForHearing = new ForceCaseToPrepareForHearingPage(this.page);
     this.addStatutoryTimeFrame = new AddStatutoryTimeFramePage(this.page);
     this.addStatutoryTimeFrameSubmit = new AddStatutoryTimeFrameSubmitPage(this.page);
     this.addStatutoryTimeFrameConfirm = new AddStatutoryTimeFrameConfirmPage(this.page);
