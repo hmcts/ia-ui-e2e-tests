@@ -147,54 +147,127 @@ test.describe('Verify a legal representative can submit an appeal and access it 
 
         await caseOfficerExuiPages.caseOverview.verifyUserIsOnPage({});
         await caseOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request case building' });
+      });
 
-        const LegalRepApiClient = await test.step('Legal Representative: Submits built case', async () => {
-          const legalRepExuiPages = await test.step('Legal rep: Submits build case', async () => {
-            const legalRepNewBrowserContextAndPage = await newBrowserContextAndPage({ user: 'legalRepUser' });
-            const legalRepExuiPages = await exui_pages.newPageContext({ pageContext: legalRepNewBrowserContextAndPage });
+      await test.step('Legal rep: Submits built case', async () => {
+        await test.step('Legal rep: Submits built case', async () => {
+          const legalRepNewBrowserContextAndPage = await newBrowserContextAndPage({ user: 'legalRepUser' });
+          const legalRepExuiPages = await exui_pages.newPageContext({ pageContext: legalRepNewBrowserContextAndPage });
 
-            await legalRepExuiPages.caseOverview.goTo({ caseId: caseId });
+          await legalRepExuiPages.caseOverview.goTo({ caseId: caseId });
 
-            await legalRepExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Build your case' });
+          await legalRepExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Build your case' });
 
-            await legalRepExuiPages.buildCase.verifyUserIsOnPage();
-            await legalRepExuiPages.buildCase.completePageAndContinue({
-              appealSkeletonFileDescription: '24 week test argument',
-              addAddtionalNewEvidence: 'No',
-            });
-
-            await legalRepExuiPages.buildCaseSubmit.verifyUserIsOnPage();
-            await legalRepExuiPages.buildCaseSubmit.submitCase();
-
-            await legalRepExuiPages.buildCaseConfirm.verifyUserIsOnPage();
-            await legalRepExuiPages.buildCaseConfirm.returnToCaseDetails();
-
-            await legalRepExuiPages.caseOverview.verifyUserIsOnPage({});
-            await legalRepExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Build your case' });
+          await legalRepExuiPages.buildCase.verifyUserIsOnPage();
+          await legalRepExuiPages.buildCase.completePageAndContinue({
+            appealSkeletonFileDescription: '24 week test argument',
+            addAddtionalNewEvidence: 'No',
           });
 
-          await test.step('Case Officer: Request hearing requirements', async () => {
-            await caseOfficerExuiPages.caseOverview.page.bringToFront();
-            (await caseOfficerExuiPages.caseOverview.refreshPageUntilExpectedTextIsVisible({
-              expectedText: `
+          await legalRepExuiPages.buildCaseSubmit.verifyUserIsOnPage();
+          await legalRepExuiPages.buildCaseSubmit.submitCase();
+
+          await legalRepExuiPages.buildCaseConfirm.verifyUserIsOnPage();
+          await legalRepExuiPages.buildCaseConfirm.returnToCaseDetails();
+
+          await legalRepExuiPages.caseOverview.verifyUserIsOnPage({});
+          await legalRepExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Build your case' });
+        });
+      });
+
+      await test.step('Case Officer: Request hearing requirements', async () => {
+        await caseOfficerExuiPages.caseOverview.page.bringToFront();
+        await caseOfficerExuiPages.caseOverview.refreshPageUntilExpectedTextIsVisible({
+          expectedText: `
             The appellant has submitted their built case. You must now check the case. If it complies with the procedure rules and practice directions, send it to the Appellant/Legal Rep to request hearing requirements.
             Request hearing requirements
             If the appellant needs to make any changes, you can direct them to edit the case.
             Request case edit
           `,
-            }),
-            
-          await caseOfficerExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Request hearing requirements' }));
-          
-          await caseOfficerExuiPages.requestHearingRequirements.verifyUserIsOnPage();
-          await caseOfficerExuiPages.requestHearingRequirements.submitEvent();
+        });
 
-          await caseOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request hearing requirements' });
+        await caseOfficerExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Request hearing requirements' });
+
+        await caseOfficerExuiPages.requestHearingRequirements.verifyUserIsOnPage();
+        await caseOfficerExuiPages.requestHearingRequirements.submitEvent();
+
+        await caseOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request hearing requirements' });
+
+        return caseOfficerExuiPages;
+      });
+
+      await test.step('Legal rep: Submits hearing requirements', async () => {
+        await test.step('Legal rep: Submits hearing requirements', async () => {
+          const legalRepNewBrowserContextAndPage = await newBrowserContextAndPage({ user: 'legalRepUser' });
+          const legalRepExuiPages = await exui_pages.newPageContext({ pageContext: legalRepNewBrowserContextAndPage });
+
+          await legalRepExuiPages.caseOverview.goTo({ caseId: caseId });
+
+          await legalRepExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Submit hearing requirements' });
+
+          await legalRepExuiPages.draftHearingRequirementsDraftHearingRequirements.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsDraftHearingRequirements.continueOntoNextPage();
+
+          await legalRepExuiPages.draftHearingRequirementsAttendTheHearing.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsAttendTheHearing.completePageAndContinue({ appellantAttendingTheHearing: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsOralEvidence.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsOralEvidence.completePageAndContinue({ appellantGivingOralEvidence: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsIsWitnessesAttending.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsIsWitnessesAttending.completePageAndContinue({ witnessesAttending: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsIsEvidenceFromOutsideUkInCountry.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsIsEvidenceFromOutsideUkInCountry.completePageAndContinue({ evidenceFromOutsideUk: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsInterpreterNeeded.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsInterpreterNeeded.completePageAndContinue({ interpreterServicesNeeded: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsIsHearingRoomNeeded.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsIsHearingRoomNeeded.completePageAndContinue({ stepFreeAccessRequired: 'Yes' });
+
+          await legalRepExuiPages.draftHearingRequirementsIsHearingLoopNeeded.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsIsHearingLoopNeeded.completePageAndContinue({ hearingLoopRequired: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsSubmitHearingRequirementsAdditionalRequests.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsSubmitHearingRequirementsAdditionalRequests.completePageAndContinue();
+
+          await legalRepExuiPages.draftHearingRequirementsRemoteVideoCall.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsRemoteVideoCall.completePageAndContinue({
+            remoteVideoCall: 'Yes',
+            remoteVideoCallDescription: 'Test Remote Video Call details',
           });
+
+          await legalRepExuiPages.draftHearingRequirementsPhysicalOrMentalHealthIssues.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsPhysicalOrMentalHealthIssues.completePageAndContinue({ healthConditionsPresent: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsPastExperiences.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsPastExperiences.completePageAndContinue({ pastExperiencesPresent: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsMultimediaEvidence.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsMultimediaEvidence.completePageAndContinue({ multimediaEvidence: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsSingleSexCourtRequired.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsSingleSexCourtRequired.completePageAndContinue({ singleSexCourtRequired: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsInCameraCourt.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsInCameraCourt.completePageAndContinue({ inCameraCourtRequired: 'No' });
+
+          await legalRepExuiPages.hearingRequirementsAdditionalRequestsFinal.verifyUserIsOnPage();
+          await legalRepExuiPages.hearingRequirementsAdditionalRequestsFinal.completePageAndContinue({ additionalRequests: 'No' });
+
+          await legalRepExuiPages.draftHearingRequirementsSubmit.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsSubmit.submit();
+
+          await legalRepExuiPages.draftHearingRequirementsConfirm.verifyUserIsOnPage();
+          await legalRepExuiPages.draftHearingRequirementsConfirm.returnToCaseDetails();
+
+          await legalRepExuiPages.caseOverview.verifyUserIsOnPage({});
+          await legalRepExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Submit hearing requirements' });
+
+          return legalRepExuiPages;
         });
       });
     },
   );
 });
-
-//https://manage-case.aat.platform.hmcts.net/cases/case-details/IA/Asylum/1794416374150874/trigger/listCase/listCaselistCaseRequirements
