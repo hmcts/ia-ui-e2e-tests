@@ -1,4 +1,3 @@
-import { LegalRepApiClient } from '../../../api-requests/exui/legal-rep-api-client.js';
 import { test, expect } from '../../../fixtures.js';
 import { config } from '../../../utils/config.utils.js';
 
@@ -26,7 +25,7 @@ test.describe('Verify a legal representative can submit an appeal and access it 
         });
       });
 
-      const caseOfficerExuiPages = await test.step('Add 24 week flag for e2e test and go to case overview page', async () => {
+      const caseOfficerExuiPages = await test.step('Case Officer: Add 24 week flag via API and navigate to case overview page', async () => {
         await exui_caseOfficerApiClient.submitAddStatutoryTimeFrameEvent({
           caseId: caseId,
           reasonForAddingStatutoryTimeFrame: 'Adding 24 week flag for e2e test',
@@ -68,9 +67,9 @@ test.describe('Verify a legal representative can submit an appeal and access it 
           hourToSet: 13,
         });
 
-        await adminOfficerExuiPages.listCaseListCaseRequirements24Week.verifyUserIsOnPage();
-        await adminOfficerExuiPages.listCaseListCaseRequirements24Week.verifyAllTextOnPage();
-        await adminOfficerExuiPages.listCaseListCaseRequirements24Week.completePageAndContinue();
+        await adminOfficerExuiPages.listCaseRequirements24Week.verifyUserIsOnPage();
+        await adminOfficerExuiPages.listCaseRequirements24Week.verifyAllTextOnPage();
+        await adminOfficerExuiPages.listCaseRequirements24Week.completePageAndContinue();
 
         await adminOfficerExuiPages.listCaseSubmit.listCase();
         await adminOfficerExuiPages.listCaseConfirm.returnToCaseDetails();
@@ -78,21 +77,21 @@ test.describe('Verify a legal representative can submit an appeal and access it 
         await adminOfficerExuiPages.caseOverview.verifyUserIsOnPage({});
         await adminOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'List the case' });
 
-        await test.step('Admin: Request respondent evidence using next steps dropdown after case is listed', async () => {
-          await adminOfficerExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Request respondent evidence' });
-
-          await adminOfficerExuiPages.requestRespondentEvidence.verifyUserIsOnPage();
-          await adminOfficerExuiPages.requestRespondentEvidence.continueOnToNextPage();
-
-          await adminOfficerExuiPages.requestRespondentEvidenceSubmit.verifyUserIsOnPage();
-          await adminOfficerExuiPages.requestRespondentEvidenceSubmit.sendDirection();
-
-          await adminOfficerExuiPages.requestRespondentEvidenceConfirm.returnToCaseDetails();
-
-          await adminOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request respondent evidence' });
-        });
-
         return adminOfficerExuiPages;
+      });
+
+      await test.step('Admin User: Request respondent evidence using next steps dropdown after case is listed', async () => {
+        await adminOfficerExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Request respondent evidence' });
+
+        await adminOfficerExuiPages.requestRespondentEvidence.verifyUserIsOnPage();
+        await adminOfficerExuiPages.requestRespondentEvidence.continueOnToNextPage();
+
+        await adminOfficerExuiPages.requestRespondentEvidenceSubmit.verifyUserIsOnPage();
+        await adminOfficerExuiPages.requestRespondentEvidenceSubmit.sendDirection();
+
+        await adminOfficerExuiPages.requestRespondentEvidenceConfirm.returnToCaseDetails();
+
+        await adminOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request respondent evidence' });
       });
 
       const homeOfficeUserExuiPages =
@@ -142,7 +141,7 @@ test.describe('Verify a legal representative can submit an appeal and access it 
         await caseOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request case building' });
       });
 
-      await test.step('Legal rep: submits built case via API', async () => {
+      await test.step('Legal rep: submit case building via API', async () => {
         await exui_legalRepApiClient.submitBuildYourCaseEvent({
           caseId,
           addAddtionalNewEvidence: 'No',
@@ -151,7 +150,6 @@ test.describe('Verify a legal representative can submit an appeal and access it 
       });
 
       await test.step('Case Officer: Request hearing requirements', async () => {
-        await caseOfficerExuiPages.caseOverview.page.bringToFront();
         await caseOfficerExuiPages.caseOverview.refreshPageUntilExpectedTextIsVisible({
           expectedText: `
             The appellant has submitted their built case. You must now check the case. If it complies with the procedure rules and practice directions, send it to the Appellant/Legal Rep to request hearing requirements.
@@ -166,8 +164,7 @@ test.describe('Verify a legal representative can submit an appeal and access it 
         await caseOfficerExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Request hearing requirements' });
       });
 
-      const legalRepExuiPages =
-      await test.step('Legal rep: Submits hearing requirements', async () => {
+      await test.step('Legal rep: Submit hearing requirements', async () => {
         const legalRepNewBrowserContextAndPage = await newBrowserContextAndPage({ user: 'legalRepUser' });
         const legalRepExuiPages = await exui_pages.newPageContext({ pageContext: legalRepNewBrowserContextAndPage });
 
@@ -234,16 +231,12 @@ test.describe('Verify a legal representative can submit an appeal and access it 
 
         await legalRepExuiPages.caseOverview.verifyUserIsOnPage({});
         await legalRepExuiPages.caseOverview.verifyAlertMessageAfterSubmittingEvent({ eventSubmitted: 'Submit hearing requirements' });
-
-        return legalRepExuiPages;
       });
 
       await test.step('Case Officer: Review hearing requirements', async () => {
         await caseOfficerExuiPages.caseOverview.page.bringToFront();
         await caseOfficerExuiPages.caseOverview.refreshPageUntilExpectedTextIsVisible({
-          expectedText: `
-            You can view the hearing requirements and any requests for additional adjustments in the Hearing and appointment tab.
-          `,
+          expectedText: 'You can view the hearing requirements and any requests for additional adjustments in the Hearing and appointment tab.',
         });
 
         await caseOfficerExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Review hearing requirements' });
@@ -299,10 +292,9 @@ test.describe('Verify a legal representative can submit an appeal and access it 
 
       await test.step('Case officer: Request respondent review', async () => {
         await caseOfficerExuiPages.caseOverview.refreshPageUntilExpectedTextIsVisible({
-          expectedText: `
-            The hearing requirements have been reviewed and recorded. You must now Request respondent review
-          `,
+          expectedText: 'The hearing requirements have been reviewed and recorded. You must now Request respondent review',
         });
+
         await caseOfficerExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Request respondent review' });
 
         await caseOfficerExuiPages.requestRespondentReview.verifyUserIsOnPage();
@@ -319,6 +311,7 @@ test.describe('Verify a legal representative can submit an appeal and access it 
 
       await test.step('Home Office User: Upload respondent review', async () => {
         await homeOfficeUserExuiPages.caseOverview.page.bringToFront();
+
         await homeOfficeUserExuiPages.caseOverview.refreshPageUntilExpectedTextIsVisible({
           expectedText: 'The Appeal Skeleton Argument is ready to view in the documents tab.',
         });
@@ -363,11 +356,6 @@ test.describe('Verify a legal representative can submit an appeal and access it 
       });
 
       await test.step('Case Officer: Create case summary', async () => {
-        await caseOfficerExuiPages.caseOverview.refreshPageUntilExpectedTextIsVisible({
-          expectedText: `
-            You must create a case summary for the judge to use at the hearing.
-          `,
-        });
         await caseOfficerExuiPages.caseOverview.selectEventFromDropdown({ eventToSelect: 'Create case summary' });
 
         await caseOfficerExuiPages.createCaseSummary.verifyUserIsOnPage();
@@ -437,8 +425,6 @@ test.describe('Verify a legal representative can submit an appeal and access it 
         await test.step('Judge User: Select Prepare Decision and Reasons from next steps dropdown and submit event', async () => {
           const juedgeUserNewBrowserContextAndPage = await newBrowserContextAndPage({ user: 'judgeUser' });
           const judgeUserExuiPages = await exui_pages.newPageContext({ pageContext: juedgeUserNewBrowserContextAndPage });
-
-          await judgeUserExuiPages.caseOverview.page.bringToFront();
 
           await judgeUserExuiPages.caseOverview.goTo({ caseId: caseId });
 

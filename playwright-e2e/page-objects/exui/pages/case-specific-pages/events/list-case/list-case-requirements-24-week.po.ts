@@ -1,7 +1,7 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { ExuiBase } from '../../../../exui-base';
 
-export class ListCaseListCaseRequirements24WeekPage extends ExuiBase {
+export class ListCaseRequirements24WeekPage extends ExuiBase {
   constructor(page: Page) {
     super(page);
   }
@@ -48,9 +48,7 @@ export class ListCaseListCaseRequirements24WeekPage extends ExuiBase {
       expect(this.$static.requirementHints.nth(0)).toHaveText(
         'If the appellant says they have any personal vulnerabilities, state what adjustments the Tribunal will offer.',
       ),
-      expect(this.$static.requirementHints.nth(1)).toHaveText(
-        'If the appellant needs multimedia equipment, state what the Tribunal will provide.',
-      ),
+      expect(this.$static.requirementHints.nth(1)).toHaveText('If the appellant needs multimedia equipment, state what the Tribunal will provide.'),
       expect(this.$static.requirementHints.nth(2)).toHaveText(
         'If the appellant asked for a single-sex court, state which gender was requested and whether the Tribunal can accommodate this.',
       ),
@@ -63,13 +61,15 @@ export class ListCaseListCaseRequirements24WeekPage extends ExuiBase {
     ]);
   }
 
-  public async completePageAndContinue(options: {
-    vulnerabilities?: string;
-    multimedia?: string;
-    singleSexCourt?: string;
-    inCameraCourt?: string;
-    otherAdjustments?: string;
-  } = {}): Promise<void> {
+  public async completePageAndContinue(
+    options: {
+      vulnerabilities?: string;
+      multimedia?: string;
+      singleSexCourt?: string;
+      inCameraCourt?: string;
+      otherAdjustments?: string;
+    } = {},
+  ): Promise<void> {
     const values = [
       [this.$inputs.vulnerabilitiesTextArea, options.vulnerabilities],
       [this.$inputs.multimediaTextArea, options.multimedia],

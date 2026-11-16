@@ -139,7 +139,7 @@ import {
   HearingConfirmationPage,
   ServiceRequestTabPage,
   ListCasePage,
-  ListCaseListCaseRequirements24WeekPage,
+  ListCaseRequirements24WeekPage,
   ListCaseSubmitPage,
   ListCaseConfirmPage,
   CreateCaseSummaryPage,
@@ -345,7 +345,7 @@ export class ExuiPages {
   public readonly hearingConfirmation: HearingConfirmationPage;
   public readonly serviceRequestTab: ServiceRequestTabPage;
   public readonly listCase: ListCasePage;
-  public readonly listCaseListCaseRequirements24Week: ListCaseListCaseRequirements24WeekPage;
+  public readonly listCaseRequirements24Week: ListCaseRequirements24WeekPage;
   public readonly listCaseSubmit: ListCaseSubmitPage;
   public readonly listCaseConfirm: ListCaseConfirmPage;
   public readonly createCaseSummary: CreateCaseSummaryPage;
@@ -503,7 +503,8 @@ export class ExuiPages {
     this.draftHearingRequirementsIsAnyWitnessInterpreterRequired = new DraftHearingRequirementsIsAnyWitnessInterpreterRequiredPage(this.page);
     this.draftHearingRequirementsIsHearingRoomNeeded = new DraftHearingRequirementsIsHearingRoomNeededPage(this.page);
     this.draftHearingRequirementsIsHearingLoopNeeded = new DraftHearingRequirementsIsHearingLoopNeededPage(this.page);
-    this.draftHearingRequirementsSubmitHearingRequirementsAdditionalRequests = new DraftHearingRequirementsSubmitHearingRequirementsAdditionalRequestsPage(this.page);
+    this.draftHearingRequirementsSubmitHearingRequirementsAdditionalRequests =
+      new DraftHearingRequirementsSubmitHearingRequirementsAdditionalRequestsPage(this.page);
     this.hearingRequirementsAdditionalRequestsFinal = new DraftHearingRequirementsAdditionalRequestsPage(this.page);
     this.draftHearingRequirementsDatesToAvoid = new DraftHearingRequirementsDatesToAvoidPage(this.page);
     this.draftHearingRequirementsSubmit = new DraftHearingRequirementsSubmitPage(this.page);
@@ -515,7 +516,9 @@ export class ExuiPages {
     this.draftHearingRequirementsSingleSexCourtRequired = new DraftHearingRequirementsSingleSexCourtRequiredPage(this.page);
     this.draftHearingRequirementsSingleSexCourtType = new DraftHearingRequirementsSingleSexCourtTypePage(this.page);
     this.draftHearingRequirementsInCameraCourt = new DraftHearingRequirementsInCameraCourtPage(this.page);
-    this.draftHearingRequirementsAppellantInterpreterLanguageCategory = new DraftHearingRequirementsAppellantInterpreterLanguageCategoryPage(this.page);
+    this.draftHearingRequirementsAppellantInterpreterLanguageCategory = new DraftHearingRequirementsAppellantInterpreterLanguageCategoryPage(
+      this.page,
+    );
     this.draftHearingRequirementsAppellantInterpreterSpokenLanguage = new DraftHearingRequirementsAppellantInterpreterSpokenLanguagePage(this.page);
     this.draftHearingRequirementsAppellantInterpreterSignLanguage = new DraftHearingRequirementsAppellantInterpreterSignLanguagePage(this.page);
     this.draftHearingRequirementsWhichWitnessRequiresInterpreter = new DraftHearingRequirementsWhichWitnessRequiresInterpreterPage(this.page);
@@ -549,7 +552,7 @@ export class ExuiPages {
     this.hearingConfirmation = new HearingConfirmationPage(this.page);
     this.serviceRequestTab = new ServiceRequestTabPage(this.page);
     this.listCase = new ListCasePage(this.page);
-    this.listCaseListCaseRequirements24Week = new ListCaseListCaseRequirements24WeekPage(this.page);
+    this.listCaseRequirements24Week = new ListCaseRequirements24WeekPage(this.page);
     this.listCaseSubmit = new ListCaseSubmitPage(this.page);
     this.listCaseConfirm = new ListCaseConfirmPage(this.page);
     this.createCaseSummary = new CreateCaseSummaryPage(this.page);
