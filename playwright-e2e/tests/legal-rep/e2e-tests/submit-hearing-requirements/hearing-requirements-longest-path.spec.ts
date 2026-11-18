@@ -10,7 +10,7 @@ test.describe('Set of tests to verify Legal Representative is able to submit hea
   test('Verify legal rep user is able to submit their hearing requirements taking the longest path', async ({ exui_pages, dataUtils }) => {
     const dateToAvoid = await dataUtils.getDateFromToday({
       dayOffset: 15,
-      formattingOptions: { day: '2-digit', month: 'short', year: 'numeric' },
+      formattingOptions: { day: 'numeric', month: 'short', year: 'numeric' },
     });
 
     await test.step('Select Submit hearing requirements from next steps dropdown and submit event', async () => {
