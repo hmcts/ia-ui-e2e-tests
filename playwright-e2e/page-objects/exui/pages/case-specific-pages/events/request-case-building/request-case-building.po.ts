@@ -85,7 +85,7 @@ Parties must ensure they conduct proceedings with procedural rigour. The Tribuna
       expect(this.$inputs.dayInput).toBeVisible(),
       expect(this.$inputs.dayInput).toHaveValue(expectedDate.day.toString().padStart(2, '0')),
       expect(this.$inputs.monthInput).toBeVisible(),
-      expect(this.$inputs.monthInput).toHaveValue(expectedDate.month.toString()),
+      expect(this.$inputs.monthInput).toHaveValue(expectedDate.month.toString().padStart(2, '0')),
       expect(this.$inputs.yearInput).toBeVisible(),
       expect(this.$inputs.yearInput).toHaveValue(expectedDate.year.toString()),
     ]);
